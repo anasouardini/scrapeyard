@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "target": "es2016",
+    "lib": ["es6", "dom"],
+    "jsx": "react",
+
+    /* Specify what module code is generated. */
+    "module": "CommonJS",
+
+    /* Specify the root folder within your source files. */
+    // "rootDir": ".",
+
+    "allowJs": true,
+    "outDir": "build",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+
+    "moduleResolution": "node",
+    "baseUrl": "./src",
+    "paths": {
+      "$/*": ["./*"],
+      "$utils/*": ["./root/utils/*"],
+      "$ui/*": ["./root/ui/*"],
+
+      "$dreamjob/*": ["./projects/dreamjob/*"],
+      "$socialboost/*": ["./projects/socialboost/*"],
+      "$emailburn/*": ["./projects/emailburn/*"]
+      /*[add aliases above this line]*/
+    }
+  },
+  "include": ["*.ts", "*.tsx"],
+  "exclude": ["node_modules", "dist", "build", ".git"]
+}
