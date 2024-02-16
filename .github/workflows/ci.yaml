@@ -7,14 +7,16 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
         with:
-          version: 7
-      - uses: actions/setup-node@v3
-        with:
-          node-version: "21.x"
-          cache: "pnpm"
-      - uses: pnpm install --frozen-lockfile
-      - uses: pnpm testOnce
-      - uses: pnpm ci
+          node-version: "21.0"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run CI
+        run: npm run ci

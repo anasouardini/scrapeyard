@@ -22,7 +22,7 @@
     "format": "prettier . --write",
     "formatCheck": "prettier . --check",
     "lint": "tsc",
-    "ci": "pnpm formatCheck && pnpm lint && pnpm testOnce && pnpm build"
+    "ci": "npm run formatCheck && npm run lint && npm run testOnce && npm run build"
   },
   "dependencies": {
     "@vitejs/plugin-react-swc": "^3.5.0",
