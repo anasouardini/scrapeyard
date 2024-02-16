@@ -23,7 +23,7 @@
     "lint": "tsc",
     "build": "tsup",
     "ci": "npm run formatCheck && npm run lint && npm run testOnce && npm run build",
-    "release": "npm run formatCheck && npm run lint && npm run testOnce && npm run build && changeset publish"
+    "release": "npm run ci && changeset publish"
   },
   "dependencies": {
     "@vitejs/plugin-react-swc": "^3.5.0",
