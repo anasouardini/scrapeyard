@@ -1,7 +1,21 @@
 {
   "name": "scrapeyard",
+  "version": "0.1.0",
+  "description": "A scraping library that saves you from writing a lot of boiler-plate every time you lunch a new project. It also helps you manage multiple projects in one place.",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dis/index.d.ts",
+  "license": "MIT",
+  "keywords": [
+    "scraping"
+  ],
+  "author": "anasouardini",
+  "repository": {
+    "url": "https://github.com/anasouardini/scrapeyard"
+  },
   "scripts": {
     "dev": "ts-node -T -r tsconfig-paths/register ./src/main.ts",
+    "build": "tsup",
     "monitor": "pm2 start ./src/main.ts",
     "format": "prettier . --write"
   },
@@ -30,6 +44,7 @@
     "@babel/core": "^7.22.10",
     "@babel/preset-env": "^7.22.10",
     "@babel/preset-typescript": "^7.22.5",
+    "@changesets/cli": "^2.27.1",
     "@playwright/test": "^1.40.1",
     "@types/better-sqlite3": "^7.6.9",
     "@types/node": "^20.4.5",
@@ -44,6 +59,7 @@
     "prettier": "^3.1.1",
     "ts-node": "^10.9.1",
     "tsconfig-paths": "^4.2.0",
+    "tsup": "^8.0.2",
     "typescript": "^5.0.2",
     "vite-tsconfig-paths": "^4.2.2"
   }

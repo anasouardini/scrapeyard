@@ -5,14 +5,17 @@ import projectsControllers, {
 } from "./projects/projectsControllers";
 import dispatcher from "./dispatcher";
 
-const init = async () => {
+export interface InitProps {
+  browsers: { stateful: boolean; headless: boolean }[];
+}
+const init = async ({ browsers }: InitProps) => {
   await browser.init({ instances: [{ stateful: true, headless: false }] });
 
   await dispatcher(serverVars.drivers[0], {
-    action: ((root: ProjectsControllers) => root.home).toString(),
+    action: ((root: ProjectsControllers) => root.home.load).toString(),
     data: {},
     type: "direct",
   });
 };
 
-init();
+export default init;

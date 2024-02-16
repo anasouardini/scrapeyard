@@ -11,7 +11,7 @@ const templates = {
   },
 };
 
-interface TemplateRequest {
+export interface TemplateRequest {
   name: string;
   args: Record<string, any>;
 }

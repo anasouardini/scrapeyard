@@ -11,10 +11,11 @@
     // "rootDir": ".",
 
     "allowJs": true,
-    "outDir": "build",
+    "outDir": "./dist",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
+    "noImplicitAny": false,
     "skipLibCheck": true,
     "noEmit": true,
 
@@ -25,9 +26,7 @@
       "$utils/*": ["./root/utils/*"],
       "$ui/*": ["./root/ui/*"],
 
-      "$dreamjob/*": ["./projects/dreamjob/*"],
-      "$socialboost/*": ["./projects/socialboost/*"],
-      "$emailburn/*": ["./projects/emailburn/*"]
+      "$oneiqai/*": ["./projects/oneiqai/*"],
       /*[add aliases above this line]*/
     }
   },

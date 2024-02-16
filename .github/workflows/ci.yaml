@@ -1,0 +1,19 @@
+name: 'CI'
+on:
+  push:
+    branches:
+      - "**"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 7
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "21.x"
+          cache: "pnpm"
+      - uses: pnpm install --frozen-lockfile
+      - uses: pnpm build

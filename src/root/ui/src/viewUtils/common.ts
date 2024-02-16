@@ -10,8 +10,13 @@ const sleep = (time: number) =>
 const listenForServerNotifications = () => {
   //* this custom event will get dispatched by the back-end
   document.addEventListener(vars.eventName, async (e) => {
+    interface CustomEvent {
+      detail: { notificationID: string };
+    }
     //* event name is the route (fake route)
-    const customEvent: { detail: { notificationID: string } } = e;
+
+    // @ts-ignore
+    const customEvent: CustomEvent = e as CustomEvent;
     const body: RequestBodyType = {
       eventType: "clientRequestsUpdate",
       data: {
@@ -37,6 +42,7 @@ listenForServerNotifications();
 // const serverVars = getServerVars();
 
 //* projectsControllers is only used for type-safety in the actions sent to the back-end via browser's consol API.
+// @ts-ignore
 const projectsControllers: ProjectsControllers = null as ProjectsControllers;
 
 export type Action = (root: ProjectsControllers) => (...arg: any[]) => any;
@@ -122,7 +128,7 @@ const colors = {
 
 const globalStyle = {
   btn: {
-    cursor: 'pointer',
+    cursor: "pointer",
     background: colors.accent,
     color: "white",
     "font-size": "1.2rem",

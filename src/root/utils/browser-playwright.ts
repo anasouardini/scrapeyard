@@ -19,6 +19,7 @@ async function subscribeToResponsePromise<TReturn>(
   const foundIt = (data: any) => {
     eventData.data = data;
   };
+
   const eventHandlerWrapper = (response) => eventHandler(response, foundIt);
   subscribeToResponse(tab, {
     eventHandler: eventHandlerWrapper,
@@ -141,7 +142,7 @@ const observe = (driver: BrowserContext, tab: Page) => {
 
           switch (parsedRequestBody.eventType) {
             case "runAction": {
-              const parsedMsg: Msg = parsedRequestBody.data;
+              const parsedMsg: Msg = parsedRequestBody.data as Msg;
               // todo: the controllers should get the new data and return it back through the dispatcher and back to the client using a post response.
               response = await dispatcher(driver, parsedMsg);
               break;
@@ -353,7 +354,7 @@ const writeToActiveInput = async (tab: Page, msg: string) => {
   await tab.keyboard.insertText(msg);
 };
 
-interface KeyboardOptions {
+export interface KeyboardOptions {
   action: "press" | "up" | "down" | "insertText" | "best";
   keys: string;
 }
@@ -524,7 +525,7 @@ const findElement = async function (
   // wait for the element to exist first - Playwright is not without it's quircks!
   try {
     await tab.waitForSelector(query, { timeout });
-  } catch (E) {
+  } catch (E: any) {
     if (E.toString().match(/timeout/i) == null) {
       // only print the error if it's not the expected Timeout.
       console.log({ E });
@@ -576,8 +577,9 @@ const mapThroughElements = async function (
     return;
   }
 
-  const output = [];
+  const output: any[] = [];
   for (let i = 0; i < elements.length; i++) {
+    // @ts-ignore
     output.push(await (async () => cb(elements[i]))());
   }
   return output;
@@ -611,6 +613,8 @@ const injectView = async <ViewNameT, ProjectNameT>(
   }
 ): Promise<{ success: boolean; error?: any }> => {
   // console.log({projectName, viewName})
+
+  // @ts-ignore
   const parsedView = parseView({ inlineString, projectName, viewName, vars });
   if (parsedView.error || !parsedView.data) {
     // console.log(parsedView.error);
@@ -691,7 +695,9 @@ const exec = async function (
 const close = async (tab: Page) => await tab.close();
 
 const quit = async (driver: BrowserContext) => {
-  serverVars.driver.close();
+  for (const driver of serverVars.drivers) {
+    driver.close();
+  }
 };
 
 const restart = async (driver: BrowserContext, tab: Page) => {

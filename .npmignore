@@ -11,8 +11,6 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
-dist
-dist-ssr
 *.local
 
 # Editor directories and files
@@ -25,3 +23,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+## npm-specific
+tsconfig.json
+tsup.config.ts
+.github

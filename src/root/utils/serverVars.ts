@@ -1,10 +1,6 @@
 import { Browser, BrowserContext, Page } from "playwright";
 import tools from "./tools";
 
-// interface Vars {
-//   driver: BrowserContext;
-// }
-
 const drivers: BrowserContext[] = [];
 const serverVars = {
   paths: {
