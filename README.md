@@ -6,4 +6,3 @@ Is a scraping library built on top of Playwright, it adds scraping-related featu
 - Inject `Reactjs` component into the target page.
 - Facilitates the communication between your injected code and your scraping server.
 - Abstracts methods like `onLoad`, `clearDOM` and `uploadFile` so you don't have to create them yourself.
-

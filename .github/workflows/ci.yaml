@@ -1,8 +1,8 @@
-name: 'CI'
+name: "CI"
 on:
   push:
     branches:
-      - "**"
+      - "main"
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -16,4 +16,5 @@ jobs:
           node-version: "21.x"
           cache: "pnpm"
       - uses: pnpm install --frozen-lockfile
-      - uses: pnpm build
+      - uses: pnpm testOnce
+      - uses: pnpm ci

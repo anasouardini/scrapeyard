@@ -13,7 +13,7 @@ const getBuildLogObject = ({
   const buildLogFileJson = fs.readFileSync(serverVars.paths.buildLog, "utf-8");
   if (!buildLogFileJson) {
     console.log(
-      `Err (viewParser) -> build log doesn't exist at (${serverVars.paths.buildLog})`
+      `Err (viewParser) -> build log doesn't exist at (${serverVars.paths.buildLog})`,
     );
   }
   interface TimeLog {
@@ -49,7 +49,7 @@ const areViewsUtilsUp2Date = ({
       return true;
     }
     const modificationTimeMs = Math.round(
-      fs.statSync(`${dependency.path}/${dependency.name}`).mtimeMs
+      fs.statSync(`${dependency.path}/${dependency.name}`).mtimeMs,
     );
     // console.log({
     //   name: dependency.name,
@@ -100,7 +100,7 @@ const parseView = ({
   viewName?: string;
   vars?: Record<string, any>;
 }): { success: boolean; error?: any; data?: string } => {
-  console.log('view parsing requested', {projectName, viewName})
+  console.log("view parsing requested", { projectName, viewName });
   //* I don't need to specify the current project's name unless it's the "root"(project name) interface that's being injected.
   if (projectName == undefined) {
     // TODO: get current project's name as a default.
@@ -119,7 +119,7 @@ const parseView = ({
   if (Number(Boolean(viewName)) - Number(Boolean(projectName)) != 0) {
     console.log(
       "Err -> viewName and projectName should exist together in order to locate the view file, have you forgotten one of them?",
-      { viewName, projectName }
+      { viewName, projectName },
     );
     return {
       success: false,
@@ -133,7 +133,7 @@ const parseView = ({
     const viewPath = tools.getViewPathObject({ viewName, projectName });
     if (!fs.existsSync(viewPath.src)) {
       console.log(
-        `Err -> The src file of the view: "${projectName}/${viewName}" doesn't exist!`
+        `Err -> The src file of the view: "${projectName}/${viewName}" doesn't exist!`,
       );
       console.log({ path: viewPath.src });
       return {

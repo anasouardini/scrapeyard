@@ -73,7 +73,7 @@ const prompt = async (driver: BrowserContext, prompt: string) => {
 
 const promptTemplate = async (
   driver: BrowserContext,
-  template: TemplateRequest
+  template: TemplateRequest,
 ) => {
   if (!chatGptTab) {
     chatGptTab = await browser.newTab(driver, {

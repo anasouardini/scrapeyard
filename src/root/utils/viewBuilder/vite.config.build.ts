@@ -20,9 +20,13 @@ export default defineConfig({
     minify: false,
     emptyOutDir: false,
     // changing the dist dir for easier automation
-    outDir: "/home/venego/home/dev/web/automation/scrapeyard-v4/src/projects/dreamjob/ui/views/build",
+    outDir:
+      "/home/venego/home/dev/web/automation/scrapeyard-v4/src/projects/dreamjob/ui/views/build",
     rollupOptions: {
-      input: {'sendJobRequests':'/home/venego/home/dev/web/automation/scrapeyard-v4/src/projects/dreamjob/ui/views/src/sendJobRequests.tsx'},
+      input: {
+        sendJobRequests:
+          "/home/venego/home/dev/web/automation/scrapeyard-v4/src/projects/dreamjob/ui/views/src/sendJobRequests.tsx",
+      },
       output: {
         // to bundle everything
         manualChunks: undefined,

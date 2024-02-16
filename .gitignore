@@ -16,7 +16,7 @@ dist-ssr
 *.local
 
 # Editor directories and files
-.github
+.github/workflows/publish.yaml
 .vscode/*
 !.vscode/extensions.json
 .idea

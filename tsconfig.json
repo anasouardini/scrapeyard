@@ -26,7 +26,7 @@
       "$utils/*": ["./root/utils/*"],
       "$ui/*": ["./root/ui/*"],
 
-      "$oneiqai/*": ["./projects/oneiqai/*"],
+      "$oneiqai/*": ["./projects/oneiqai/*"]
       /*[add aliases above this line]*/
     }
   },

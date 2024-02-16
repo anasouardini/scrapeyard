@@ -36,7 +36,7 @@ export interface Msg {
 const dispatcher = async (driver: BrowserContext, msg: Msg) => {
   if (!msg.action) {
     console.log(
-      "Err -> can't dispatch a msg without a destination/action; This should never happen outside debugging."
+      "Err -> can't dispatch a msg without a destination/action; This should never happen outside debugging.",
     );
   }
 

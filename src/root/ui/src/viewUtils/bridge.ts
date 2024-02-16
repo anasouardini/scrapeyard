@@ -79,7 +79,7 @@ const sleep = (t: number) => new Promise((resolve) => setTimeout(resolve, t));
 const handleRequest = async (
   method: "post" | "read" | "update" | "updateFile" | "remove",
   route: string,
-  body?: {}
+  body?: {},
 ) => {
   if (route[0] == "/") {
     route = route.slice(1);
@@ -92,7 +92,7 @@ const handleRequest = async (
     //   toast.error(`client error while trying to make a request. route:${route}`)
     console.log(
       `client error while trying to make a request. route:${route}`,
-      err
+      err,
     );
     return { err: "connectionError", route };
   }

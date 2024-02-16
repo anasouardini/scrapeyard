@@ -14,10 +14,15 @@
     "url": "https://github.com/anasouardini/scrapeyard"
   },
   "scripts": {
+    "test": "vitest",
+    "testOnce": "vitest --run",
     "dev": "ts-node -T -r tsconfig-paths/register ./src/main.ts",
     "build": "tsup",
     "monitor": "pm2 start ./src/main.ts",
-    "format": "prettier . --write"
+    "format": "prettier . --write",
+    "formatCheck": "prettier . --check",
+    "lint": "tsc",
+    "ci": "pnpm formatCheck && pnpm lint && pnpm testOnce && pnpm build"
   },
   "dependencies": {
     "@vitejs/plugin-react-swc": "^3.5.0",
@@ -61,6 +66,7 @@
     "tsconfig-paths": "^4.2.0",
     "tsup": "^8.0.2",
     "typescript": "^5.0.2",
-    "vite-tsconfig-paths": "^4.2.2"
+    "vite-tsconfig-paths": "^4.2.2",
+    "vitest": "^1.2.2"
   }
 }

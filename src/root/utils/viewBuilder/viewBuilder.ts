@@ -43,7 +43,7 @@ function setupViteConfig({ project, view }) {
   let viteBuildConfigCode = fs.readFileSync(viteBuildConfigPath, "utf-8");
   viteBuildConfigCode = viteBuildConfigCode.replace(
     /input:\s*{\s*([^}]*)\s*}/,
-    `input: {'${view.name.split(".")[0]}':'${view.path}'}`
+    `input: {'${view.name.split(".")[0]}':'${view.path}'}`,
   );
   const outDirPath =
     project.name == "root"
@@ -52,7 +52,7 @@ function setupViteConfig({ project, view }) {
 
   viteBuildConfigCode = viteBuildConfigCode.replace(
     /outDir:\s*("[^"]*"),/,
-    outDirPath
+    outDirPath,
   );
   console.log("* vite build config");
   fs.writeFileSync(viteBuildConfigPath, viteBuildConfigCode);
@@ -82,7 +82,7 @@ function updateBuildLog({
   }
   type BuildLog = Record<string, Record<string, TimeLog>>;
   const buildLog = JSON.parse(
-    fs.readFileSync(serverVars.paths.buildLog, "utf-8")
+    fs.readFileSync(serverVars.paths.buildLog, "utf-8"),
   );
 
   // first time building on of the project's views
@@ -161,7 +161,7 @@ function getViewsFilesList(projectDirPath: string) {
 
 export default function builder(targetComponent: View) {
   console.log(
-    `============================ target: ${targetComponent.projectName}/${targetComponent.viewName}`
+    `============================ target: ${targetComponent.projectName}/${targetComponent.viewName}`,
   );
 
   interface Project {
@@ -173,11 +173,11 @@ export default function builder(targetComponent: View) {
   if (targetComponent.projectName) {
     // if one is specified, remove the other projects from the list
     const filteredList = projectsList.filter(
-      (project) => project.name == targetComponent.projectName
+      (project) => project.name == targetComponent.projectName,
     );
     if (!filteredList.length) {
       console.log(
-        `Err (buildViews.ts) -> the project (${targetComponent.projectName}) you've provided does not exist.`
+        `Err (buildViews.ts) -> the project (${targetComponent.projectName}) you've provided does not exist.`,
       );
       return;
     }
@@ -193,11 +193,11 @@ export default function builder(targetComponent: View) {
     // console.log(viewsList);
     if (targetComponent.viewName) {
       const filteredList = viewsList.filter(
-        (view) => view.name.split(".")[0] == targetComponent.viewName
+        (view) => view.name.split(".")[0] == targetComponent.viewName,
       );
       if (!filteredList.length) {
         console.log(
-          `Err (buildViews.ts) -> the view (${targetComponent.viewName}) you've provided does not exist.`
+          `Err (buildViews.ts) -> the view (${targetComponent.viewName}) you've provided does not exist.`,
         );
         return;
       }

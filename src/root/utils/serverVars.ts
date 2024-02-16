@@ -16,7 +16,7 @@ const serverVars = {
       buildDir: "build",
     },
     viteBuildConfig: tools.genAbsolutePath(
-      "src/root/utils/viewBuilder/vite.config.build.ts"
+      "src/root/utils/viewBuilder/vite.config.build.ts",
     ),
     buildLog: tools.genAbsolutePath("src/root/data/buildLog.json"),
     viewUtils: tools.genAbsolutePath("src/root/ui/src/viewUtils"),

@@ -10,7 +10,7 @@ import tools from "./tools";
 
 async function subscribeToResponsePromise<TReturn>(
   tab: Page,
-  eventHandler: (response: Response, data: any) => Promise<any>
+  eventHandler: (response: Response, data: any) => Promise<any>,
 ): Promise<TReturn> {
   const eventData = {
     interval: 100,
@@ -40,13 +40,13 @@ async function subscribeToResponsePromise<TReturn>(
 
 const subscribeToResponse = (
   tab: Page,
-  { eventHandler }: { eventHandler: (request) => void }
+  { eventHandler }: { eventHandler: (request) => void },
 ) => {
   tab.on("response", eventHandler);
 };
 const unsubscribeToResponse = (
   tab: Page,
-  { eventHandler }: { eventHandler: (request) => void }
+  { eventHandler }: { eventHandler: (request) => void },
 ) => {
   tab.off("response", eventHandler);
 };
@@ -56,7 +56,7 @@ const subscribeToRoute = (
   {
     urlPattern,
     eventHandler,
-  }: { urlPattern: RegExp; eventHandler: (route: Route) => Promise<any> }
+  }: { urlPattern: RegExp; eventHandler: (route: Route) => Promise<any> },
 ) => {
   // console.log("subscribing...", { urlPattern });
   tab.route(urlPattern, eventHandler);
@@ -67,7 +67,7 @@ const unsubscribeToRoute = async (
   {
     urlPattern,
     eventHandler,
-  }: { urlPattern: RegExp; eventHandler: (route: Route) => Promise<any> }
+  }: { urlPattern: RegExp; eventHandler: (route: Route) => Promise<any> },
 ) => {
   // console.log("unsubscribing...", { urlPattern });
   tab.unroute(urlPattern, eventHandler);
@@ -75,7 +75,7 @@ const unsubscribeToRoute = async (
 
 const onLoad = async (
   tab: Page,
-  { eventHandler }: { eventHandler: (tab: Page) => void }
+  { eventHandler }: { eventHandler: (tab: Page) => void },
 ) => {
   tab.on("load", eventHandler);
 };
@@ -133,7 +133,7 @@ const observe = (driver: BrowserContext, tab: Page) => {
         const requestBody = route.request().postData();
         if (!requestBody) {
           console.log(
-            "Err -> the intercepted request/event from the client/view has no body"
+            "Err -> the intercepted request/event from the client/view has no body",
           );
         } else {
           const parsedRequestBody: RequestBodyType = JSON.parse(requestBody);
@@ -153,7 +153,7 @@ const observe = (driver: BrowserContext, tab: Page) => {
                 typeof parsedRequestBody?.data !== "object"
               ) {
                 console.log(
-                  "Err -> data, therefor notificationID was not included in the request's body, or body was not parsed when received/intercepted."
+                  "Err -> data, therefor notificationID was not included in the request's body, or body was not parsed when received/intercepted.",
                 );
                 break;
               }
@@ -163,7 +163,7 @@ const observe = (driver: BrowserContext, tab: Page) => {
             }
             default: {
               console.log(
-                `Err -> the intercepted event type "${parsedRequestBody.eventType}" is not supported!`
+                `Err -> the intercepted event type "${parsedRequestBody.eventType}" is not supported!`,
               );
             }
           }
@@ -200,10 +200,10 @@ const newDriver = async ({
       viewport: null,
       // args: ["--enable-extensions"],
       ignoreDefaultArgs: ["--disable-extensions", "--enable-automation"],
-    }
+    },
   );
   await driver.addInitScript(
-    "Object.defineProperty(navigator, 'webdriver', {get: () => undefined})"
+    "Object.defineProperty(navigator, 'webdriver', {get: () => undefined})",
   );
 
   // observe the first inevitable first tab :)
@@ -264,7 +264,7 @@ const newTab = async (
     name?: string;
     blockImages?: boolean;
     beautyLevel?: 1 | 2 | 3 | 4 | 5;
-  }
+  },
 ) => {
   //? TODO: make tabs globally-acessible.
   //? set pages property in the global vars.
@@ -338,7 +338,7 @@ const clickCenter = async (tab: Page) => {
   });
   if (!viewportSize) {
     console.log(
-      "Err -> could not get the viewport size in order to click in the middle of the screen."
+      "Err -> could not get the viewport size in order to click in the middle of the screen.",
     );
     return;
   }
@@ -391,7 +391,7 @@ const uploadFile = async (
     mediaPath: string;
     uploadInputQuery?: string;
     uploadButtonQuery?: string;
-  }
+  },
 ) => {
   if (uploadButtonQuery) {
     const fileChooserPromise = tab.waitForEvent("filechooser");
@@ -454,7 +454,7 @@ const clearMessage = async function (tab: Page) {
     // clear text content of the messenger/shared-memory
     await tab.evaluate(() => {
       const sharedMemeoryDomElement = document.querySelector(
-        "p#messenger-shared-memory"
+        "p#messenger-shared-memory",
       );
       if (sharedMemeoryDomElement) {
         sharedMemeoryDomElement.textContent = "";
@@ -515,7 +515,7 @@ const findElement = async function (
     query: string;
     getAll?: boolean;
     timeout?: number;
-  }
+  },
 ): Promise<Locator | Locator[] | null> {
   if (!isThereInstance(tab)) {
     console.log("browser instance was killed");
@@ -563,7 +563,7 @@ const mapThroughElements = async function (
   }: {
     query: string;
     cb: (element: ElementHandle<HTMLElement | SVGElement>) => Promise<any>;
-  }
+  },
 ) {
   const elements = await findElement(tab, { query, getAll: true });
 
@@ -591,7 +591,7 @@ const getParent = (
     element,
   }: {
     element: ElementHandle<HTMLElement | SVGElement>;
-  }
+  },
 ) => {
   return element.evaluateHandle((element) => {
     return element.parentNode;
@@ -610,7 +610,7 @@ const injectView = async <ViewNameT, ProjectNameT>(
     viewName?: ViewNameT;
     projectName?: ProjectNameT;
     vars?: Record<string, any>;
-  }
+  },
 ): Promise<{ success: boolean; error?: any }> => {
   // console.log({projectName, viewName})
 
@@ -637,7 +637,7 @@ const exec = async function (
     printError?: boolean;
     backEndArgs?: Record<string, any>;
     domElement?: Locator;
-  }
+  },
 ) {
   // TODO: implement this new method of passing vars to views || or use network interception.
   // const serverVarsFunction = () => ({ var1: "" });
@@ -666,7 +666,7 @@ const exec = async function (
         (domElement, { string, backEndArgs }) => {
           return eval(`(()=>{${string}})()`);
         },
-        { string, backEndArgs }
+        { string, backEndArgs },
       );
     }
 
@@ -674,7 +674,7 @@ const exec = async function (
       ({ string, backEndArgs }) => {
         return eval(`(()=>{${string}})()`);
       },
-      { string, backEndArgs }
+      { string, backEndArgs },
     );
 
     // console.log("injecting js...");
