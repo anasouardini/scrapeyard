@@ -1,4 +1,4 @@
-name: Publish
+name: CD
 on:
   workflow_run:
     workflows: [CI]
@@ -28,5 +28,5 @@ jobs:
         with:
           publish: npm run release
         env:
-          GITHUB_TOKEN: ${{ secrets.cd_github_access_token }}
+          GITHUB_TOKEN: ${{ secrets.CD_GITHUB_ACCESS_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
