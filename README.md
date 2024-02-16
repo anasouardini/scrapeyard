@@ -1,4 +1,4 @@
-## ScrapeYard
+## Scrapeyard
 
 Is a scraping library built on top of Playwright, it adds scraping-related features on top of the testing features that already exist in Playwright. It offers features such as:
 
