@@ -14,15 +14,16 @@
     "url": "https://github.com/anasouardini/scrapeyard"
   },
   "scripts": {
-    "test": "vitest",
-    "testOnce": "vitest --run",
     "dev": "ts-node -T -r tsconfig-paths/register ./src/main.ts",
-    "build": "tsup",
     "monitor": "pm2 start ./src/main.ts",
+    "test": "vitest",
     "format": "prettier . --write",
+    "testOnce": "vitest --run",
     "formatCheck": "prettier . --check",
     "lint": "tsc",
-    "ci": "npm run formatCheck && npm run lint && npm run testOnce && npm run build"
+    "build": "tsup",
+    "ci": "npm run formatCheck && npm run lint && npm run testOnce && npm run build",
+    "release": "npm run formatCheck && npm run lint && npm run testOnce && npm run build && changeset publish"
   },
   "dependencies": {
     "@vitejs/plugin-react-swc": "^3.5.0",
