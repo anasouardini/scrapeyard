@@ -38,7 +38,6 @@
     "npmPublish": "npm run unlinkParent && npx changeset publish && npm run linkParent",
     "pushReleaseGit": "git push origin main && git push origin --tags",
     "release": "npm run registerChangeset && npm run npmPublish && npm run pushReleaseGit",
-    "npmPublishRaw": "npm run unlinkParent && pnpm publish && npm run linkParent",
     "dummydummy2": "------------- SPECIFIC TO THE SUB PACKAGE/TEMPLATE ------------",
     "template": "pnpm --prefix ./data/templates/default",
     "unlinkParent": "cd ./data/templates/default && pnpm unlink ../../.. && cd ../../..",
