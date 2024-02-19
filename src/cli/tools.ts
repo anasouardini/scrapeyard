@@ -52,7 +52,19 @@ function printFileTree(dir, prefix = "", ignoredDirs: string[] = []) {
 }
 // printFileTree(parentPath, "", ["node_modules"]);
 
-function getPackageInfo(packgeDir: string) {
+export interface PackgeInfo {
+  name: string;
+  version: string;
+  repository: {
+    url: string;
+  };
+  bugs: {
+    url: string;
+  };
+  keywords: string[];
+  dependencies: Record<string, string>;
+}
+function getPackageInfo(packgeDir: string): PackgeInfo {
   const packageInfoJSON = fs.readFileSync(
     path.join(packgeDir, "package.json"),
     "utf-8",

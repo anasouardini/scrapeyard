@@ -40,20 +40,16 @@ const availableArgs = [
         console.log(err);
         return;
       }
+
       // updating new project's package.json
       let scrapeyardPackageInfo = tools.getPackageInfo(parentPath);
       let templatePackageInfo = tools.getPackageInfo(destination);
       templatePackageInfo.name = projectName;
       templatePackageInfo.keywords.push(projectName);
-      templatePackageInfo.repository.url =
-        templatePackageInfo.repository.url.replace("projectname", projectName);
-      templatePackageInfo.bugs.url = templatePackageInfo.bugs.url.replace(
-        "projectname",
-        projectName,
-      );
       // adding scrapeyard to package.json using the exact version that's initializing the new project.
-      templatePackageInfo.dependencies[projectName] =
+      templatePackageInfo.dependencies[scrapeyardPackageInfo.name] =
         `^${scrapeyardPackageInfo.version}`;
+
       tools.setPackageInfo(destination, templatePackageInfo);
     },
   },

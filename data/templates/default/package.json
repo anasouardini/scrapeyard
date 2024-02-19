@@ -8,10 +8,7 @@
     "scrapeyard"
   ],
   "repository": {
-    "url": "https://github.com/anasouardini/projectname"
-  },
-  "bugs": {
-    "url": "https://github.com/anasouardini/projectname/issues"
+    "url": ""
   },
   "scripts": {
     "test": "vitest",
