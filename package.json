@@ -33,8 +33,16 @@
     "lint": "tsc --noEmit",
     "build": "tsup && tsc --b ./tsconfig.bin.json",
     "ci": "npm run formatCheck && npm run lint && npm run testOnce && npm run build",
-    "release": "npm run ci && npx changeset && git add . && git commit -m 'release: creating a release' && npx changeset publish && git push origin main && git push origin --tags",
-    "template": "pnpm --prefix ./data/templates/default --"
+    "dummydummy1": "------------- DELIVERY-RELATED STUFF ------------",
+    "registerChangeset": "npm run ci && npx changeset && git add . && git commit -m 'release: creating a release'",
+    "npmPublish": "npm run unlinkParent && npx changeset publish && npm run linkParent",
+    "pushReleaseGit": "git push origin main && git push origin --tags",
+    "release": "npm run registerChangeset && npm run npmPublish && npm run pushReleaseGit",
+    "npmPublishRaw": "npm run unlinkParent && pnpm publish && npm run linkParent",
+    "dummydummy2": "------------- SPECIFIC TO THE SUB PACKAGE/TEMPLATE ------------",
+    "template": "pnpm --prefix ./data/templates/default",
+    "unlinkParent": "cd ./data/templates/default && pnpm unlink ../../.. && cd ../../..",
+    "linkParent": "cd ./data/templates/default && pnpm link ../../.. && cd ../../.."
   },
   "dependencies": {
     "@vitejs/plugin-react-swc": "^3.5.0",
