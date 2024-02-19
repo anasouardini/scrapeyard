@@ -74,7 +74,7 @@ function getPackageInfo(packgeDir: string): PackgeInfo {
 }
 
 function setPackageInfo(packgeDir: string, infoObj: Record<string, any>) {
-  const packageInfoJSON = JSON.stringify(infoObj);
+  const packageInfoJSON = JSON.stringify(infoObj, null, "  ");
   try {
     fs.writeFileSync(
       path.join(packgeDir, "package.json"),

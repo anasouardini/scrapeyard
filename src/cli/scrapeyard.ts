@@ -3,7 +3,7 @@
 import tools from "./tools";
 import vars, { Args } from "./vars";
 
-tools.printFileTree(vars.parentPath, "", ["node_modules"]);
+// tools.printFileTree(vars.parentPath, "", ["node_modules"]);
 
 const packageInfo = tools.getPackageInfo(vars.parentPath);
 
