@@ -1,6 +1,6 @@
 {
   "name": "scrapeyard",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "A scraping library that saves you from writing a lot of boiler-plate every time you lunch a new project. It also helps you manage multiple projects in one place.",
   "main": "./lib/mainInterface.js",
   "module": "./lib/mainInterface.mjs",
@@ -33,7 +33,8 @@
     "lint": "tsc --noEmit",
     "build": "tsup && tsc --b ./tsconfig.bin.json",
     "ci": "npm run formatCheck && npm run lint && npm run testOnce && npm run build",
-    "release": "npm run ci && npx changeset && git add . && git commit -m 'release: creating a release' && npx changeset publish && git push origin main && git push origin --tags"
+    "release": "npm run ci && npx changeset && git add . && git commit -m 'release: creating a release' && npx changeset publish && git push origin main && git push origin --tags",
+    "templateScript": "pnpm run --prefix ./data/templates/default"
   },
   "dependencies": {
     "@vitejs/plugin-react-swc": "^3.5.0",
