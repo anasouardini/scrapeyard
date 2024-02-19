@@ -4,7 +4,6 @@ import fse from "fs-extra";
 import fs from "fs";
 import "colors";
 import tools from "./tools";
-import vars from "./vars";
 
 const parentPath = path.join(__dirname, "..");
 const packagejsonPath = path.join(__dirname, "..", "package.json");
@@ -44,7 +43,7 @@ const availableArgs = [
         });
 
       // updating new project's package.json
-      let scrapeyardPackageInfo = tools.getPackageInfo(vars.parentPath);
+      let scrapeyardPackageInfo = tools.getPackageInfo(parentPath);
       let templatePackageInfo = tools.getPackageInfo(destination);
       templatePackageInfo.name = projectName;
       templatePackageInfo.keywords.push(projectName);

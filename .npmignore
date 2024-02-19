@@ -32,3 +32,4 @@ tsup.config.ts
 
 ## ignore sub-package (avoiding cyclic dependencies)
 data/**/node_modules
+**/node_modules
