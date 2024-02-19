@@ -22,7 +22,5 @@
     "build": "tsc",
     "ci": "npm run formatCheck && npm run lint && npm run testOnce && npm run build"
   },
-  "dependencies": {
-    "scrapeyard": "^0.4.2"
-  }
+  "dependencies": {}
 }

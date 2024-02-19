@@ -34,7 +34,7 @@
     "build": "tsup && tsc --b ./tsconfig.bin.json",
     "ci": "npm run formatCheck && npm run lint && npm run testOnce && npm run build",
     "release": "npm run ci && npx changeset && git add . && git commit -m 'release: creating a release' && npx changeset publish && git push origin main && git push origin --tags",
-    "templateScript": "pnpm run --prefix ./data/templates/default"
+    "template": "pnpm --prefix ./data/templates/default --"
   },
   "dependencies": {
     "@vitejs/plugin-react-swc": "^3.5.0",
