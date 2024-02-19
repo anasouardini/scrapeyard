@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "es2016",
+
+    "allowJs": true,
+    "outDir": "./bin",
+    "esModuleInterop": true,
+    "module": "CommonJS",
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitAny": false,
+    "skipLibCheck": true,
+
+    "moduleResolution": "node"
+  },
+  "include": ["./src/cli/*.ts"],
+  "exclude": ["node_modules", "dist", "lib", "build", ".git"]
+}

@@ -26,6 +26,7 @@ node_modules
 ## npm-specific
 src
 tsconfig.json
+tsconfig.bin.json
 pnpm-lock.yaml
 tsup.config.ts
 .github
