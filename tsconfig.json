@@ -11,25 +11,22 @@
     // "rootDir": ".",
 
     "allowJs": true,
-    "outDir": "./dist",
+    "outDir": "./lib",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitAny": false,
     "skipLibCheck": true,
-    "noEmit": true,
 
     "moduleResolution": "node",
     "baseUrl": "./src",
     "paths": {
       "$/*": ["./*"],
       "$utils/*": ["./root/utils/*"],
-      "$ui/*": ["./root/ui/*"],
-
-      "$oneiqai/*": ["./projects/oneiqai/*"]
+      "$ui/*": ["./root/ui/*"]
       /*[add aliases above this line]*/
     }
   },
   "include": ["*.ts", "*.tsx"],
-  "exclude": ["node_modules", "dist", "build", ".git"]
+  "exclude": ["node_modules", "lib", "lib", "build", ".git"]
 }
