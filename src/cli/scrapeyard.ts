@@ -5,7 +5,7 @@ import vars, { Args } from "./vars";
 
 tools.printFileTree(vars.parentPath, "", ["node_modules"]);
 
-const packageInfo = tools.getPackageInfo();
+const packageInfo = tools.getPackageInfo(vars.parentPath);
 
 function showUsage() {
   console.log(`Usage: pnpx ${packageInfo.name} [option]`);

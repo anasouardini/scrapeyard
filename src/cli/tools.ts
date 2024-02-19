@@ -52,13 +52,32 @@ function printFileTree(dir, prefix = "", ignoredDirs: string[] = []) {
 }
 // printFileTree(parentPath, "", ["node_modules"]);
 
-function getPackageInfo() {
-  const packageInfoJSON = fs.readFileSync(vars.packagejsonPath, "utf-8");
+function getPackageInfo(packgeDir: string) {
+  const packageInfoJSON = fs.readFileSync(
+    path.join(packgeDir, "packge.json"),
+    "utf-8",
+  );
   const packageInfo = JSON.parse(packageInfoJSON);
   return packageInfo;
 }
 
+function setPackageInfo(packgeDir: string, infoObj: Record<string, any>) {
+  const packageInfoJSON = JSON.stringify(infoObj);
+  try {
+    fs.writeFileSync(
+      path.join(packgeDir, "packge.json"),
+      packageInfoJSON,
+      "utf-8",
+    );
+    return true;
+  } catch (err) {
+    console.log("Err-> ", err);
+    return false;
+  }
+}
+
 export default {
   getPackageInfo,
+  setPackageInfo,
   printFileTree,
 };

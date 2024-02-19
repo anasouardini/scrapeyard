@@ -1,7 +1,10 @@
 import path from "path";
 import readLineSync from "readline-sync";
 import fse from "fs-extra";
+import fs from "fs";
 import "colors";
+import tools from "./tools";
+import vars from "./vars";
 
 const parentPath = path.join(__dirname, "..");
 const packagejsonPath = path.join(__dirname, "..", "package.json");
@@ -39,6 +42,22 @@ const availableArgs = [
         .catch((err) => {
           console.error("err: ", err);
         });
+
+      // updating new project's package.json
+      let scrapeyardPackageInfo = tools.getPackageInfo(vars.parentPath);
+      let templatePackageInfo = tools.getPackageInfo(destination);
+      templatePackageInfo.name = projectName;
+      templatePackageInfo.keywords.push(projectName);
+      templatePackageInfo.repository.url =
+        templatePackageInfo.repository.url.replace("projectname", projectName);
+      templatePackageInfo.bugs.url = templatePackageInfo.bugs.url.replace(
+        "projectname",
+        projectName,
+      );
+      // adding scrapeyard to package.json using the exact version that's initializing the new project.
+      templatePackageInfo.dependencies[projectName] =
+        `^${scrapeyardPackageInfo.version}`;
+      tools.setPackageInfo(destination, templatePackageInfo);
     },
   },
   {
