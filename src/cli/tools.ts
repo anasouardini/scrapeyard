@@ -54,7 +54,7 @@ function printFileTree(dir, prefix = "", ignoredDirs: string[] = []) {
 
 function getPackageInfo(packgeDir: string) {
   const packageInfoJSON = fs.readFileSync(
-    path.join(packgeDir, "packge.json"),
+    path.join(packgeDir, "package.json"),
     "utf-8",
   );
   const packageInfo = JSON.parse(packageInfoJSON);
