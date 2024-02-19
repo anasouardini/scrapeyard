@@ -33,15 +33,13 @@ const availableArgs = [
       const source = path.join(templatesDir, template);
       const destination = path.join(process.cwd(), projectName);
 
-      fse
-        .copy(source, destination)
-        .then(() => {
-          console.log(`Successfully created ./${projectName}`.green);
-        })
-        .catch((err) => {
-          console.error("err: ", err);
-        });
-
+      try {
+        fse.copySync(source, destination);
+      } catch (err) {
+        console.log(`Err -> could not create ${projectName}`.red);
+        console.log(err);
+        return;
+      }
       // updating new project's package.json
       let scrapeyardPackageInfo = tools.getPackageInfo(parentPath);
       let templatePackageInfo = tools.getPackageInfo(destination);
