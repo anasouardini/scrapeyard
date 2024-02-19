@@ -13,12 +13,14 @@
   "repository": {
     "url": "https://github.com/anasouardini/scrapeyard"
   },
+  "bugs": {
+    "url": "https://github.com/anasouardini/scrapeyard/issues"
+  },
   "files": [
     "./data/**/*",
     "./bin/**/*",
     "./lib/**/*",
-    "./dist/**/*",
-    "npm is shit"
+    "./dist/**/*"
   ],
   "bin": {
     "default": "./bin/scrapeyard.js"
