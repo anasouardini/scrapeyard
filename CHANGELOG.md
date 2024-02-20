@@ -1,5 +1,11 @@
 # scrapeyard
 
+## 0.7.0
+
+### Minor Changes
+
+- 7661bdc: summary
+
 ## 0.6.0
 
 ### Minor Changes
