@@ -2,6 +2,7 @@ import fs from "fs";
 import tools, { type ViewPath } from "./tools";
 import serverVars from "./serverVars";
 import builder from "./viewBuilder/viewBuilder";
+import util from "util";
 
 const getBuildLogObject = ({
   projectName,
@@ -93,12 +94,12 @@ const parseView = ({
   inlineString,
   projectName,
   viewName,
-  vars,
+  data,
 }: {
   inlineString?: string;
   projectName?: string;
   viewName?: string;
-  vars?: Record<string, any>;
+  data?: Record<string, any>;
 }): { success: boolean; error?: any; data?: string } => {
   console.log("view parsing requested", { projectName, viewName });
   //* I don't need to specify the current project's name unless it's the "root"(project name) interface that's being injected.
@@ -110,13 +111,19 @@ const parseView = ({
   let finalViewString = "";
 
   // TODO: instead of prepending vars, let the client/view request them using the bridge utility, because JSON sucks.
-  if (vars) {
-    const jsonVars = JSON.stringify(vars);
-    finalViewString += `window.localStorage.setItem('vars', \`${jsonVars}\`);\n\n`;
+  if (data) {
+    // const jsonVars = JSON.stringify(vars);
+    // finalViewString += `window.localStorage.setItem('vars', \`${jsonVars}\`);\n\n`;
+
+    //* the better way
+    const objectString = util.inspect(data);
+    finalViewString += `window.scrapeyardViewData = ${objectString};\n\n`;
   }
 
   //* both the view name and the project name are mutually inclusive.
-  if (Number(Boolean(viewName)) - Number(Boolean(projectName)) != 0) {
+  const areBothViewAndProjectNamesProvided =
+    Number(Boolean(viewName)) - Number(Boolean(projectName)) == 0;
+  if (!areBothViewAndProjectNamesProvided) {
     console.log(
       "Err -> viewName and projectName should exist together in order to locate the view file, have you forgotten one of them?",
       { viewName, projectName },
