@@ -27,6 +27,6 @@
       /*[add aliases above this line]*/
     }
   },
-  "include": ["*.ts", "*.tsx"],
-  "exclude": ["node_modules", "lib", "lib", "build", ".git"]
+  "include": ["./src/mainInterface.ts", "./src/viewsInterface.ts", "**/*.tsx"],
+  "exclude": ["node_modules", "lib", "lib", "build", ".git", "**/*ignore*/**/*"]
 }
