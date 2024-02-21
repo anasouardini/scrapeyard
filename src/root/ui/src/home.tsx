@@ -2,27 +2,20 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import vars from "./viewUtils/viewsVars";
 import bridge from "./viewUtils/bridge";
+import { type Actions } from "../../utils/types";
 
-import {
-  sleep,
-  runServerAction,
-  globalStyle,
-  projectsControllers,
-} from "./viewUtils/common";
+import { sleep, runServerAction, globalStyle } from "./viewUtils/common";
 import { ProjectsControllers } from "../../../projects/projectsControllers";
 
-declare const fakeRoot: ProjectsControllers;
-
 const myNode = document.body;
+
 // clear default DOM
 while (myNode.firstChild) {
   myNode.removeChild(myNode.firstChild);
 }
-// Array.from(document.body.children).forEach((child) => {
-//   child.remove();
-// });
-document.body.style.background = "#000";
 
+// styling
+document.body.style.background = "#000";
 const style = {
   btn: {
     ...globalStyle.btn,
@@ -32,17 +25,13 @@ const style = {
   btnsContainer: globalStyle.btnsContainer,
 };
 
-interface Button {
-  txt: string;
-  data: any;
-  action: (root: ProjectsControllers) => (...args: any[]) => any;
-  // actionCall: (root: ProjectsControllers) => any;
-}
+const projects = window.scrapeyardViewData as Record<
+  keyof ProjectsControllers,
+  Actions[]
+>;
+
 // controls buttons
-const projects: Record<keyof ProjectsControllers, Button[]> = {
-  home: [],
-  // TODO: get object passed to home controller
-};
+// TODO: get actions passed to home controller
 
 function Component() {
   return (

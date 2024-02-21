@@ -3,6 +3,13 @@ import bridge from "./bridge";
 import vars, { type RequestBodyType } from "./viewsVars";
 import "./index.css";
 
+// adding a property by which the server and the view will communicate.
+declare global {
+  interface Window {
+    scrapeyardViewData: any;
+  }
+}
+
 const sleep = (time: number) =>
   new Promise((resolve) => setTimeout(resolve, time));
 
