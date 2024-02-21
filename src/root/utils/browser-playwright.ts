@@ -202,6 +202,8 @@ const newDriver = async ({
       ignoreDefaultArgs: ["--disable-extensions", "--enable-automation"],
     },
   );
+
+  // detection evasion
   await driver.addInitScript(
     "Object.defineProperty(navigator, 'webdriver', {get: () => undefined})",
   );
@@ -212,7 +214,7 @@ const newDriver = async ({
   observe(driver, tab);
 
   // don't target the driver using .at(-1) after you add it to the list, other potentially ASYNC newDriver() calls might screw the order.
-  serverVars.drivers.push(driver);
+  serverVars.windows.push(driver);
 
   return driver;
 };
@@ -235,7 +237,7 @@ const init = async ({
   }
 };
 
-//? I don't think I'll need this anytime soon — keep it haging for a while
+//? I don't think I'll need these ideas — keep them haging for a while
 // TODO: can't do SEE, but instead of the current approach, try to use websockets, playwright can intercept those as well.
 // TODO: there is an issue on their playwright's github about manipulating web sockets, some workaround were posted there.
 //* this will feel like SSE while it's dumber than that.
@@ -695,7 +697,7 @@ const exec = async function (
 const close = async (tab: Page) => await tab.close();
 
 const quit = async (driver: BrowserContext) => {
-  for (const driver of serverVars.drivers) {
+  for (const driver of serverVars.windows) {
     driver.close();
   }
 };

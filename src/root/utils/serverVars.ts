@@ -1,7 +1,7 @@
 import { BrowserContext, Page } from "playwright";
 import tools from "./tools";
 
-const drivers: BrowserContext[] = [];
+const windows: BrowserContext[] = [];
 const serverVars = {
   paths: {
     tmp: tools.genAbsolutePath("src/tmp"),
@@ -21,7 +21,7 @@ const serverVars = {
     buildLog: tools.genAbsolutePath("src/root/data/buildLog.json"),
     viewUtils: tools.genAbsolutePath("src/root/ui/src/viewUtils"),
   },
-  drivers,
+  windows,
 };
 
 export default serverVars;
