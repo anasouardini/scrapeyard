@@ -1,5 +1,11 @@
 # scrapeyard
 
+## 0.7.0
+
+### Minor Changes
+
+- Now you can use the command `pnpm createProject` to easily start a new project. Also added some boilarplate in the index.ts file for better out-of-the-box experience.
+
 ## 0.6.0
 
 ### Minor Changes
