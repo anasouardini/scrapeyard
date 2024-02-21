@@ -11,7 +11,7 @@ const templates = {
 };
 
 interface TemplateRequest {
-  name: string;
+  name: keyof typeof templates;
   args: Record<string, any>;
 }
 
