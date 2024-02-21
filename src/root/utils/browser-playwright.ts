@@ -606,18 +606,23 @@ const injectView = async <ViewNameT, ProjectNameT>(
     inlineString,
     viewName,
     projectName,
-    vars,
+    data: vars,
   }: {
     inlineString?: string;
     viewName?: ViewNameT;
     projectName?: ProjectNameT;
-    vars?: Record<string, any>;
+    data?: Record<string, any>;
   },
 ): Promise<{ success: boolean; error?: any }> => {
   // console.log({projectName, viewName})
 
   // @ts-ignore
-  const parsedView = parseView({ inlineString, projectName, viewName, vars });
+  const parsedView = parseView({
+    inlineString,
+    projectName,
+    viewName,
+    data: vars,
+  });
   if (parsedView.error || !parsedView.data) {
     // console.log(parsedView.error);
     return { success: false, error: parsedView.error };
