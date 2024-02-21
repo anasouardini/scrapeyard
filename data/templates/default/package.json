@@ -11,6 +11,7 @@
     "url": ""
   },
   "scripts": {
+    "createProject": "./node_modules/.bin/createProject",
     "test": "vitest",
     "format": "prettier . --write",
     "testOnce": "vitest --run",
