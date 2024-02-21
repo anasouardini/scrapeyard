@@ -1,5 +1,11 @@
 # scrapeyard
 
+## 0.8.0
+
+### Minor Changes
+
+- The home view is not modular: users can pass their own actions list; the data passed to the views now can be easily accessed through the window property "window.scrapeyardViewData".
+
 ## 0.7.0
 
 ### Minor Changes
