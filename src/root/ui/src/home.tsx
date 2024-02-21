@@ -65,6 +65,7 @@ function Component() {
       `}
       </style>
       <div id="controls" style={{ padding: "20px 0 0 20px" }}>
+        {/* @ts-ignore */}
         {Object.keys(projects).map((projectKey: keyof typeof projects) => {
           const buttons = projects[projectKey];
           if (!buttons.length) {

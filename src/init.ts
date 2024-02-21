@@ -11,7 +11,7 @@ export interface InitProps {
 const init = async ({ browsers }: InitProps) => {
   await browser.init({ instances: [{ stateful: true, headless: false }] });
 
-  await dispatcher(serverVars.drivers[0], {
+  await dispatcher(serverVars.windows[0], {
     action: ((root: ProjectsControllers) => root.home.load).toString(),
     data: {},
     type: "direct",

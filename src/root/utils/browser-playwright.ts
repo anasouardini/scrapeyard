@@ -600,28 +600,27 @@ const getParent = (
   });
 };
 
-const injectView = async <ViewNameT, ProjectNameT>(
+const injectView = async (
   tab: Page,
   {
     inlineString,
     viewName,
     projectName,
-    data: vars,
+    data,
   }: {
     inlineString?: string;
-    viewName?: ViewNameT;
-    projectName?: ProjectNameT;
+    viewName?: string;
+    projectName?: string;
     data?: Record<string, any>;
   },
 ): Promise<{ success: boolean; error?: any }> => {
   // console.log({projectName, viewName})
 
-  // @ts-ignore
   const parsedView = parseView({
     inlineString,
     projectName,
     viewName,
-    data: vars,
+    data,
   });
   if (parsedView.error || !parsedView.data) {
     // console.log(parsedView.error);
