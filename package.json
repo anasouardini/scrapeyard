@@ -23,7 +23,8 @@
     "./dist/**/*"
   ],
   "bin": {
-    "default": "./bin/scrapeyard.js"
+    "default": "./bin/cli/scrapeyard.js",
+    "createProject": "./bin/cli/createProject.js"
   },
   "scripts": {
     "test": "vitest",
@@ -31,16 +32,17 @@
     "testOnce": "vitest --run",
     "formatCheck": "prettier . --check",
     "lint": "tsc --noEmit",
-    "build": "tsup && tsc --b ./tsconfig.bin.json",
+    "build": "command rm -rf ./lib ./bin && tsup && tsc --b ./tsconfig.bin.json",
     "ci": "npm run formatCheck && npm run lint && npm run testOnce && npm run build",
-    "dummydummy1": "------------- DELIVERY-RELATED STUFF ------------",
-    "registerChangeset": "npm run ci && npx changeset version && git add . && git commit -m 'release: creating a release'",
+    "SEPARATOR1": "------------- DELIVERY-RELATED STUFF ------------",
+    "createRelease": "npx changeset add && npx changeset version && git add . && git commit -m 'chore(release): create a release' --no-verify",
     "pushReleaseGit": "git push origin main && git push origin --tags",
-    "release": "npm run registerChangeset && npm publish && npm run pushReleaseGit",
-    "dummydummy2": "------------- SPECIFIC TO THE SUB PACKAGE/TEMPLATE ------------",
+    "release": "npm run ci && npm run createRelease && npx changeset publish && npm run pushReleaseGit",
+    "SEPARATOR2": "------------- SPECIFIC TO THE SUB PACKAGE/TEMPLATE ------------",
     "template": "pnpm --prefix ./data/templates/default",
-    "unlinkParent": "cd ./data/templates/default && pnpm unlink ../../.. && cd ../../..",
-    "linkParent": "cd ./data/templates/default && pnpm link ../../.. && cd ../../.."
+    "unlinkFromTemplate": "cd ./data/templates/default && pnpm unlink ../../.. && cd ../../..",
+    "linkToTemplate": "cd ./data/templates/default && pnpm link ../../.. && cd ../../..",
+    "relink": "pnpm run unlinkFromTemplate && pnpm run linkToTemplate"
   },
   "dependencies": {
     "@vitejs/plugin-react-swc": "^3.5.0",
