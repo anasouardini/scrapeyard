@@ -1,4 +1,4 @@
-import { Browser, BrowserContext, Page } from "playwright";
+import { BrowserContext, Page } from "playwright";
 import tools from "./tools";
 
 const drivers: BrowserContext[] = [];
