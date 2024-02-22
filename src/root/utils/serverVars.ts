@@ -2,6 +2,11 @@ import { BrowserContext, Page } from "playwright";
 import tools from "./tools";
 
 const windows: BrowserContext[] = [];
+const helperVars = {
+  paths: {
+    library: "./node_modules/scrapeyard/lib",
+  },
+};
 const serverVars = {
   paths: {
     tmp: tools.genAbsolutePath("src/tmp"),
@@ -16,10 +21,15 @@ const serverVars = {
       buildDir: "build",
     },
     viteBuildConfig: tools.genAbsolutePath(
-      "src/root/utils/viewBuilder/vite.config.build.ts",
+      `${helperVars.paths.library}/vite.config.build.ts`,
     ),
-    buildLog: tools.genAbsolutePath("src/root/data/buildLog.json"),
-    viewUtils: tools.genAbsolutePath("src/root/ui/src/viewUtils"),
+    buildLog: tools.genAbsolutePath(
+      `${helperVars.paths.library}/buildLog.json`,
+    ),
+    // for checking if the views dependencies have changed
+    viewUtils: tools.genAbsolutePath(
+      `${helperVars.paths.library}/viewsInterface.js`,
+    ),
   },
   windows,
 };
