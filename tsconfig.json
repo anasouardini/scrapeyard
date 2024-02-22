@@ -27,6 +27,11 @@
       /*[add aliases above this line]*/
     }
   },
-  "include": ["./src/mainInterface.ts", "./src/viewsInterface.ts", "**/*.tsx"],
+  "include": [
+    "./src/mainInterface.ts",
+    "./src/viewsInterface.ts",
+    "**/*.tsx",
+    "./data/templates/**/*.ts"
+  ],
   "exclude": ["node_modules", "lib", "lib", "build", ".git", "**/*ignore*/**/*"]
 }
