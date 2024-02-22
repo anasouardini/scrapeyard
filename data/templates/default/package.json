@@ -12,6 +12,7 @@
   },
   "scripts": {
     "createProject": "./node_modules/.bin/createProject",
+    "dev": "ts-node -T ./src/index.ts",
     "test": "vitest",
     "format": "prettier . --write",
     "testOnce": "vitest --run",
@@ -20,5 +21,7 @@
     "build": "tsc",
     "ci": "npm run formatCheck && npm run lint && npm run testOnce && npm run build"
   },
-  "dependencies": {}
+  "devDependencies": {
+    "ts-node": "^10.9.2"
+  }
 }
