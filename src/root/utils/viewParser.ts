@@ -39,29 +39,14 @@ const areViewsUtilsUp2Date = ({
 }) => {
   // todo: [found no lib for this] check modification time of all dependencies of the src view.
 
-  const viewsUtilsDirPath = serverVars.paths.viewUtils;
-  const dependencies = fs.readdirSync(viewsUtilsDirPath, {
-    withFileTypes: true,
-  });
-  //* if only one of them is outdated, re-build the view
-  const areDepsUp2Date = dependencies.every((dependency) => {
-    //* if isDir==true => don't get modification time. consider it up to date
-    if (!dependency.name.includes(".")) {
-      return true;
-    }
-    const modificationTimeMs = Math.round(
-      fs.statSync(`${dependency.path}/${dependency.name}`).mtimeMs,
-    );
-    // console.log({
-    //   name: dependency.name,
-    //   up2Date: modificationTimeMs < outputBuildTimeMs,
-    // });
-    if (modificationTimeMs < outputBuildTimeMs) {
-      return true;
-    }
-  });
-  console.log({ areDepsUp2Date });
-  return areDepsUp2Date;
+  const viewsInterfacePath = serverVars.paths.viewUtils;
+  const modificationTimeMs = Math.round(
+    fs.statSync(`${viewsInterfacePath}`).mtimeMs,
+  );
+
+  if (modificationTimeMs < outputBuildTimeMs) {
+    return true;
+  }
 };
 
 const isUp2date = ({
