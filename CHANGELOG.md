@@ -4,7 +4,7 @@
 
 ### Patch Changes
 
-- fixed an issue in the intialization command: `pnpx scrapeyard project-name`
+- fixed an issue in the intialization command: `pnpx scrapeyard init project-name`
 
 ## 0.9.0
 
