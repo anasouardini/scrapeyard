@@ -1,11 +1,10 @@
 import {
   browser,
-  init,
   serverVars,
   dispatcher,
   type ProjectsControllers,
+  type Actions,
 } from "scrapeyard";
-import chatgpt from "./projects/1iqai/controller/chatgpt";
 
 async function main() {
   // initializes browser instances/windows
@@ -17,31 +16,23 @@ async function main() {
     ],
   });
 
+  const actions: Partial<Actions> = {
+    frugalads: [
+      {
+        txt: "Spread Words",
+        action: (root) => root.frugalads.chatiwus.start,
+        data: {},
+      },
+    ],
+  };
   // runs a controller from "root.home" and passes it empty object "{}"
   await dispatcher(serverVars.windows[0], {
-    action: ((root: ProjectsControllers) => root.home).toString(),
+    action: ((root: ProjectsControllers) => root.home.load).toString(),
     // actions that would be showed in the home view after execution
-    data: {
-      oneiqai: [
-        {
-          txt: "Apple Cake Recipe",
-          action: (root) => root.oneiqai.chatgpt.promptTemplate,
-          data: { name: "cakeRecipe", args: { type: "apple" } },
-        },
-      ],
-    },
+    data: actions,
     type: "direct",
     // direct: directly from the server (this file)
     // scrapeyardEvent: from a view in the browser
-  });
-
-  // simple example of using a project.
-  // "oneiqai" is a default project example at "./projects/oneiqai"
-  const prompt = "what's the most popular sport in the world?";
-  const response = await chatgpt.prompt(serverVars.windows[0], prompt);
-  console.log({
-    prompt,
-    response,
   });
 }
 
