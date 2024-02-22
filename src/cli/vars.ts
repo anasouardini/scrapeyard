@@ -5,7 +5,7 @@ import fs from "fs";
 import "colors";
 import tools from "./tools";
 
-const parentPath = path.join(__dirname, "..");
+const parentPath = path.join(__dirname, "..", "..");
 const packagejsonPath = path.join(__dirname, "..", "package.json");
 
 const availableArgs = [
