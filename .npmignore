@@ -29,7 +29,3 @@ pnpm-lock.yaml
 tsup.config.ts
 .github
 .changeset
-
-## ignore sub-package (avoiding cyclic dependencies)
-data/**/node_modules
-**/node_modules

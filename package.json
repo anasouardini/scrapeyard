@@ -17,7 +17,6 @@
     "url": "https://github.com/anasouardini/scrapeyard/issues"
   },
   "files": [
-    "./data/**/*",
     "./bin/**/*",
     "./lib/**/*",
     "./dist/**/*"
