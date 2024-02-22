@@ -5,3 +5,4 @@ dist
 dev-dist
 coverage
 *.yaml
+*.md
