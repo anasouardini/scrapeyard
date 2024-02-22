@@ -29,8 +29,8 @@
   },
   "include": [
     "./src/mainInterface.ts",
-    "./src/viewsInterface.ts",
-    "**/*.tsx"
+    "./src/viewsInterface.ts"
+    // "**/*.tsx"
     // can't test template in CI since it needs linking the parent
     // npm is sooo slow at that and pnpm is tricky to install in CI
     // "./data/templates/**/*.ts"
