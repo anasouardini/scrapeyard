@@ -1,5 +1,11 @@
 # scrapeyard
 
+## 0.9.2
+
+### Patch Changes
+
+- fixed an issue in the bin command
+
 ## 0.9.1
 
 ### Patch Changes
