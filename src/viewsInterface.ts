@@ -1,9 +1,12 @@
-import bridge from "./root/ui/src/viewUtils/bridge";
-import vars from "./root/ui/src/viewUtils/viewsVars";
-import * as common from "./root/ui/src/viewUtils/common";
+import bridgeI from "./root/ui/src/viewUtils/bridge";
+import varsI from "./root/ui/src/viewUtils/viewsVars";
+export {
+  sleep,
+  runServerAction,
+  globalStyle,
+  colors,
+  projectsControllers,
+} from "./root/ui/src/viewUtils/common";
 
-export default {
-  bridge,
-  vars,
-  common,
-};
+export const bridge = bridgeI;
+export const vars = varsI;
