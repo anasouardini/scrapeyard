@@ -1,8 +1,6 @@
-import oneiqai from "./oneiqai/ui/cp/controlPanel";
 // [import above this line]
 
 const controlPanels = {
-  oneiqai,
   // [add to object above this line]
 };
 
