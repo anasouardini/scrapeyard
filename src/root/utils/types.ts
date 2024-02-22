@@ -1,7 +1,7 @@
-import { type ProjectsControllers } from "../../projects/projectsControllers";
+import { type ProjectsControllers } from '../../projects/projectsControllers';
 
 export type RequestBodyType = {
-  eventType: "runAction" | "clientRequestsUpdate";
+  eventType: 'runAction' | 'clientRequestsUpdate';
   action?: string;
   data?: string | {};
 };

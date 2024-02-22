@@ -1,9 +1,9 @@
-import fs from "fs";
-import serverVars from "./serverVars";
-import tools from "./tools";
+import fs from 'fs';
+import serverVars from './serverVars';
+import tools from './tools';
 
 interface Node {
-  type: "file" | "dir";
+  type: 'file' | 'dir';
   name: string;
   content?: string;
   children?: Node[];
@@ -50,19 +50,19 @@ const options = {
 
 const buildStructure = (nodes: Node, targetDir: string) => {
   //* file node
-  if (nodes.type == "file") {
+  if (nodes.type == 'file') {
     const newFilePath = `${targetDir}/${nodes.name}`;
-    console.log("creating file: ", newFilePath);
+    console.log('creating file: ', newFilePath);
     if (!options.dryRun) {
-      fs.writeFileSync(newFilePath, nodes?.content ?? "", "utf-8");
+      fs.writeFileSync(newFilePath, nodes?.content ?? '', 'utf-8');
     }
     return;
   }
 
   //* dir node
-  if (nodes.type == "dir") {
+  if (nodes.type == 'dir') {
     const newDirPath = `${targetDir}/${nodes.name}`;
-    console.log("creating dir: ", newDirPath);
+    console.log('creating dir: ', newDirPath);
     if (!options.dryRun) {
       fs.mkdirSync(newDirPath);
     }
@@ -79,78 +79,78 @@ const buildStructure = (nodes: Node, targetDir: string) => {
 export default function ({ projectName }: { projectName: string }) {
   const fsStructure: Node = {
     name: projectName,
-    type: "dir",
+    type: 'dir',
     children: [
       {
-        name: "controller",
-        type: "dir",
+        name: 'controller',
+        type: 'dir',
         children: [
           {
-            name: "index.ts",
-            type: "file",
-            content: "export default {};",
+            name: 'index.ts',
+            type: 'file',
+            content: 'export default {};',
           },
         ],
       },
       {
-        name: "data",
-        type: "dir",
+        name: 'data',
+        type: 'dir',
       },
       {
-        name: "model",
-        type: "dir",
+        name: 'model',
+        type: 'dir',
         children: [
           {
-            name: "index.ts",
-            type: "file",
-            content: "export default {};",
+            name: 'index.ts',
+            type: 'file',
+            content: 'export default {};',
           },
           {
-            name: "db.ts",
-            type: "file",
-            content: "",
+            name: 'db.ts',
+            type: 'file',
+            content: '',
           },
         ],
       },
       {
-        name: "ui",
-        type: "dir",
+        name: 'ui',
+        type: 'dir',
         children: [
           {
-            name: "cp",
-            type: "dir",
-            children: [{ name: "index.tsx", type: "file", content: "" }],
+            name: 'cp',
+            type: 'dir',
+            children: [{ name: 'index.tsx', type: 'file', content: '' }],
           },
           {
-            name: "views",
-            type: "dir",
+            name: 'views',
+            type: 'dir',
             children: [
               {
-                name: "src",
-                type: "dir",
-                children: [{ name: "example.tsx", type: "file", content: "" }],
+                name: 'src',
+                type: 'dir',
+                children: [{ name: 'example.tsx', type: 'file', content: '' }],
               },
               {
-                name: "build",
-                type: "dir",
-                children: [{ name: "example.js", type: "file", content: "" }],
+                name: 'build',
+                type: 'dir',
+                children: [{ name: 'example.js', type: 'file', content: '' }],
               },
             ],
           },
         ],
       },
       {
-        name: "utils",
-        type: "dir",
+        name: 'utils',
+        type: 'dir',
         children: [
-          { name: "tools.ts", type: "file", content: "" },
-          { name: "vars.ts", type: "file", content: "" },
+          { name: 'tools.ts', type: 'file', content: '' },
+          { name: 'vars.ts', type: 'file', content: '' },
         ],
       },
       {
-        name: "plan",
-        type: "dir",
-        children: [{ name: "plan.md", type: "file", content: "" }],
+        name: 'plan',
+        type: 'dir',
+        children: [{ name: 'plan.md', type: 'file', content: '' }],
       },
     ],
   };

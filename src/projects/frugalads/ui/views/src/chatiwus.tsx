@@ -1,15 +1,15 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import vars from "../../../../../root/ui/src/viewUtils/viewsVars";
-import bridge from "../../../../../root/ui/src/viewUtils/bridge";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import vars from '../../../../../root/ui/src/viewUtils/viewsVars';
+import bridge from '../../../../../root/ui/src/viewUtils/bridge';
 
 import {
   sleep,
   runServerAction,
   globalStyle,
   projectsControllers,
-} from "../../../../../root/ui/src/viewUtils/common";
-import viewsVars from "../../../../../root/ui/src/viewUtils/viewsVars";
+} from '../../../../../root/ui/src/viewUtils/common';
+import viewsVars from '../../../../../root/ui/src/viewUtils/viewsVars';
 
 //todo: local cache might not be working.
 
@@ -35,8 +35,8 @@ const genRandomNumber = (mi: number, ma: number) => {
 };
 
 const genRandomNickName = (length: number) => {
-  let result = "";
-  const characters = "abcdefghijklmnopqrstuvwxyz";
+  let result = '';
+  const characters = 'abcdefghijklmnopqrstuvwxyz';
   const charactersLength = characters.length;
   let counter = 0;
   while (counter < length) {
@@ -48,17 +48,17 @@ const genRandomNickName = (length: number) => {
 
 const parseMembers = (membersDOM: Element[]) => {
   return membersDOM.map((memberDOM, index) => {
-    const gender = memberDOM.querySelector("a")?.classList.contains("female")
-      ? "female"
-      : "male";
+    const gender = memberDOM.querySelector('a')?.classList.contains('female')
+      ? 'female'
+      : 'male';
 
-    const ageString = memberDOM.querySelector("a #age")?.innerText ?? null;
+    const ageString = memberDOM.querySelector('a #age')?.innerText ?? null;
     const age = ageString ? Number(ageString) : null;
-    const nickname = memberDOM.querySelector("a #nickname")?.innerText ?? null;
-    const country = memberDOM.querySelector("a i")?.getAttribute("id") ?? null;
+    const nickname = memberDOM.querySelector('a #nickname')?.innerText ?? null;
+    const country = memberDOM.querySelector('a i')?.getAttribute('id') ?? null;
 
     if (!nickname) {
-      console.log("Err -> could not parse member, nickname is null");
+      console.log('Err -> could not parse member, nickname is null');
       return null;
     }
 
@@ -77,7 +77,7 @@ const parseMembers = (membersDOM: Element[]) => {
 interface Member {
   nickname: string;
   age: number | null;
-  gender: "male" | "female" | null;
+  gender: 'male' | 'female' | null;
   country: string | null;
   DOMElementIndex: number;
 }
@@ -94,7 +94,7 @@ const extractUnapproachedMembers = (members: Member[]) => {
         data.approachedPeople[targetMember.nickname];
       const memberInLocalCache = Object.keys(potentialSameMemberInCache).every(
         (memberProperty) => {
-          if (memberProperty == "DOMElementIndex") {
+          if (memberProperty == 'DOMElementIndex') {
             return true;
           }
           // console.log(potentialSameMemberInCache[memberProperty])
@@ -143,7 +143,7 @@ const whichMemberUnApproached = async (members: Member[]) => {
   // console.log({ serverResp: response });
   if (!response || response.err) {
     console.log(
-      "Err -> server resopnse is invalid, it should be a boolean.",
+      'Err -> server resopnse is invalid, it should be a boolean.',
       response.err,
     );
     return null;
@@ -171,9 +171,9 @@ const whichMemberUnApproached = async (members: Member[]) => {
 };
 
 const getAllMembersDOM = () => {
-  const membersListDOM = document.querySelector("#friend_list > ul")?.children;
+  const membersListDOM = document.querySelector('#friend_list > ul')?.children;
 
-  return Array.from(document.querySelector("#friend_list > ul").children) ?? [];
+  return Array.from(document.querySelector('#friend_list > ul').children) ?? [];
 };
 
 const chunkify = (list: any[], chunckSize: number) => {
@@ -196,7 +196,7 @@ const getFirstUnapproachedMember = async () => {
   const membersDOM = getAllMembersDOM();
   if (!membersDOM.length) {
     console.log(
-      "Err -> found no members in the DOM list from getAllMembersDOM",
+      'Err -> found no members in the DOM list from getAllMembersDOM',
     );
     return null;
   }
@@ -213,7 +213,7 @@ const getFirstUnapproachedMember = async () => {
     const unapproachedMember = await whichMemberUnApproached(parsedMembers);
 
     if (unapproachedMember == null) {
-      console.log("Err -> could not check approachability of a member");
+      console.log('Err -> could not check approachability of a member');
       return null;
     }
 
@@ -227,18 +227,18 @@ const getFirstUnapproachedMember = async () => {
     }
   }
 
-  console.log("Err -> could not get an approachable member");
+  console.log('Err -> could not get an approachable member');
   return null;
 };
 
 //todo: each instance has to inform the server with it's chosen nickname for the instances to not waste resources on each other.
 const loginWithNewAccount = () => {
-  const nicknameInput = document.querySelector("#input1");
-  const ageSelectInput = document.querySelector("#age_list");
+  const nicknameInput = document.querySelector('#input1');
+  const ageSelectInput = document.querySelector('#age_list');
   const sexMaleRadioButton = document.querySelector(
     "input[type='radio'][name='sex'][value='M']",
   );
-  const submitButton = document.querySelector("#submit_btn");
+  const submitButton = document.querySelector('#submit_btn');
 
   nicknameInput.value = genRandomNickName(15);
   // nicknameInput.value = `Man${genRandomNumber(1000, 9999)}`;
@@ -248,7 +248,7 @@ const loginWithNewAccount = () => {
 };
 
 const isLoggedin = () => {
-  const loginForm = document.querySelector("#start_form");
+  const loginForm = document.querySelector('#start_form');
   // console.log(loginForm);
   return !Boolean(loginForm);
 };
@@ -265,12 +265,12 @@ const sendAd = async ({
   member: Member;
 }) => {
   const chatHistoryExists =
-    document.querySelector("#chat_text_div")?.children.length;
+    document.querySelector('#chat_text_div')?.children.length;
   const lastMessageIsFromMe =
     chatHistoryExists &&
-    Array.from(document.querySelector("#chat_text_div")?.children).some(
+    Array.from(document.querySelector('#chat_text_div')?.children).some(
       (chatMsg) => {
-        return chatMsg.innerText == "Me";
+        return chatMsg.innerText == 'Me';
       },
     );
 
@@ -283,16 +283,16 @@ const sendAd = async ({
     const msgLines = pickRandomVariation(parsedMsgVariations);
     for (let i = 0; i < msgLines.length; i++) {
       await sleep(options.messageLineDelayMs);
-      document.querySelector("#chat_textarea").value = msgLines[i];
+      document.querySelector('#chat_textarea').value = msgLines[i];
       if (options.dryRun) {
         console.log({ msgLine: msgLines[i] });
         continue;
       }
 
-      document.querySelector("#chat_sendbtn").click();
+      document.querySelector('#chat_sendbtn').click();
     }
   } else {
-    console.log("Err -> this should never happen");
+    console.log('Err -> this should never happen');
   }
 };
 
@@ -304,7 +304,7 @@ const limitCache = (limit) => {
 };
 
 (async () => {
-  console.log("=========> injected");
+  console.log('=========> injected');
 
   // todo: use await runServerAction and get rid of this mess
   const response = await runServerAction({
@@ -313,7 +313,7 @@ const limitCache = (limit) => {
   });
   if (response.err) {
     console.log(
-      "Err -> cannot operate with out messages from the server. Cancel.",
+      'Err -> cannot operate with out messages from the server. Cancel.',
     );
     return;
   }
@@ -321,7 +321,7 @@ const limitCache = (limit) => {
   const parsedMsgVariations = response.data.map((msgVariation) => {
     return msgVariation
       .map((line) => {
-        return line.trim().replace("  ", " ");
+        return line.trim().replace('  ', ' ');
       })
       .filter((line) => line.length > 0);
   });
@@ -347,7 +347,7 @@ const limitCache = (limit) => {
     }
 
     // select member
-    member.element.querySelector("a").click();
+    member.element.querySelector('a').click();
     await sleep(1000);
 
     await sendAd({ parsedMsgVariations, member });

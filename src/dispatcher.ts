@@ -1,6 +1,6 @@
-import browser from "./root/utils/browser-playwright";
-import projectsControllers from "./projects/projectsControllers";
-import { BrowserContext } from "playwright";
+import browser from './root/utils/browser-playwright';
+import projectsControllers from './projects/projectsControllers';
+import { BrowserContext } from 'playwright';
 
 // direct means called from the back-end not from the browser console event
 //* old complicated way
@@ -28,7 +28,7 @@ import { BrowserContext } from "playwright";
 // };
 
 export interface Msg {
-  type: "scrapeyardEvent" | "direct";
+  type: 'scrapeyardEvent' | 'direct';
   action: string;
   data: any;
 }
@@ -47,10 +47,10 @@ const dispatcher = async (driver: BrowserContext, msg: Msg) => {
     | ((driver: BrowserContext, args?: any) => void)
     | ((args?: any) => Promise<any>);
   const actionMethod: ActionMethod = actionMethodWrapped;
-  console.log("action: ", msg.action);
+  console.log('action: ', msg.action);
   // console.log({ actionMethod });
   // console.log("EVENT: ", msg);
-  if (typeof actionMethod == "function") {
+  if (typeof actionMethod == 'function') {
     // exec action
     return await actionMethod(driver, msg.data ?? undefined);
   } else {

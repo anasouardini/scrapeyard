@@ -1,9 +1,9 @@
-import browser from "./root/utils/browser-playwright";
-import serverVars from "./root/utils/serverVars";
+import browser from './root/utils/browser-playwright';
+import serverVars from './root/utils/serverVars';
 import projectsControllers, {
   type ProjectsControllers,
-} from "./projects/projectsControllers";
-import dispatcher from "./dispatcher";
+} from './projects/projectsControllers';
+import dispatcher from './dispatcher';
 
 export interface InitProps {
   browsers: { stateful: boolean; headless: boolean }[];
@@ -14,7 +14,7 @@ const init = async ({ browsers }: InitProps) => {
   await dispatcher(serverVars.windows[0], {
     action: ((root: ProjectsControllers) => root.home.load).toString(),
     data: {},
-    type: "direct",
+    type: 'direct',
   });
 };
 

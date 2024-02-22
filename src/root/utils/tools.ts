@@ -1,7 +1,7 @@
-import path from "path";
-import serverVars from "./serverVars";
+import path from 'path';
+import serverVars from './serverVars';
 
-const genAbsolutePath = (relativePath: string = ".") => {
+const genAbsolutePath = (relativePath: string = '.') => {
   return path.join(`${process.cwd()}/${relativePath}`);
 };
 
@@ -17,7 +17,7 @@ function getViewPathObject({
   projectName: string;
   viewName: string;
 }): ViewPath {
-  if (projectName == "root") {
+  if (projectName == 'root') {
     const rootViewPath = `${serverVars.paths.rootViewDir}`;
     return {
       src: `${rootViewPath}/${serverVars.paths.home.srcDir}/${viewName}.tsx`,
@@ -34,15 +34,15 @@ function getViewPathObject({
 
 const cleanString = (string) => {
   return string
-    .split("\n")
+    .split('\n')
     .map((line) => {
       if (!line.length) {
-        return "";
+        return '';
       }
 
-      return line.replace(/( |\t)+/g, " ").replace(/^( |\t)+/g, "");
+      return line.replace(/( |\t)+/g, ' ').replace(/^( |\t)+/g, '');
     })
-    .join("\n");
+    .join('\n');
 };
 
 const randomNumber = ({ min, max }: { min: number; max: number }) => {
@@ -52,9 +52,9 @@ const randomNumber = ({ min, max }: { min: number; max: number }) => {
 };
 
 const randomChars = ({ length }: { length: number }) => {
-  let result = "";
+  let result = '';
   const characters =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   const charactersLength = characters.length;
   let counter = 0;
   while (counter < length) {

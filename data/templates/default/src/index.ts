@@ -4,7 +4,7 @@ import {
   dispatcher,
   type ProjectsControllers,
   type Actions,
-} from "scrapeyard";
+} from 'scrapeyard';
 
 async function main() {
   // initializes browser instances/windows
@@ -19,7 +19,7 @@ async function main() {
   const actions: Partial<Actions> = {
     frugalads: [
       {
-        txt: "Spread Words",
+        txt: 'Spread Words',
         action: (root) => root.frugalads.chatiwus.start,
         data: {},
       },
@@ -30,7 +30,7 @@ async function main() {
     action: ((root: ProjectsControllers) => root.home.load).toString(),
     // actions that would be showed in the home view after execution
     data: actions,
-    type: "direct",
+    type: 'direct',
     // direct: directly from the server (this file)
     // scrapeyardEvent: from a view in the browser
   });

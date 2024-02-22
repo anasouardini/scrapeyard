@@ -1,7 +1,7 @@
-import path from "path";
-import fs from "fs";
+import path from 'path';
+import fs from 'fs';
 
-import vars from "./vars";
+import vars from './vars';
 
 // const currentPath = path.join(__dirname);
 // const dirList = fs
@@ -18,7 +18,7 @@ import vars from "./vars";
 //   parentDirList,
 // });
 
-function printFileTree(dir, prefix = "", ignoredDirs: string[] = []) {
+function printFileTree(dir, prefix = '', ignoredDirs: string[] = []) {
   // Get contents of the directory
   const files = fs.readdirSync(dir);
 
@@ -33,19 +33,19 @@ function printFileTree(dir, prefix = "", ignoredDirs: string[] = []) {
       if (!ignoredDirs.includes(file)) {
         // Print directory name
         console.log(
-          `${prefix}${index === files.length - 1 ? "└──" : "├──"} ${file}/`,
+          `${prefix}${index === files.length - 1 ? '└──' : '├──'} ${file}/`,
         );
         // Recursively print the contents of the directory
         printFileTree(
           filePath,
-          `${prefix}${index === files.length - 1 ? "   " : "│  "}`,
+          `${prefix}${index === files.length - 1 ? '   ' : '│  '}`,
           ignoredDirs,
         );
       }
     } else {
       // Print file name
       console.log(
-        `${prefix}${index === files.length - 1 ? "└──" : "├──"} ${file}`,
+        `${prefix}${index === files.length - 1 ? '└──' : '├──'} ${file}`,
       );
     }
   });
@@ -66,24 +66,24 @@ export interface PackgeInfo {
 }
 function getPackageInfo(packgeDir: string): PackgeInfo {
   const packageInfoJSON = fs.readFileSync(
-    path.join(packgeDir, "package.json"),
-    "utf-8",
+    path.join(packgeDir, 'package.json'),
+    'utf-8',
   );
   const packageInfo = JSON.parse(packageInfoJSON);
   return packageInfo;
 }
 
 function setPackageInfo(packgeDir: string, infoObj: Record<string, any>) {
-  const packageInfoJSON = JSON.stringify(infoObj, null, "  ");
+  const packageInfoJSON = JSON.stringify(infoObj, null, '  ');
   try {
     fs.writeFileSync(
-      path.join(packgeDir, "package.json"),
+      path.join(packgeDir, 'package.json'),
       packageInfoJSON,
-      "utf-8",
+      'utf-8',
     );
     return true;
   } catch (err) {
-    console.log("Err-> ", err);
+    console.log('Err-> ', err);
     return false;
   }
 }

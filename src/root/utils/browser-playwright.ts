@@ -1,12 +1,12 @@
-import { ElementHandle, Locator, Route, chromium } from "playwright";
-import serverVars from "./serverVars";
-import sharedVars from "./globalVars";
-import { BrowserContext, Page } from "playwright";
-import dispatcher, { Msg } from "../../dispatcher";
-import parseView from "./viewParser";
-import { uuid } from "uuidv4";
-import { RequestBodyType } from "./types";
-import tools from "./tools";
+import { ElementHandle, Locator, Route, chromium } from 'playwright';
+import serverVars from './serverVars';
+import sharedVars from './globalVars';
+import { BrowserContext, Page } from 'playwright';
+import dispatcher, { Msg } from '../../dispatcher';
+import parseView from './viewParser';
+import { uuid } from 'uuidv4';
+import { RequestBodyType } from './types';
+import tools from './tools';
 
 async function subscribeToResponsePromise<TReturn>(
   tab: Page,
@@ -29,7 +29,7 @@ async function subscribeToResponsePromise<TReturn>(
   while (true) {
     await tools.sleep(eventData.interval);
     if (eventData.data) {
-      console.log("clearing event listener...");
+      console.log('clearing event listener...');
       unsubscribeToResponse(tab, {
         eventHandler: eventHandlerWrapper,
       });
@@ -42,13 +42,13 @@ const subscribeToResponse = (
   tab: Page,
   { eventHandler }: { eventHandler: (request) => void },
 ) => {
-  tab.on("response", eventHandler);
+  tab.on('response', eventHandler);
 };
 const unsubscribeToResponse = (
   tab: Page,
   { eventHandler }: { eventHandler: (request) => void },
 ) => {
-  tab.off("response", eventHandler);
+  tab.off('response', eventHandler);
 };
 
 const subscribeToRoute = (
@@ -77,7 +77,7 @@ const onLoad = async (
   tab: Page,
   { eventHandler }: { eventHandler: (tab: Page) => void },
 ) => {
-  tab.on("load", eventHandler);
+  tab.on('load', eventHandler);
 };
 
 const observe = (driver: BrowserContext, tab: Page) => {
@@ -133,7 +133,7 @@ const observe = (driver: BrowserContext, tab: Page) => {
         const requestBody = route.request().postData();
         if (!requestBody) {
           console.log(
-            "Err -> the intercepted request/event from the client/view has no body",
+            'Err -> the intercepted request/event from the client/view has no body',
           );
         } else {
           const parsedRequestBody: RequestBodyType = JSON.parse(requestBody);
@@ -141,16 +141,16 @@ const observe = (driver: BrowserContext, tab: Page) => {
           // console.log({ parsedRequestBody });
 
           switch (parsedRequestBody.eventType) {
-            case "runAction": {
+            case 'runAction': {
               const parsedMsg: Msg = parsedRequestBody.data as Msg;
               // todo: the controllers should get the new data and return it back through the dispatcher and back to the client using a post response.
               response = await dispatcher(driver, parsedMsg);
               break;
             }
-            case "clientRequestsUpdate": {
+            case 'clientRequestsUpdate': {
               if (
                 !parsedRequestBody?.data ||
-                typeof parsedRequestBody?.data !== "object"
+                typeof parsedRequestBody?.data !== 'object'
               ) {
                 console.log(
                   "Err -> data, therefor notificationID was not included in the request's body, or body was not parsed when received/intercepted.",
@@ -177,7 +177,7 @@ const observe = (driver: BrowserContext, tab: Page) => {
           // },
           // json: {},
           status: response?.status ?? 200,
-          contentType: "application/json",
+          contentType: 'application/json',
           body: JSON.stringify(response ?? { data: {} }),
         });
         return;
@@ -193,13 +193,13 @@ const newDriver = async ({
   headless?: boolean;
 }) => {
   const driver = await chromium.launchPersistentContext(
-    stateful ? "/home/venego/.config/chromium/" : "",
+    stateful ? '/home/venego/.config/chromium/' : '',
     {
-      channel: "chrome",
+      channel: 'chrome',
       headless: headless ?? false,
       viewport: null,
       // args: ["--enable-extensions"],
-      ignoreDefaultArgs: ["--disable-extensions", "--enable-automation"],
+      ignoreDefaultArgs: ['--disable-extensions', '--enable-automation'],
     },
   );
 
@@ -280,7 +280,7 @@ const newTab = async (
     });
   }
 
-  await tab.route("**/*", (route) => {
+  await tab.route('**/*', (route) => {
     const request = route.request();
     const resourceType = request.resourceType();
 
@@ -288,11 +288,11 @@ const newTab = async (
     //! update beautyLevel's type after updating this list
     let resourceTypesBlackList = [
       //! order matters
-      "scripts",
-      "stylesheet",
-      "font",
-      "media",
-      "image",
+      'scripts',
+      'stylesheet',
+      'font',
+      'media',
+      'image',
     ];
     resourceTypesBlackList = resourceTypesBlackList.slice(beautyLevel);
 
@@ -340,7 +340,7 @@ const clickCenter = async (tab: Page) => {
   });
   if (!viewportSize) {
     console.log(
-      "Err -> could not get the viewport size in order to click in the middle of the screen.",
+      'Err -> could not get the viewport size in order to click in the middle of the screen.',
     );
     return;
   }
@@ -357,7 +357,7 @@ const writeToActiveInput = async (tab: Page, msg: string) => {
 };
 
 export interface KeyboardOptions {
-  action: "press" | "up" | "down" | "insertText" | "best";
+  action: 'press' | 'up' | 'down' | 'insertText' | 'best';
   keys: string;
 }
 const keyboard = async function (tab: Page, { action, keys }: KeyboardOptions) {
@@ -396,7 +396,7 @@ const uploadFile = async (
   },
 ) => {
   if (uploadButtonQuery) {
-    const fileChooserPromise = tab.waitForEvent("filechooser");
+    const fileChooserPromise = tab.waitForEvent('filechooser');
     await exec(tab, {
       string: `document.querySelector("${uploadButtonQuery}").click();`,
     });
@@ -412,7 +412,7 @@ const uploadFile = async (
 // should've been named "isTabOpen"
 const isThereInstance = async (tab: Page) => {
   try {
-    await tab.locator("body").textContent();
+    await tab.locator('body').textContent();
     return { success: true };
   } catch (error) {
     return { success: false };
@@ -421,14 +421,14 @@ const isThereInstance = async (tab: Page) => {
 
 const getMessage = async function (tab: Page) {
   if (!isThereInstance(tab)) {
-    console.log("tab was closed");
+    console.log('tab was closed');
     return null;
   }
 
   let msg;
   try {
     msg = (await tab
-      .locator("p#messenger-shared-memory")
+      .locator('p#messenger-shared-memory')
       .textContent({ timeout: 100 })) as string;
 
     if (msg) {
@@ -448,7 +448,7 @@ const getMessage = async function (tab: Page) {
 
 const clearMessage = async function (tab: Page) {
   if (!isThereInstance(tab)) {
-    console.log("tab was closed");
+    console.log('tab was closed');
     return null;
   }
 
@@ -456,14 +456,14 @@ const clearMessage = async function (tab: Page) {
     // clear text content of the messenger/shared-memory
     await tab.evaluate(() => {
       const sharedMemeoryDomElement = document.querySelector(
-        "p#messenger-shared-memory",
+        'p#messenger-shared-memory',
       );
       if (sharedMemeoryDomElement) {
-        sharedMemeoryDomElement.textContent = "";
+        sharedMemeoryDomElement.textContent = '';
       }
     });
   } catch (e) {
-    console.log("browser.js/clearMessage ->");
+    console.log('browser.js/clearMessage ->');
     console.log(e);
     return false;
   }
@@ -471,13 +471,13 @@ const clearMessage = async function (tab: Page) {
 
 const clearDOM = async (tab: Page) => {
   if (!tab) {
-    console.log("Err -> the tab passed is not valid");
+    console.log('Err -> the tab passed is not valid');
     return;
   }
   await tab.evaluate(() => {
-    const body = document.querySelector("body");
+    const body = document.querySelector('body');
     if (body) {
-      body.innerHTML = "";
+      body.innerHTML = '';
     }
   });
 };
@@ -488,12 +488,12 @@ const focusTab = async (tab: Page) => {
 
 const goto = async function (tab: Page, { url }: { url: string }) {
   if (!isThereInstance(tab)) {
-    console.log("browser instance was killed");
+    console.log('browser instance was killed');
     return null;
   }
 
   if (!url) {
-    console.log("Err -> url is invalid: ", url);
+    console.log('Err -> url is invalid: ', url);
     return;
   }
 
@@ -520,7 +520,7 @@ const findElement = async function (
   },
 ): Promise<Locator | Locator[] | null> {
   if (!isThereInstance(tab)) {
-    console.log("browser instance was killed");
+    console.log('browser instance was killed');
     return null;
   }
 
@@ -661,7 +661,7 @@ const exec = async function (
   // }, stringifiedServerVarsFunction);
 
   if (!isThereInstance(tab)) {
-    console.log("browser instance was killed");
+    console.log('browser instance was killed');
     return;
   }
 

@@ -1,24 +1,24 @@
-import { BrowserContext, Page } from "playwright";
-import tools from "./tools";
+import { BrowserContext, Page } from 'playwright';
+import tools from './tools';
 
 const windows: BrowserContext[] = [];
 const helperVars = {
   paths: {
-    library: "./node_modules/scrapeyard/lib",
+    library: './node_modules/scrapeyard/lib',
   },
 };
 const serverVars = {
   paths: {
-    tmp: tools.genAbsolutePath("src/tmp"),
-    projectsDir: tools.genAbsolutePath("src/projects"),
+    tmp: tools.genAbsolutePath('src/tmp'),
+    projectsDir: tools.genAbsolutePath('src/projects'),
     views: {
-      srcDir: "ui/views/src",
-      buildDir: "ui/views/build",
+      srcDir: 'ui/views/src',
+      buildDir: 'ui/views/build',
     },
-    rootViewDir: tools.genAbsolutePath("src/root/ui"),
+    rootViewDir: tools.genAbsolutePath('src/root/ui'),
     home: {
-      srcDir: "src",
-      buildDir: "build",
+      srcDir: 'src',
+      buildDir: 'build',
     },
     viteBuildConfig: tools.genAbsolutePath(
       `${helperVars.paths.library}/vite.config.build.ts`,

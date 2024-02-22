@@ -1,7 +1,7 @@
-import { type ProjectsControllers } from "../../../../projects/projectsControllers";
-import bridge from "./bridge";
-import vars, { type RequestBodyType } from "./viewsVars";
-import "./index.css";
+import { type ProjectsControllers } from '../../../../projects/projectsControllers';
+import bridge from './bridge';
+import vars, { type RequestBodyType } from './viewsVars';
+import './index.css';
 
 // adding a property by which the server and the view will communicate.
 declare global {
@@ -25,12 +25,12 @@ const listenForServerNotifications = () => {
     // @ts-ignore
     const customEvent: CustomEvent = e as CustomEvent;
     const body: RequestBodyType = {
-      eventType: "clientRequestsUpdate",
+      eventType: 'clientRequestsUpdate',
       data: {
         notificationID: customEvent.detail.notificationID,
       },
     };
-    const response = await bridge("post", vars.eventName, body);
+    const response = await bridge('post', vars.eventName, body);
     // TODO: new data has to appear in the view (not sure yet how).
   });
 };
@@ -61,17 +61,17 @@ interface Msg {
 const runServerAction = async (msg: Msg) => {
   //* the super uber new method
   const newMsg: RequestBodyType = {
-    eventType: "runAction",
+    eventType: 'runAction',
     data: {
       data: msg.data,
       action: msg.action.toString(),
     },
   };
 
-  const response = await bridge("post", vars.eventName, newMsg);
+  const response = await bridge('post', vars.eventName, newMsg);
   if (response?.err) {
     console.log({
-      Err: "Err -> Action was not executed on the server.",
+      Err: 'Err -> Action was not executed on the server.',
       response,
     });
   }
@@ -130,25 +130,25 @@ const runServerAction = async (msg: Msg) => {
 // };
 
 const colors = {
-  accent: "rgb(14 144 34)",
+  accent: 'rgb(14 144 34)',
 };
 
 const globalStyle = {
   btn: {
-    cursor: "pointer",
+    cursor: 'pointer',
     background: colors.accent,
-    color: "white",
-    "font-size": "1.2rem",
-    border: "none",
-    "border-radius": "10px",
-    padding: "4px 8px",
+    color: 'white',
+    'font-size': '1.2rem',
+    border: 'none',
+    'border-radius': '10px',
+    padding: '4px 8px',
     // margin : '10px 0 0 5px',
   },
   btnsContainer: {
-    position: "sticky",
-    top: "20px",
-    left: "20px",
-    "z-index": "99999",
+    position: 'sticky',
+    top: '20px',
+    left: '20px',
+    'z-index': '99999',
   },
 };
 

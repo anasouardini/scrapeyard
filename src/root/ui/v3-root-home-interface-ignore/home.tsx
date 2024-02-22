@@ -1,23 +1,23 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import Header from "$ui/src/components/layout/header";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import Header from '$ui/src/components/layout/header';
 // import Header from './components/layout/header';
 
-import controlPanels from "../../../projects/projectsControlPannels";
-import { type ProjectName } from "../../../projects/projectsControlPannels";
+import controlPanels from '../../../projects/projectsControlPannels';
+import { type ProjectName } from '../../../projects/projectsControlPannels';
 
 interface State {
   currentProject: ProjectName;
 }
 type Action =
-  | { type: "setProject"; projectName: State["currentProject"] }
-  | { type: "nothing" };
+  | { type: 'setProject'; projectName: State['currentProject'] }
+  | { type: 'nothing' };
 const reducer = (state: State, action: Action): State => {
   switch (action.type) {
-    case "setProject": {
+    case 'setProject': {
       return { currentProject: action.projectName };
     }
-    case "nothing": {
+    case 'nothing': {
       return state;
     }
   }
@@ -25,13 +25,13 @@ const reducer = (state: State, action: Action): State => {
 
 function IndexPage() {
   const [state, dispatch] = React.useReducer(reducer, {
-    currentProject: "dreamjob",
+    currentProject: 'dreamjob',
   });
 
   const ProjectControlPanel = controlPanels[state.currentProject];
   const setProject = (projectName: ProjectName) => {
     // todo: update DB
-    dispatch({ type: "setProject", projectName });
+    dispatch({ type: 'setProject', projectName });
   };
 
   return (
@@ -42,4 +42,4 @@ function IndexPage() {
   );
 }
 
-ReactDOM.createRoot(document.querySelector("body")!).render(<IndexPage />);
+ReactDOM.createRoot(document.querySelector('body')!).render(<IndexPage />);

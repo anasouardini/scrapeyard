@@ -1,4 +1,4 @@
-import vars from "./viewsVars";
+import vars from './viewsVars';
 
 const server = {
   url: `${vars.serverFakeAddress}`,
@@ -7,11 +7,11 @@ const server = {
     // console.log(body);
     const options: RequestInit = {
       // mode: "no-cors",
-      cache: "no-cache",
+      cache: 'no-cache',
       method,
       headers: {
-        Accept: "application.json",
-        "Content-Type": "application/json",
+        Accept: 'application.json',
+        'Content-Type': 'application/json',
       },
     };
 
@@ -26,7 +26,7 @@ const handleFirstReponse = async (res) => {
   try {
     jsonParsedResponse = await res.json();
   } catch (err) {
-    console.log("Failed to get .json() [handleFirstResponse]", { err });
+    console.log('Failed to get .json() [handleFirstResponse]', { err });
   }
   return {
     data: jsonParsedResponse?.data,
@@ -36,37 +36,37 @@ const handleFirstReponse = async (res) => {
 
 const methods = {
   post: (route: string, body?: {}) => {
-    return fetch(`${server.url}/${route}`, server.options("post", body))
+    return fetch(`${server.url}/${route}`, server.options('post', body))
       .then(async (res) => {
         return await handleFirstReponse(res);
       })
       .catch((err) => {
-        console.log("Failed to get response [methods]", { err });
+        console.log('Failed to get response [methods]', { err });
       });
   },
 
   read: (route: string) =>
-    fetch(`${server.url}/${route}`, server.options("get"))
+    fetch(`${server.url}/${route}`, server.options('get'))
       .then(async (res) => {
         return await handleFirstReponse(res);
       })
       .catch((err) => {
-        console.log("Failed to get response [methods]", { err });
+        console.log('Failed to get response [methods]', { err });
       }),
 
   update: (route: string, body?: {}) => {
     // console.log('update route', route)
-    return fetch(`${server.url}/${route}`, server.options("put", body))
+    return fetch(`${server.url}/${route}`, server.options('put', body))
       .then(async (res) => {
         return await handleFirstReponse(res);
       })
       .catch((err) => {
-        console.log("Failed to get response [methods]", { err });
+        console.log('Failed to get response [methods]', { err });
       });
   },
 
   remove: (route: string, body?: {}) =>
-    fetch(`${server.url}/${route}`, server.options("delete", body))
+    fetch(`${server.url}/${route}`, server.options('delete', body))
       .then(async (res) => {
         return await handleFirstReponse(res);
       })
@@ -77,11 +77,11 @@ const sleep = (t: number) => new Promise((resolve) => setTimeout(resolve, t));
 
 // I could've used a proxy but this is so much easier
 const handleRequest = async (
-  method: "post" | "read" | "update" | "updateFile" | "remove",
+  method: 'post' | 'read' | 'update' | 'updateFile' | 'remove',
   route: string,
   body?: {},
 ) => {
-  if (route[0] == "/") {
+  if (route[0] == '/') {
     route = route.slice(1);
   }
 
@@ -94,13 +94,13 @@ const handleRequest = async (
       `client error while trying to make a request. route:${route}`,
       err,
     );
-    return { err: "connectionError", route };
+    return { err: 'connectionError', route };
   }
 
   // console.log({ response });
   if (response?.status != 200) {
     console.log(`${response}. route: ${route}`);
-    return { err: "serverError" };
+    return { err: 'serverError' };
   }
 
   return response;

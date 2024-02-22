@@ -1,7 +1,7 @@
 #!/bin/env node
 
-import tools from "./tools";
-import vars, { Args } from "./vars";
+import tools from './tools';
+import vars, { Args } from './vars';
 
 // tools.printFileTree(vars.parentPath, "", ["node_modules"]);
 
@@ -9,16 +9,16 @@ const packageInfo = tools.getPackageInfo(vars.parentPath);
 
 function showUsage() {
   console.log(`Usage: pnpx ${packageInfo.name} [option]`);
-  console.log("Options:");
+  console.log('Options:');
   vars.availableArgs.forEach((arg) => {
     console.log(`   ${arg.name}: ${arg.description}`);
   });
 }
 
-function getAction(option: Args["option"]) {
+function getAction(option: Args['option']) {
   if (!option) {
     return (dummy: any[]) => {
-      console.log("you must provide an option.");
+      console.log('you must provide an option.');
       showUsage();
     };
   }

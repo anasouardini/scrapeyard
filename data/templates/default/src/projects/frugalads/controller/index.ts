@@ -1,4 +1,4 @@
-import chatiwus from "./chatiwus";
+import chatiwus from './chatiwus';
 
 export default {
   chatiwus,

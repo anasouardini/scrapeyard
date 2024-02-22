@@ -1,5 +1,5 @@
-import home from "../root/controller/index";
-import frugalads from "./frugalads/controller/index";
+import home from '../root/controller/index';
+import frugalads from './frugalads/controller/index';
 // [import above this line]
 
 const controllers = {

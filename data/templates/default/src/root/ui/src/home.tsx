@@ -1,14 +1,14 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
 import {
   vars,
   bridge,
   sleep,
   runServerAction,
   globalStyle,
-} from "scrapeyard/lib/viewsInterface";
+} from 'scrapeyard/lib/viewsInterface';
 
-import { type ProjectsControllers, type Actions } from "scrapeyard";
+import { type ProjectsControllers, type Actions } from 'scrapeyard';
 
 const myNode = document.body;
 
@@ -18,12 +18,12 @@ while (myNode.firstChild) {
 }
 
 // styling
-document.body.style.background = "#000";
+document.body.style.background = '#000';
 const style = {
   btn: {
     ...globalStyle.btn,
-    margin: "20px 0 0 20px",
-    cursor: "pointer",
+    margin: '20px 0 0 20px',
+    cursor: 'pointer',
   },
   btnsContainer: globalStyle.btnsContainer,
 };
@@ -64,7 +64,7 @@ function Component() {
           }
       `}
       </style>
-      <div id="controls" style={{ padding: "20px 0 0 20px" }}>
+      <div id='controls' style={{ padding: '20px 0 0 20px' }}>
         {/* @ts-ignore */}
         {Object.keys(projects).map((projectKey: keyof typeof projects) => {
           const buttons = projects[projectKey];
@@ -73,7 +73,7 @@ function Component() {
           }
           return (
             <section key={projectKey}>
-              <h2 style={{ marginTop: "1rem", marginBottom: ".5rem" }}>
+              <h2 style={{ marginTop: '1rem', marginBottom: '.5rem' }}>
                 {projectKey}
               </h2>
               {buttons.map(({ txt, action, data }) => {
@@ -85,10 +85,10 @@ function Component() {
                     style={{
                       ...style.btn,
                       margin: 0,
-                      marginRight: "1rem",
-                      fontSize: "1.7rem",
-                      fontWeight: "bold",
-                      color: "black",
+                      marginRight: '1rem',
+                      fontSize: '1.7rem',
+                      fontWeight: 'bold',
+                      color: 'black',
                     }}
                   >
                     {txt}
@@ -103,5 +103,5 @@ function Component() {
   );
 }
 
-ReactDOM.createRoot(document.querySelector("body")!).render(Component());
+ReactDOM.createRoot(document.querySelector('body')!).render(Component());
 // export default Component;

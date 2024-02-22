@@ -1,8 +1,8 @@
-import fs from "fs";
-import tools, { type ViewPath } from "./tools";
-import serverVars from "./serverVars";
-import builder from "./viewBuilder/viewBuilder";
-import util from "util";
+import fs from 'fs';
+import tools, { type ViewPath } from './tools';
+import serverVars from './serverVars';
+import builder from './viewBuilder/viewBuilder';
+import util from 'util';
 
 const getBuildLogObject = ({
   projectName,
@@ -11,7 +11,7 @@ const getBuildLogObject = ({
   projectName: string;
   viewName: string;
 }) => {
-  const buildLogFileJson = fs.readFileSync(serverVars.paths.buildLog, "utf-8");
+  const buildLogFileJson = fs.readFileSync(serverVars.paths.buildLog, 'utf-8');
   if (!buildLogFileJson) {
     console.log(
       `Err (viewParser) -> build log doesn't exist at (${serverVars.paths.buildLog})`,
@@ -64,7 +64,7 @@ const isUp2date = ({
     viewName,
   });
   if (!viewStat) {
-    console.log("project does not exist in log, first time build.");
+    console.log('project does not exist in log, first time build.');
     return false;
   }
   const outputBuildTimeMs = viewStat.buildTimeMs;
@@ -86,14 +86,14 @@ const parseView = ({
   viewName?: string;
   data?: Record<string, any>;
 }): { success: boolean; error?: any; data?: string } => {
-  console.log("view parsing requested", { projectName, viewName });
+  console.log('view parsing requested', { projectName, viewName });
   //* I don't need to specify the current project's name unless it's the "root"(project name) interface that's being injected.
   if (projectName == undefined) {
     // TODO: get current project's name as a default.
     // projectName = currentProject.name;
   }
 
-  let finalViewString = "";
+  let finalViewString = '';
 
   // TODO: instead of prepending vars, let the client/view request them using the bridge utility, because JSON sucks.
   if (data) {
@@ -110,13 +110,13 @@ const parseView = ({
     Number(Boolean(viewName)) - Number(Boolean(projectName)) == 0;
   if (!areBothViewAndProjectNamesProvided) {
     console.log(
-      "Err -> viewName and projectName should exist together in order to locate the view file, have you forgotten one of them?",
+      'Err -> viewName and projectName should exist together in order to locate the view file, have you forgotten one of them?',
       { viewName, projectName },
     );
     return {
       success: false,
       error:
-        "Err -> viewName and projectName should exist together in order to locate the view file, have you forgotten one of them?",
+        'Err -> viewName and projectName should exist together in order to locate the view file, have you forgotten one of them?',
     };
   }
 
@@ -139,11 +139,11 @@ const parseView = ({
       !fs.existsSync(viewPath.build) ||
       !isUp2date({ projectName, viewName, viewSrcPath: viewPath.src })
     ) {
-      console.log("* The view is outdated, building...");
+      console.log('* The view is outdated, building...');
       builder({ projectName, viewName });
     }
 
-    let viewString = fs.readFileSync(viewPath.build, "utf-8");
+    let viewString = fs.readFileSync(viewPath.build, 'utf-8');
     finalViewString += viewString;
   }
 

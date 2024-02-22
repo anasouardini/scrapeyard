@@ -18,13 +18,13 @@ const get = <DBTables>({
   orderBy?: string;
 }) => {
   let query = `select ${
-    columns?.length ? columns.join(", ") : "*"
+    columns?.length ? columns.join(', ') : '*'
   } from ${table}`;
   let params: Record<string, any> = {};
 
   const filterEntries = Object.entries(filter ?? {});
   if (filterEntries.length) {
-    query += " where ";
+    query += ' where ';
     const criteria: string[] = [];
     filterEntries.forEach((criterion) => {
       if (criterion[1] === null) {
@@ -34,14 +34,14 @@ const get = <DBTables>({
       criteria.push(`${criterion[0]}=$${criterion[0]}`);
       params[criterion[0]] = criterion[1];
     });
-    query += criteria.join(" and ");
+    query += criteria.join(' and ');
   }
 
   if (start) {
-    if (query.includes("where")) {
-      query += " and ";
+    if (query.includes('where')) {
+      query += ' and ';
     }
-    query += `${start ? `id>=$id` : ""}`;
+    query += `${start ? `id>=$id` : ''}`;
     params.id = start;
   }
 
@@ -71,23 +71,23 @@ const add = <DBTables>({
   const valuesValues = Object.values(values ?? {});
   if (valuesKeys.length) {
     // specifying columns
-    query += " (";
+    query += ' (';
     const qKeys: string[] = [];
     valuesKeys.forEach((value) => {
       qKeys.push(`${value}`);
     });
-    query += qKeys.join(", ");
-    query += ")";
+    query += qKeys.join(', ');
+    query += ')';
 
     // adding values
-    query += " values(";
+    query += ' values(';
     const qValues: string[] = [];
     valuesValues.forEach((value) => {
-      qValues.push("?");
+      qValues.push('?');
       params.push(value);
     });
-    query += qValues.join(", ");
-    query += ")";
+    query += qValues.join(', ');
+    query += ')';
   }
 
   return { query, params };
@@ -107,26 +107,26 @@ const update = <DBTables>({
 
   const valuesEntries = Object.entries(newValues ?? {});
   if (!valuesEntries.length) {
-    console.log("Err -> there were no provided values to update");
+    console.log('Err -> there were no provided values to update');
     return false;
   }
-  query += " set ";
+  query += ' set ';
   const qValues: string[] = [];
   valuesEntries.forEach((value) => {
     qValues.push(`${value[0]}=?`);
     params.push(value[1]);
   });
-  query += qValues.join(", ");
+  query += qValues.join(', ');
 
   const filterEntries = Object.entries(filter ?? {});
   if (filterEntries.length) {
-    query += " where ";
+    query += ' where ';
     const criteria: string[] = [];
     filterEntries.forEach((criterion) => {
       criteria.push(`${criterion[0]}=?`);
       params.push(criterion[1]);
     });
-    query += criteria.join(" and ");
+    query += criteria.join(' and ');
   }
 
   return { query, params };
@@ -145,11 +145,11 @@ const create = <DBTables>({
   const valuesKeys = Object.keys(newValues);
   const valuesValues = Object.values(newValues);
   if (!valuesKeys.length) {
-    console.log("Err -> there were no provided values to update");
+    console.log('Err -> there were no provided values to update');
     return false;
   }
-  query += ` (${valuesKeys.join(", ")})`;
-  query += ` values (${valuesValues.map((v) => "?").join(", ")})`;
+  query += ` (${valuesKeys.join(', ')})`;
+  query += ` values (${valuesValues.map((v) => '?').join(', ')})`;
   params.push(...valuesValues);
 
   return { query, params };

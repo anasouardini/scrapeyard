@@ -1,1 +1,1 @@
-export default { eventName: "scrapeyardEvent" };
+export default { eventName: 'scrapeyardEvent' };

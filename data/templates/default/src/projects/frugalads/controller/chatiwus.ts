@@ -5,13 +5,13 @@ import {
   serverVars,
   dispatcher,
   type ProjectsControllers,
-} from "scrapeyard";
-import msg from "../data/fiverr-gig.msg";
-import { BrowserContext, Page, Route } from "playwright";
-import vars, { type Member } from "../utils/vars";
-import fiverrGigMsg from "../data/fiverr-gig.msg";
-import twitterPostMsg from "../data/twitter-post-ad";
-import twitterAccount from "../data/twitter-account-ad";
+} from 'scrapeyard';
+import msg from '../data/fiverr-gig.msg';
+import { BrowserContext, Page, Route } from 'playwright';
+import vars, { type Member } from '../utils/vars';
+import fiverrGigMsg from '../data/fiverr-gig.msg';
+import twitterPostMsg from '../data/twitter-post-ad';
+import twitterAccount from '../data/twitter-account-ad';
 
 const options = {
   numberOfInstances: 1,
@@ -23,7 +23,7 @@ interface Profile {
   age: number;
 }
 const injectChatiwView = (tab: Page) => {
-  browser.injectView(tab, { projectName: "frugalads", viewName: "chatiwus" });
+  browser.injectView(tab, { projectName: 'frugalads', viewName: 'chatiwus' });
 };
 
 const statsPrinter = () => {
@@ -93,7 +93,7 @@ const start = async (driver: BrowserContext) => {
   //? first page is cursed, go back to newTab.
   const chatiwusTab = driver.pages()[0];
   await browser.goto(chatiwusTab, {
-    url: "https://chatiw.us",
+    url: 'https://chatiw.us',
   });
 
   //* event listener waiting for the chatting ui to appear, and for the user to manuall submit the captcha.
@@ -107,7 +107,7 @@ const start = async (driver: BrowserContext) => {
     //* wait for the recaptcha to appear (or not)
     await serverTools.sleep(10000);
     const recaptchaExists = await browser.findElement(chatiwusTab, {
-      query: ".g-recaptcha",
+      query: '.g-recaptcha',
     });
     if (!recaptchaExists) {
       browser.unsubscribeToRoute(chatiwusTab, {
@@ -121,7 +121,7 @@ const start = async (driver: BrowserContext) => {
       }
       eventGlobalVars.alreadyHandlingEvent = true;
 
-      console.log("recaptcha gone");
+      console.log('recaptcha gone');
       injectChatiwView(chatiwusTab);
     }
 
@@ -196,7 +196,7 @@ const whichMembereWasNotApproached = (
 
 const wasMemberApproached = (targetMember: Member) => {
   if (!targetMember?.nickname) {
-    console.log("invalid targetMember was provided in wasMemberApproached");
+    console.log('invalid targetMember was provided in wasMemberApproached');
     return null;
   }
 
@@ -210,7 +210,7 @@ const wasMemberApproached = (targetMember: Member) => {
     const exactSameMemberHaveBeenApproached = Object.keys(
       approachedMember,
     ).every((targetPersonKey) => {
-      if (targetPersonKey == "DOMElementIndex") {
+      if (targetPersonKey == 'DOMElementIndex') {
         return true;
       }
       return (
@@ -240,9 +240,9 @@ const wasMemberApproached = (targetMember: Member) => {
 const getAdVariations = () => {
   const parsedMsgVariations = options.msgVariations.map((msg) => {
     return msg
-      .split("\n")
+      .split('\n')
       .map((line) => {
-        return line.replace(/\s+/g, " ").trim();
+        return line.replace(/\s+/g, ' ').trim();
       })
       .filter((line) => line.length > 0);
   });

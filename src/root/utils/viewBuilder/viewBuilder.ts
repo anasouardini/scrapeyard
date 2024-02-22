@@ -1,7 +1,7 @@
-import path from "path";
-import fs from "fs";
-import { execSync } from "child_process";
-import serverVars from "../serverVars";
+import path from 'path';
+import fs from 'fs';
+import { execSync } from 'child_process';
+import serverVars from '../serverVars';
 
 interface View {
   projectName: string;
@@ -40,13 +40,13 @@ interface View {
 
 function setupViteConfig({ project, view }) {
   const viteBuildConfigPath = path.join(serverVars.paths.viteBuildConfig);
-  let viteBuildConfigCode = fs.readFileSync(viteBuildConfigPath, "utf-8");
+  let viteBuildConfigCode = fs.readFileSync(viteBuildConfigPath, 'utf-8');
   viteBuildConfigCode = viteBuildConfigCode.replace(
     /input:\s*{\s*([^}]*)\s*}/,
-    `input: {'${view.name.split(".")[0]}':'${view.path}'}`,
+    `input: {'${view.name.split('.')[0]}':'${view.path}'}`,
   );
   const outDirPath =
-    project.name == "root"
+    project.name == 'root'
       ? `outDir: "${serverVars.paths.rootViewDir}/${serverVars.paths.home.buildDir}",`
       : `outDir: "${serverVars.paths.projectsDir}/${project.name}/${serverVars.paths.views.buildDir}",`;
 
@@ -54,12 +54,12 @@ function setupViteConfig({ project, view }) {
     /outDir:\s*("[^"]*"),/,
     outDirPath,
   );
-  console.log("* vite build config");
+  console.log('* vite build config');
   fs.writeFileSync(viteBuildConfigPath, viteBuildConfigCode);
 }
 
 function buildView() {
-  console.log("* vite build");
+  console.log('* vite build');
   // todo: implement exec properly
   // todo: you should run vite relative to the project's root path, or install vite globally?
   // console.log(tools.bashExec.name);
@@ -82,7 +82,7 @@ function updateBuildLog({
   }
   type BuildLog = Record<string, Record<string, TimeLog>>;
   const buildLog = JSON.parse(
-    fs.readFileSync(serverVars.paths.buildLog, "utf-8"),
+    fs.readFileSync(serverVars.paths.buildLog, 'utf-8'),
   );
 
   // first time building on of the project's views
@@ -123,7 +123,7 @@ function getProjectsDirsList() {
     .readdirSync(targetPath, { withFileTypes: true })
     .filter((dirObj) => {
       //   console.log("dirObj", dirObj);
-      return !dirObj.name.includes("."); // no extensions = a project directory, not a file
+      return !dirObj.name.includes('.'); // no extensions = a project directory, not a file
 
       // ! Nextjs uses an old version of Nodejs
       // return dirObj.entry?.isDirectory;
@@ -134,7 +134,7 @@ function getProjectsDirsList() {
     }));
 
   // add the root path (for including the home view).
-  dirList.push({ name: "root", path: serverVars.paths.rootViewDir });
+  dirList.push({ name: 'root', path: serverVars.paths.rootViewDir });
 
   return dirList as { name: string; path: string }[];
 }
@@ -143,14 +143,14 @@ function getViewsFilesList(projectDirPath: string) {
   let projectViewComponentsPath = `${projectDirPath}/${serverVars.paths.views.srcDir}`;
 
   // TODO: replace this hack
-  if (projectDirPath.includes("root")) {
+  if (projectDirPath.includes('root')) {
     projectViewComponentsPath = `${projectDirPath}/src`;
   }
 
   // console.log(projectViewComponentsPath);
   const dirList = fs
     .readdirSync(projectViewComponentsPath, { withFileTypes: true })
-    .filter((dirObj) => dirObj.name.includes(".tsx"))
+    .filter((dirObj) => dirObj.name.includes('.tsx'))
     .map((dirObj) => ({
       name: dirObj.name,
       path: `${projectViewComponentsPath}/${dirObj.name}`,
@@ -193,7 +193,7 @@ export default function builder(targetComponent: View) {
     // console.log(viewsList);
     if (targetComponent.viewName) {
       const filteredList = viewsList.filter(
-        (view) => view.name.split(".")[0] == targetComponent.viewName,
+        (view) => view.name.split('.')[0] == targetComponent.viewName,
       );
       if (!filteredList.length) {
         console.log(
@@ -213,10 +213,10 @@ export default function builder(targetComponent: View) {
       // standaloneScript2ViewComponent(viewCompoentPath);
       updateBuildLog({
         projectName: project.name,
-        viewName: view.name.split(".")[0],
+        viewName: view.name.split('.')[0],
         viewSrcPath: view.path,
       });
-      console.log("Vite Build : END");
+      console.log('Vite Build : END');
     });
   });
 }

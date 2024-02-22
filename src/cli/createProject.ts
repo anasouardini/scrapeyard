@@ -1,7 +1,7 @@
 #!/bin/env node
 
-import createProject from "../root/utils/projectInitializer";
-import serverVars from "../root/utils/serverVars";
+import createProject from '../root/utils/projectInitializer';
+import serverVars from '../root/utils/serverVars';
 
 const args = {
   length: process.argv.length,

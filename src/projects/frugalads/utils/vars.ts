@@ -1,7 +1,7 @@
 export interface Member {
   nickname: string;
   country: string;
-  gender: "male" | "female";
+  gender: 'male' | 'female';
   age: number;
   DOMElementIndex: number;
 }
@@ -9,7 +9,7 @@ export interface Site {
   peopleWereApproached: Record<string, Member>;
 }
 interface Vars {
-  sites: Record<"chatiwus", Site>;
+  sites: Record<'chatiwus', Site>;
   sessionStats: {
     previous: {
       checksCount: number;
