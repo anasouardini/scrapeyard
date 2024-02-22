@@ -6,7 +6,8 @@ import "colors";
 import tools from "./tools";
 
 const parentPath = path.join(__dirname, "..", "..");
-const packagejsonPath = path.join(__dirname, "..", "package.json");
+const templatesDir = path.join(parentPath, "data", "templates");
+const packagejsonPath = path.join(parentPath, "package.json");
 
 const availableArgs = [
   {
@@ -24,7 +25,6 @@ const availableArgs = [
         );
       }
 
-      const templatesDir = path.join(__dirname, "..", "data", "templates");
       const templates = fse.readdirSync(templatesDir);
 
       // const confirmCreateDirectory = readLineSync.keyInYN(`You entered '${projectName}', create directory with this name?`);
