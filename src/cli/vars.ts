@@ -1,26 +1,28 @@
-import path from "path";
-import readLineSync from "readline-sync";
-import fse from "fs-extra";
-import fs from "fs";
-import "colors";
-import tools from "./tools";
+import path from 'path';
+import readLineSync from 'readline-sync';
+import fse from 'fs-extra';
+import fs from 'fs';
+import 'colors';
+import tools from './tools';
 
-const parentPath = path.join(__dirname, "..", "..");
-const templatesDir = path.join(parentPath, "data", "templates");
-const packagejsonPath = path.join(parentPath, "package.json");
+const parentPath = path.join(__dirname, '..', '..');
+const templatesDir = path.join(parentPath, 'data', 'templates');
+const packagejsonPath = path.join(parentPath, 'package.json');
 
 const availableArgs = [
   {
-    name: "init",
-    description: "Initializes the project",
+    name: 'init',
+    description: 'Initializes the project',
     action: (args: any[]) => {
+      // todo: remove deps from testing
+      // todo: find a trick to ignore node_modules in npm
       let projectName = args[0];
       if (!projectName) {
         projectName = readLineSync.question(
-          "What is the name of your project? ",
+          'What is the name of your project? ',
           {
             limit: (input) => input.trim().length > 0,
-            limitMessage: "The project has to have a name, try again",
+            limitMessage: 'The project has to have a name, try again',
           },
         );
       }
@@ -47,6 +49,9 @@ const availableArgs = [
       templatePackageInfo.name = projectName;
       templatePackageInfo.keywords.push(projectName);
       // adding scrapeyard to package.json using the exact version that's initializing the new project.
+      if (!templatePackageInfo.dependencies) {
+        templatePackageInfo.dependencies = {};
+      }
       templatePackageInfo.dependencies[scrapeyardPackageInfo.name] =
         `^${scrapeyardPackageInfo.version}`;
 
@@ -54,11 +59,11 @@ const availableArgs = [
     },
   },
   {
-    name: "sync",
-    description: "updates types to include newly added projects and views",
+    name: 'sync',
+    description: 'updates types to include newly added projects and views',
     action: () => {
       // todo: add types
-      console.log("syncing...");
+      console.log('syncing...');
     },
   },
 ];
@@ -66,7 +71,7 @@ const availableArgs = [
 // export type Options = (typeof availableArgs)[number]["name"];
 export interface Args {
   length: number;
-  option: "init" | "sync";
+  option: 'init' | 'sync';
   optionArgs: any[];
 }
 
