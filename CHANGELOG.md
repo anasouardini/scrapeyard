@@ -1,5 +1,11 @@
 # scrapeyard
 
+## 0.9.3
+
+### Patch Changes
+
+- fixed issues in initialization command: `pnpx scrapeyard@latest init newProjectName`
+
 ## 0.9.2
 
 ### Patch Changes
