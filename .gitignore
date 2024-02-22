@@ -1,3 +1,5 @@
+## temp
+
 # Logs
 logs
 *.log
@@ -16,7 +18,7 @@ dist-ssr
 *.local
 
 # Editor directories and files
-.github/workflows/publish.yaml
+.github/workflows/cd.yaml
 .vscode/*
 .changeset
 !.vscode/extensions.json
