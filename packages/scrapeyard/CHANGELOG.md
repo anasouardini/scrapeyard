@@ -1,5 +1,7 @@
 # scrapeyard
 
+## 0.10.1
+
 ## 0.10.0
 
 ### Minor Changes

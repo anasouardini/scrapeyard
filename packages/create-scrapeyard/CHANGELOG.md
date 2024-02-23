@@ -1,5 +1,11 @@
 # create-scrapeyard
 
+## 0.10.1
+
+### Patch Changes
+
+- Fixed a typo in changelog
+
 ## 0.10.0
 
 ### Minor Changes
