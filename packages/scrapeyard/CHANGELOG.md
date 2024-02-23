@@ -1,5 +1,11 @@
 # scrapeyard
 
+## 0.11.0
+
+### Minor Changes
+
+- Now the command: `pnpm create scrapeyard` simply works, it's more intuitive.
+
 ## 0.10.2
 
 ### Patch Changes
