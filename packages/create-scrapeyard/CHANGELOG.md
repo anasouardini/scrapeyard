@@ -6,8 +6,6 @@
 
 - Changed setup to a monorepo setup and separated bin initialization command into its own npm package.
 
-# scrapeyard
-
 ## 0.9.3
 
 ### Patch Changes
