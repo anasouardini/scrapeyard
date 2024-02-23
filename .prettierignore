@@ -1,6 +1,7 @@
 build
 bin
 node_modules
+.pnpm
 dist
 dev-dist
 coverage
