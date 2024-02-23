@@ -28,9 +28,5 @@ jobs:
         run: pnpm config set store-dir $PNPM_CACHE_FOLDER
       - name: install dependencies
         run: pnpm install
-
-      - name: Install dependencies
-        run: npm install
-
       - name: Run CI
-        run: npm run ci
+        run: pnpm run ci

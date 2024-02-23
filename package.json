@@ -9,7 +9,7 @@
     "formatCheck": "prettier . --check",
     "lint": "pnpm --filter='./packages/*' --parallel run lint",
     "build": "pnpm --filter='./packages/*' --parallel run build",
-    "ci": "npm run formatCheck && npm run lint && npm run testOnce && npm run build",
+    "ci": "pnpm run formatCheck && pnpm run lint && pnpm run testOnce && pnpm run build",
     "SEPARATOR1": "------------- DELIVERY-RELATED STUFF ------------",
     "createRelease": "npx changeset add && npx changeset version && git add . && git commit -m 'chore(release): create a release' --no-verify",
     "pushReleaseGit": "git push origin main && git push origin --tags",
