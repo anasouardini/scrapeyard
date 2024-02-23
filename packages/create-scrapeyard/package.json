@@ -1,6 +1,5 @@
 {
   "name": "create-scrapeyard",
-  "private": true,
   "version": "0.10.1",
   "description": "Initialization tool for scrapeyard.",
   "license": "MIT",

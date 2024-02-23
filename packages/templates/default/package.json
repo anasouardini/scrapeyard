@@ -1,6 +1,7 @@
 {
   "name": "projectname",
-  "version": "0.1.0",
+  "version": "0.0.1",
+  "private": true,
   "description": "This project was made using a framework called Scrapeyard.",
   "main": "./src/index.ts",
   "license": "MIT",
