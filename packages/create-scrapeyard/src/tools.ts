@@ -1,7 +1,12 @@
 import path from 'path';
 import fs from 'fs';
 
+import readLineSync from 'readline-sync';
+import fse from 'fs-extra';
+import 'colors';
+
 import vars from './vars';
+import tools from './tools';
 
 // const currentPath = path.join(__dirname);
 // const dirList = fs
@@ -17,6 +22,69 @@ import vars from './vars';
 //   parentPath,
 //   parentDirList,
 // });
+
+const packageInfo = getPackageInfo(vars.parentPath);
+export function showUsage() {
+  console.log(`Usage: pnpm create ${packageInfo.name} [project name]`);
+  // console.log('Options:');
+  // vars.availableArgs.forEach((arg) => {
+  //   console.log(`   ${arg.name}: ${arg.description}`);
+  // });
+}
+
+export function parseArgs(args: string[]) {
+  return true;
+}
+
+export function createTemplateProject(args: string[]) {
+  if (args.length > 1) {
+    console.log('too many arguments.');
+    showUsage();
+    return false;
+  }
+
+  let projectName = args[0];
+
+  // todo: remove deps from testing
+  // todo: find a trick to ignore node_modules in npm
+  if (!projectName) {
+    projectName = readLineSync.question('What is the name of your project? ', {
+      limit: (input) => input.trim().length > 0,
+      limitMessage: 'The project has to have a name, try again',
+    });
+  }
+
+  const templates = fse.readdirSync(vars.templatesDir);
+
+  // const confirmCreateDirectory = readLineSync.keyInYN(`You entered '${projectName}', create directory with this name?`);
+
+  const template = templates[0];
+  if (!templates.length) {
+    console.log(`Err -> found no templates to instanciate.`.red);
+    return;
+  }
+
+  const source = path.join(vars.templatesDir, template);
+  const destination = path.join(process.cwd(), projectName);
+
+  try {
+    fse.copySync(source, destination);
+  } catch (err) {
+    console.log(`Err -> could not create ${projectName}`.red);
+    console.log(err);
+    return;
+  }
+
+  // updating new project's package.json
+  let templatePackageInfo = tools.getPackageInfo(destination);
+  templatePackageInfo.name = projectName;
+  if (!templatePackageInfo.keywords) {
+    templatePackageInfo.keywords = [];
+  }
+  templatePackageInfo.keywords.push(projectName);
+
+  tools.setPackageInfo(destination, templatePackageInfo);
+}
 
 function printFileTree(dir, prefix = '', ignoredDirs: string[] = []) {
   // Get contents of the directory
@@ -92,4 +160,5 @@ export default {
   getPackageInfo,
   setPackageInfo,
   printFileTree,
+  createTemplateProject,
 };
