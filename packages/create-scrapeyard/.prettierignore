@@ -1,8 +1,7 @@
 build
-bin
 node_modules
 dist
+bin
 dev-dist
 coverage
 *.yaml
-*.md

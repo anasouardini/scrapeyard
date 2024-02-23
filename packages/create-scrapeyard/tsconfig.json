@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "target": "es2016",
+    "lib": ["es6", "dom"],
+    "jsx": "react",
+
+    /* Specify what module code is generated. */
+    "module": "CommonJS",
+
+    /* Specify the root folder within your source files. */
+    // "rootDir": ".",
+
+    "allowJs": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitAny": false,
+    "skipLibCheck": true,
+    "noEmit": true,
+
+    "moduleResolution": "node"
+  },
+  "include": [
+    "./src"
+    // no linting for tempalates for now
+    // "./src/templates"
+  ],
+  "exclude": ["node_modules", "lib", "bin", "lib", "build", ".git"]
+}

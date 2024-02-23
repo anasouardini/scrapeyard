@@ -18,6 +18,7 @@ dist-ssr
 # Editor directories and files
 .github/workflows/cd.yaml
 .vscode/*
+.changeset
 !.vscode/extensions.json
 .idea
 .DS_Store

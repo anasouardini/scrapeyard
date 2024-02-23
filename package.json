@@ -1,82 +1,28 @@
 {
-  "name": "scrapeyard",
-  "version": "0.9.3",
-  "description": "A scraping library that saves you from writing a lot of boiler-plate every time you lunch a new project. It also helps you manage multiple projects in one place.",
-  "main": "./lib/mainInterface.js",
-  "module": "./lib/mainInterface.mjs",
-  "types": "./lib/mainInterface.d.ts",
-  "license": "MIT",
-  "keywords": [
-    "scraping"
-  ],
-  "author": "anasouardini",
-  "repository": {
-    "url": "https://github.com/anasouardini/scrapeyard"
-  },
-  "bugs": {
-    "url": "https://github.com/anasouardini/scrapeyard/issues"
-  },
-  "files": [
-    "./bin/**/*",
-    "./lib/**/*",
-    "./dist/**/*"
-  ],
-  "bin": {
-    "default": "./bin/cli/scrapeyard.js"
-  },
+  "name": "scrapeyard-mono",
+  "private": true,
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "test": "vitest",
-    "format": "prettier . --write",
-    "testOnce": "vitest --run",
+    "format": "prettier --write . --cache",
+    "testOnce": "pnpm --filter='./packages/*' --parallel run testOnce",
     "formatCheck": "prettier . --check",
-    "lint": "tsc --noEmit",
-    "copyHelperFiles": "cp ./src/root/data/buildLog.json ./lib/ && cp ./src/root/utils/viewBuilder/vite.config.build.ts ./lib/",
-    "build": "command rm -rf ./lib ./bin && tsup && tsc --b ./tsconfig.bin.json && npm run copyHelperFiles",
+    "lint": "pnpm --filter='./packages/*' --parallel run lint",
+    "build": "pnpm --filter='./packages/*' --parallel run build",
     "ci": "npm run formatCheck && npm run lint && npm run testOnce && npm run build",
     "SEPARATOR1": "------------- DELIVERY-RELATED STUFF ------------",
     "createRelease": "npx changeset add && npx changeset version && git add . && git commit -m 'chore(release): create a release' --no-verify",
     "pushReleaseGit": "git push origin main && git push origin --tags",
-    "release": "npm run ci && npm run createRelease && npx changeset publish && npm run pushReleaseGit",
-    "SEPARATOR2": "------------- SPECIFIC TO THE SUB PACKAGE/TEMPLATE ------------",
-    "template": "pnpm --prefix ./data/templates/default",
-    "unlinkFromTemplate": "cd ./data/templates/default && pnpm unlink ../../.. && cd ../../..",
-    "linkToTemplate": "cd ./data/templates/default && pnpm link ../../.. && cd ../../..",
-    "relink": "pnpm run unlinkFromTemplate && pnpm run linkToTemplate"
+    "release": "npm run ci && npm run createRelease && npx changeset publish && npm run pushReleaseGit"
   },
-  "dependencies": {
-    "uuidv4": "^6.2.13",
-    "colors": "^1.4.0",
-    "fs-extra": "^11.2.0",
-    "readline-sync": "^1.4.10",
-    "vite": "^5.0.10",
-    "vite-plugin-css-injected-by-js": "^3.3.1",
-    "vite-plugin-dts": "^3.6.4",
-    "@vitejs/plugin-react-swc": "^3.5.0",
-    "playwright": "^1.40.1",
-    "@playwright/test": "^1.40.1",
-    "ts-node": "^10.9.1",
-    "typescript": "^5.0.2",
-    "@vitejs/plugin-react": "^4.0.3",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "@types/node": "^20.4.5",
-    "@types/react": "^18.2.45",
-    "@types/react-dom": "^18.2.18"
+  "engines": {
+    "node": "21.1.0"
   },
-  "peerDependencies": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "devDependencies": {
-    "@babel/core": "^7.22.10",
-    "@babel/preset-env": "^7.22.10",
-    "@babel/preset-typescript": "^7.22.5",
     "@changesets/cli": "^2.27.1",
-    "@typescript-eslint/eslint-plugin": "^6.0.0",
-    "@typescript-eslint/parser": "^6.0.0",
-    "eslint": "^8.45.0",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.4.3",
-    "prettier": "^3.1.1",
-    "tsup": "^8.0.2",
-    "vitest": "^1.2.2"
-  },
-  "packageManager": "pnpm@8.15.3+sha256.fc4a49bd609550a41e14d20efbce802a4b892aa4cac877322de2f0924f122991"
+    "prettier": "^3.1.1"
+  }
 }

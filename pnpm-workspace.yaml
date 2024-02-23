@@ -1,0 +1,3 @@
+packages:
+  - packages/scrapeyard
+  - packages/create-scrapeyard

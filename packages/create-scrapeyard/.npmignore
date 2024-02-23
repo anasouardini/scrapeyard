@@ -1,3 +1,5 @@
+node_modules
+
 # Logs
 logs
 *.log
@@ -6,17 +8,9 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
-
-**/node_modules
-**/dist
-build
-lib
-**/bin
-dist-ssr
 *.local
 
 # Editor directories and files
-.github/workflows/cd.yaml
 .vscode/*
 !.vscode/extensions.json
 .idea
@@ -26,3 +20,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+## npm-specific
+src
+tsconfig.json
+tsconfig.bin.json
+pnpm-lock.yaml
+tsup.config.ts
