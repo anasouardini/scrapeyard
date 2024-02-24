@@ -1,5 +1,11 @@
 # scrapeyard
 
+## 0.12.0
+
+### Minor Changes
+
+- Packages now are inside a scope
+
 ## 0.11.0
 
 ### Minor Changes
