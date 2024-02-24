@@ -35,5 +35,8 @@ jobs:
       - name: install dependencies
         run: pnpm install
 
+      - name: tree view
+        run: tree .
+
       - name: Run CI
         run: pnpm run ci
