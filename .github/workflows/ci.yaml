@@ -10,7 +10,13 @@ env:
 jobs:
   check:
     timeout-minutes: 15
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        node_version: [21]
+
+    name: "Env: node-${{ matrix.node_version }}, ${{ matrix.os }}"
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
