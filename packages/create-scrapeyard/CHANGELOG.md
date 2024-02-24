@@ -1,5 +1,11 @@
 # create-scrapeyard
 
+## 0.13.3
+
+### Patch Changes
+
+- making the creation/initialization command cross-platform
+
 ## 0.13.2
 
 ### Patch Changes
