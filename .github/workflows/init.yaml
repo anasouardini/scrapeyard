@@ -5,10 +5,9 @@ on:
       - "main"
 env:
   CI: true
-  PNPM_CACHE_FOLDER: .pnpm-store
 
 jobs:
-  test-dev-setup:
+  test-creat-command:
     timeout-minutes: 15
     runs-on: ${{ matrix.os }}
     strategy:
@@ -16,14 +15,11 @@ jobs:
         os: [ubuntu-latest, windows-latest, macos-latest ]
         node_version: [21]
 
-    name: "runner (dev setup): node-${{ matrix.node_version }}, ${{ matrix.os }}"
+    name: "runner (create command): node-${{ matrix.node_version }}, ${{ matrix.os }}"
     steps:
       - name: Get job name
         run: |
           echo "Job name is $GITHUB_JOB"
-
-      - name: Checkout code
-        uses: actions/checkout@v3
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
@@ -33,11 +29,8 @@ jobs:
       - name: install pnpm
         run: npm i pnpm@latest -g
 
-      - name: setup pnpm config
-        run: pnpm config set store-dir $PNPM_CACHE_FOLDER
-
-      - name: install dependencies
-        run: pnpm install
+      - name: initialize a scrapeyard project
+        run: npm create scrapeyard@latest project-name
 
       - name:  ls
         run: |
@@ -49,6 +42,4 @@ jobs:
                 ls -la
           fi
         shell: bash
-
-      - name: Run CI
-        run: pnpm run ci
+    
