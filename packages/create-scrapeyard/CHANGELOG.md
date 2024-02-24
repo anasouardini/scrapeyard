@@ -1,5 +1,11 @@
 # create-scrapeyard
 
+## 0.13.0
+
+### Minor Changes
+
+- Some setup changes.
+
 ## 0.12.0
 
 ### Minor Changes
