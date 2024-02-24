@@ -1,6 +1,6 @@
 {
   "name": "@ouardini/scrapeyard",
-  "version": "0.13.6",
+  "version": "0.13.7",
   "description": "A scraping library that saves you from writing a lot of boiler-plate every time you lunch a new project. It also helps you manage multiple projects in one place.",
   "main": "./lib/mainInterface.js",
   "module": "./lib/mainInterface.mjs",
