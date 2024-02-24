@@ -1,5 +1,11 @@
 # create-scrapeyard
 
+## 0.13.4
+
+### Patch Changes
+
+- Now, for real, `npm create scrapeyard project-name` is cross-platform
+
 ## 0.13.3
 
 ### Patch Changes
