@@ -12,7 +12,7 @@
     "./bin/**/*"
   ],
   "bin": {
-    "initialize": "tree && node ./bin/scrapeyard.js"
+    "initialize": "./bin/scrapeyard.js"
   },
   "scripts": {
     "lint": "tsc",
