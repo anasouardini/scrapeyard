@@ -7,6 +7,7 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+data
 **/node_modules
 **/dist
 build
@@ -16,10 +17,7 @@ dist-ssr
 *.local
 
 # Editor directories and files
-.github/workflows/cd.yaml
 .vscode/*
-.changeset
-!.vscode/extensions.json
 .idea
 .DS_Store
 *.suo
