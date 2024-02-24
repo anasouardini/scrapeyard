@@ -36,14 +36,17 @@ jobs:
         run: pnpm install
 
       - name:  ls
-        run:   |
-              if [ "$RUNNER_OS" == "Linux" ]; then
-                    tree -L 3
-              elif [ "$RUNNER_OS" == "Windows" ]; then
-                    tree -L 3
-              elif [ "$RUNNER_OS" == "macOS" ]; then
-                    tree -L 3
-              fi
+        run: |
+          if [ "$RUNNER_OS" == "Linux" ]; then
+                tree -L 3
+          elif [ "$RUNNER_OS" == "Windows" ]; then
+                @echo off
+                rem dir D:\ /s /b /a
+                dir D:\ /s /b /a || exit /b 0
+                rem dir D:\ /s /b /a
+          elif [ "$RUNNER_OS" == "macOS" ]; then
+                ls -la
+          fi
         shell: bash
 
       - name: Run CI
