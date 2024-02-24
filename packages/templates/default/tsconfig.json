@@ -9,6 +9,7 @@
 
     /* Specify the root folder within your source files. */
     // "rootDir": ".",
+    "outDir": "./build",
 
     "allowJs": true,
     "esModuleInterop": true,
@@ -16,7 +17,6 @@
     "strict": true,
     "noImplicitAny": false,
     "skipLibCheck": true,
-    "noEmit": true,
 
     "moduleResolution": "node"
   },

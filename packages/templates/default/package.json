@@ -1,6 +1,5 @@
 {
   "name": "projectname",
-  "version": "0.0.1",
   "private": true,
   "description": "This project was made using a framework called Scrapeyard.",
   "main": "./src/index.ts",
@@ -16,15 +15,13 @@
     "createProject": "./node_modules/.bin/createProject",
     "dev": "ts-node -T ./src/index.ts",
     "test": "vitest",
-    "format": "prettier . --write",
     "testOnce": "vitest --run",
-    "formatCheck": "prettier . --check",
     "lint": "tsc --noEmit",
-    "build": "tsc",
-    "ci": "npm run formatCheck && npm run lint && npm run testOnce && npm run build"
+    "build": "tsc"
   },
   "devDependencies": {
-    "ts-node": "^10.9.2"
+    "ts-node": "^10.9.2",
+    "vitest": "^1.2.2"
   },
   "dependencies": {
     "scrapeyard": "link:../../scrapeyard"
