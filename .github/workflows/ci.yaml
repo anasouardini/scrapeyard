@@ -16,8 +16,12 @@ jobs:
         os: [ubuntu-latest, windows-latest, macos-latest ]
         node_version: [21]
 
-    name: "runner: [${{ github.jobs[github.job].name }}] node-${{ matrix.node_version }}, ${{ matrix.os }}"
+    name: "runner (dev setup): node-${{ matrix.node_version }}, ${{ matrix.os }}"
     steps:
+      - name: Get job name
+        run: |
+          echo "Job name is $GITHUB_JOB"
+
       - name: Checkout code
         uses: actions/checkout@v3
 
@@ -56,8 +60,12 @@ jobs:
         os: [ubuntu-latest, windows-latest, macos-latest ]
         node_version: [21]
 
-    name: "Env: node-${{ matrix.node_version }}, ${{ matrix.os }}"
+    name: "runner (create command): node-${{ matrix.node_version }}, ${{ matrix.os }}"
     steps:
+      - name: Get job name
+        run: |
+          echo "Job name is $GITHUB_JOB"
+
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
