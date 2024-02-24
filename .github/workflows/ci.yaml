@@ -40,7 +40,7 @@ jobs:
               if [ "$RUNNER_OS" == "Linux" ]; then
                     tree -L 3
               elif [ "$RUNNER_OS" == "Windows" ]; then
-                    dir
+                    dir /a:h
               elif [ "$RUNNER_OS" == "macOS" ]; then
                     ls -la
               fi
