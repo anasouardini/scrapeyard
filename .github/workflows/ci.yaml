@@ -16,7 +16,7 @@ jobs:
         os: [ubuntu-latest, windows-latest, macos-latest ]
         node_version: [21]
 
-    name: "Env: node-${{ matrix.node_version }}, ${{ matrix.os }}"
+    name: "runner: [${{ github.jobs[github.job].name }}] node-${{ matrix.node_version }}, ${{ matrix.os }}"
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
