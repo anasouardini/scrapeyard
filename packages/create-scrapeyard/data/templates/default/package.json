@@ -1,3 +1,29 @@
 {
-  "name": "lll"
+  "name": "projectname",
+  "private": true,
+  "description": "This project was made using a framework called Scrapeyard.",
+  "main": "./src/index.ts",
+  "license": "MIT",
+  "keywords": [
+    "scrapeyard"
+  ],
+  "repository": {
+    "url": ""
+  },
+  "scripts": {
+    "try": "echo 'trying from template'",
+    "createProject": "./node_modules/.bin/createProject",
+    "dev": "ts-node -T ./src/index.ts",
+    "test": "vitest",
+    "testOnce": "vitest --run",
+    "lint": "tsc --noEmit",
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "vitest": "^1.2.2"
+  },
+  "dependencies": {
+    "scrapeyard": "link:../../scrapeyard"
+  }
 }
