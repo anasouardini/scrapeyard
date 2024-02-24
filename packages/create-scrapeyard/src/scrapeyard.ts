@@ -3,7 +3,7 @@
 import tools, { createTemplateProject } from './tools';
 import vars from './vars';
 
-// tools.printFileTree(vars.parentPath, "", ["node_modules"]);
+tools.printFileTree(vars.parentPath, '', ['node_modules']);
 
 // function getAction(option: Args['option']) {
 //   if (!option) {
