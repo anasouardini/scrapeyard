@@ -17,7 +17,9 @@
     "test": "vitest",
     "testOnce": "vitest --run",
     "lint": "tsc --noEmit",
-    "build": "tsc"
+    "prestbuild": "[[ -d ./scripts ]] || ln -s ../scripts scripts",
+    "build": "tsc",
+    "postbuild": "../scripts/cp-to-create-scrapeyard.sh"
   },
   "devDependencies": {
     "ts-node": "^10.9.2",
