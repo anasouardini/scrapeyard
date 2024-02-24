@@ -30,7 +30,7 @@ jobs:
         run: npm i pnpm@latest -g
 
       - name: initialize a scrapeyard project
-        run: npm create @ouardini/scrapeyard project-name
+        run: pnpm create @ouardini/scrapeyard project-name
 
       - name:  ls
         run: |

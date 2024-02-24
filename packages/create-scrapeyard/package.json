@@ -12,7 +12,7 @@
     "./bin/**/*"
   ],
   "bin": {
-    "default": "node ./bin/scrapeyard.js"
+    "initialize": "node ./bin/scrapeyard.js"
   },
   "scripts": {
     "lint": "tsc",
