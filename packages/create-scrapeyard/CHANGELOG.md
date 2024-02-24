@@ -1,5 +1,11 @@
 # create-scrapeyard
 
+## 0.13.1
+
+### Patch Changes
+
+- debugging the unintuitive npm black/white listing logic
+
 ## 0.13.0
 
 ### Minor Changes
