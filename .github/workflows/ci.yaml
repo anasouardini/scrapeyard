@@ -8,7 +8,7 @@ env:
   PNPM_CACHE_FOLDER: .pnpm-store
 
 jobs:
-  check:
+  test-dev-setup:
     timeout-minutes: 15
     runs-on: ${{ matrix.os }}
     strategy:
@@ -48,3 +48,38 @@ jobs:
 
       - name: Run CI
         run: pnpm run ci
+  test-creat-command:
+    timeout-minutes: 15
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest ]
+        node_version: [21]
+
+    name: "Env: node-${{ matrix.node_version }}, ${{ matrix.os }}"
+    steps:
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 21
+
+      - name: install pnpm
+        run: npm i pnpm@latest -g
+
+      - name: setup pnpm config
+        run: pnpm config set store-dir $PNPM_CACHE_FOLDER
+
+      - name: install dependencies
+        run: npm create scrapeyard project-name
+
+      - name:  ls
+        run: |
+          if [ "$RUNNER_OS" == "Linux" ]; then
+                tree -L 3
+          elif [ "$RUNNER_OS" == "Windows" ]; then
+                dir -la . || exit 0
+          elif [ "$RUNNER_OS" == "macOS" ]; then
+                ls -la
+          fi
+        shell: bash
+    
