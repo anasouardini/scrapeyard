@@ -1,5 +1,11 @@
 # create-scrapeyard
 
+## 0.13.5
+
+### Patch Changes
+
+- fixed initialization issue
+
 ## 0.13.4
 
 ### Patch Changes
