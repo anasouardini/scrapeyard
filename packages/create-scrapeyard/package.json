@@ -9,6 +9,8 @@
   "author": "anasouardini",
   "files": [
     "./data/**/*",
+    "!./data/**/node_modules",
+    "!./data/**/dist",
     "./bin/**/*"
   ],
   "bin": {
