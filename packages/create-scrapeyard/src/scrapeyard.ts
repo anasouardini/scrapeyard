@@ -1,5 +1,3 @@
-#!/bin/env node
-
 import tools, { createTemplateProject } from './tools';
 import vars from './vars';
 
