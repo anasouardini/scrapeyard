@@ -1,5 +1,5 @@
 {
-  "name": "create-scrapeyard",
+  "name": "@ouardini/create-scrapeyard",
   "version": "0.11.0",
   "description": "Initialization tool for scrapeyard.",
   "license": "MIT",
@@ -15,10 +15,9 @@
     "default": "./bin/scrapeyard.js"
   },
   "scripts": {
-    "formatCheck": "prettier . --check",
     "lint": "tsc",
-    "build": "command rm -rf ./bin && tsc --b ./tsconfig.bin.json",
-    "ci": "npm run formatCheck && npm run lint && npm run build"
+    "cpTemplates": "mkdir -p ./data && cp -r ../templates ./data/",
+    "build": "npm run cpTemplates && rm -rf ./bin && tsc --b ./tsconfig.bin.json"
   },
   "dependencies": {
     "colors": "^1.4.0",
