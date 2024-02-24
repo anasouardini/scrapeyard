@@ -1,6 +1,6 @@
 {
   "name": "@ouardini/create-scrapeyard",
-  "version": "0.13.1",
+  "version": "0.12.0",
   "description": "Initialization tool for scrapeyard.",
   "license": "MIT",
   "keywords": [
@@ -8,6 +8,7 @@
   ],
   "author": "anasouardini",
   "files": [
+    "./data/**/*",
     "./bin/**/*"
   ],
   "bin": {
@@ -15,8 +16,7 @@
   },
   "scripts": {
     "lint": "tsc",
-    "cpTemplates": "mkdir -p ./data && cp -r ../templates ./data/",
-    "build": "npm run cpTemplates && rm -rf ./bin && tsc --b ./tsconfig.bin.json"
+    "build": "rm -rf ./bin && tsc --b ./tsconfig.bin.json"
   },
   "dependencies": {
     "colors": "^1.4.0",

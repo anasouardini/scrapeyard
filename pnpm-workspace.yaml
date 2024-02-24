@@ -1,3 +1,4 @@
 packages:
   - packages/scrapeyard
   - packages/create-scrapeyard
+  - packages/library/*

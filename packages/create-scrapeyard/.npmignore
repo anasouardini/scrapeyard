@@ -1,5 +1,4 @@
 node_modules
-data
 
 # Logs
 logs
@@ -24,7 +23,5 @@ lerna-debug.log*
 
 ## npm-specific
 src
-tsconfig.json
 tsconfig.bin.json
 pnpm-lock.yaml
-tsup.config.ts
