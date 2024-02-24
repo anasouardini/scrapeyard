@@ -1,5 +1,11 @@
 # create-scrapeyard
 
+## 0.13.8
+
+### Patch Changes
+
+- fixing some issues
+
 ## 0.13.7
 
 ### Patch Changes
