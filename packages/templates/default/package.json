@@ -18,23 +18,10 @@
     "lint": "echo 'linting...'",
     "prebuild": "[ -d ./scripts ] || ln -s ../scripts scripts",
     "build": "pnpm run prebuild && echo 'building...' && pnpm run postbuild",
-    "postbuild": "./../scripts/cp-to-create-scrapeyard.sh"
+    "postbuild": "node ./../scripts/cp-to-create-scrapeyard.js"
   },
   "dependencies": {
-    "@playwright/test": "^1.40.1",
-    "@types/react": "^18.2.45",
-    "@types/react-dom": "^18.2.18",
-    "@vitejs/plugin-react": "^4.0.3",
-    "@vitejs/plugin-react-swc": "^3.5.0",
-    "playwright": "^1.40.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "scrapeyard": "link:../../scrapeyard",
-    "typescript": "^5.0.2",
-    "uuidv4": "^6.2.13",
-    "vite": "^5.0.10",
-    "vite-plugin-css-injected-by-js": "^3.3.1",
-    "vite-plugin-dts": "^3.6.4"
+    "scrapeyard": "link:../../scrapeyard"
   },
   "devDependencies": {
     "@types/node": "^20.4.5",
