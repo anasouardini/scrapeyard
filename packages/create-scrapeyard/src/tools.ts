@@ -87,7 +87,7 @@ export function createTemplateProject(args: string[]) {
   // install demo project's dependencies
   execSync(`npm i pnpm -g`);
   execSync(`cd ${destination}`);
-  execSync(`pnpm i--prefix ${destination}`);
+  execSync(`pnpm i --prefix ${destination}`);
 
   // start the demo project
   execSync(`pnpm run start --prefix ${destination}`);
