@@ -1,5 +1,11 @@
 # create-scrapeyard
 
+## 0.17.3
+
+### Patch Changes
+
+- fixed a typo in the creation command
+
 ## 0.17.2
 
 ### Patch Changes
