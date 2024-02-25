@@ -1,5 +1,5 @@
 {
-  "name": "@ouardini/create-scrapeyard",
+  "name": "create-scrapeyard",
   "version": "0.15.0",
   "description": "Initialization tool for scrapeyard.",
   "license": "MIT",
