@@ -1,5 +1,11 @@
 # create-scrapeyard
 
+## 0.17.0
+
+### Minor Changes
+
+- Now the command: `npm create scrapeyard` automatically installs dependencies and runs the demo and some enhancements has been added to the library "scrapeyard".
+
 ## 0.16.0
 
 ### Minor Changes
