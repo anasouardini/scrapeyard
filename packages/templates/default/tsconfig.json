@@ -25,13 +25,5 @@
     // no linting for tempalates for now
     // "./src/templates"
   ],
-  "exclude": [
-    "node_modules",
-    "lib",
-    "bin",
-    "lib",
-    "build",
-    "data/templates",
-    ".git"
-  ]
+  "exclude": ["node_modules", "build"]
 }
