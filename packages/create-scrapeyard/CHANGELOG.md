@@ -1,5 +1,11 @@
 # create-scrapeyard
 
+## 0.17.2
+
+### Patch Changes
+
+- fix create comamnd
+
 ## 0.17.1
 
 ### Patch Changes
