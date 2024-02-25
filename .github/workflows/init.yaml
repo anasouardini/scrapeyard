@@ -5,6 +5,7 @@ on:
       - "main"
 env:
   CI: true
+  PNPM_CACHE_FOLDER: .pnpm-store
 
 jobs:
   test-creat-command:
@@ -28,9 +29,12 @@ jobs:
 
       - name: install pnpm
         run: npm i pnpm@latest -g
+        
+      - name: setup pnpm config
+        run: pnpm config set store-dir $PNPM_CACHE_FOLDER
 
       - name: initialize a scrapeyard project
-        run: pnpm create @ouardini/scrapeyard project-name
+        run: pnpm create scrapeyard@latest project-name
 
       - name:  ls
         run: |
