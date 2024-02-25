@@ -1,5 +1,3 @@
-#!/bin/env sh
-
 currentDirName=${PWD##*/}
 # ls -la  "../../create-scrapeyard/data/templates/$currentDirName/"
 # command rm -rf  "../../create-scrapeyard/data/templates/$currentDirName/"
