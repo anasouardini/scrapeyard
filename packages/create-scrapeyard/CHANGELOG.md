@@ -1,5 +1,11 @@
 # create-scrapeyard
 
+## 0.14.0
+
+### Minor Changes
+
+- All templates will get moved to create-scrapeyard autoatically, i.e. run: `npm create @ouardini/scrapeyard` anytime and get the latest templates updates
+
 ## 0.13.8
 
 ### Patch Changes
