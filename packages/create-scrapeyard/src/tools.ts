@@ -108,7 +108,7 @@ export function createTemplateProject(args: string[]) {
   );
   console.log('> Installing project dependencies');
   execSync(
-    `pnpm i --prefix ${destination}`,
+    `pnpm --prefix "${destination}" i`,
     // @ts-ignore
     (err, stdout, stderr) => {
       if (err || stderr) {
@@ -120,7 +120,7 @@ export function createTemplateProject(args: string[]) {
 
   // start the demo project
   execSync(
-    `pnpm run start --prefix ${destination}`,
+    `pnpm --prefix "${destination}" run start`,
     // @ts-ignore
     (err, stdout, stderr) => {
       if (err || stderr) {
