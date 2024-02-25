@@ -1,5 +1,11 @@
 # create-scrapeyard
 
+## 0.16.0
+
+### Minor Changes
+
+- packages now back to unscoped. You can now run: `npm create scrapeyard` without prepending the silly scope
+
 ## 0.15.0
 
 ### Minor Changes
