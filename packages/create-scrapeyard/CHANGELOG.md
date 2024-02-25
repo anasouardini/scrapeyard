@@ -1,5 +1,11 @@
 # create-scrapeyard
 
+## 0.20.0
+
+### Minor Changes
+
+- create command is now slightly better
+
 ## 0.19.0
 
 ### Minor Changes
