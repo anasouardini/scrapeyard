@@ -18,7 +18,7 @@
     "lint": "echo 'linting...'",
     "prebuild": "[ -d ./scripts ] || ln -s ../scripts scripts",
     "build": "pnpm run prebuild && echo 'building...' && pnpm run postbuild",
-    "postbuild": "ash ./../scripts/cp-to-create-scrapeyard.sh"
+    "postbuild": "./../scripts/cp-to-create-scrapeyard.sh"
   },
   "devDependencies": {
     "ts-node": "^10.9.2",
