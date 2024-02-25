@@ -1,1 +1,0 @@
-# Scrapeyard Template
