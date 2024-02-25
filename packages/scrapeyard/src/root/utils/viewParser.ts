@@ -75,7 +75,7 @@ const isUp2date = ({
   return viewUpdat2Date && dependenciesUp2Date;
 };
 
-const parseView = ({
+const parseView = async ({
   inlineString,
   projectName,
   viewName,
@@ -85,7 +85,7 @@ const parseView = ({
   projectName?: string;
   viewName?: string;
   data?: Record<string, any>;
-}): { success: boolean; error?: any; data?: string } => {
+}): Promise<{ success: boolean; error?: any; data?: string }> => {
   console.log('view parsing requested', { projectName, viewName });
   //* I don't need to specify the current project's name unless it's the "root"(project name) interface that's being injected.
   if (projectName == undefined) {
@@ -102,7 +102,7 @@ const parseView = ({
 
     //* the better way
     const objectString = util.inspect(data);
-    finalViewString += `window.scrapeyardViewData = ${objectString};\n\n`;
+    finalViewString += `;window.scrapeyardViewData = ${objectString};\n\n`;
   }
 
   //* both the view name and the project name are mutually inclusive.
@@ -140,7 +140,7 @@ const parseView = ({
       !isUp2date({ projectName, viewName, viewSrcPath: viewPath.src })
     ) {
       console.log('* The view is outdated, building...');
-      builder({ projectName, viewName });
+      await builder({ projectName, viewName });
     }
 
     let viewString = fs.readFileSync(viewPath.build, 'utf-8');

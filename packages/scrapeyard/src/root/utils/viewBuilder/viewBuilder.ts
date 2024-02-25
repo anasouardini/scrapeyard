@@ -3,6 +3,13 @@ import fs from 'fs';
 import { execSync } from 'child_process';
 import serverVars from '../serverVars';
 
+// vite imports
+import { build, defineConfig, InlineConfig, UserConfig } from 'vite';
+import react from '@vitejs/plugin-react-swc';
+// import react from '@vitejs/plugin-react';
+import cssByJs from 'vite-plugin-css-injected-by-js';
+// import tsconfigPaths from 'vite-tsconfig-paths';
+
 interface View {
   projectName: string;
   viewName: string;
@@ -38,32 +45,51 @@ interface View {
 //   fs.writeFileSync(viewPath, viewCompoentSrcCode);
 // }
 
-function setupViteConfig({ project, view }) {
-  const viteBuildConfigPath = path.join(serverVars.paths.viteBuildConfig);
-  let viteBuildConfigCode = fs.readFileSync(viteBuildConfigPath, 'utf-8');
-  viteBuildConfigCode = viteBuildConfigCode.replace(
-    /input:\s*{\s*([^}]*)\s*}/,
-    `input: {'${view.name.split('.')[0]}':'${view.path}'}`,
-  );
-  const outDirPath =
-    project.name == 'root'
-      ? `outDir: "${serverVars.paths.rootViewDir}/${serverVars.paths.home.buildDir}",`
-      : `outDir: "${serverVars.paths.projectsDir}/${project.name}/${serverVars.paths.views.buildDir}",`;
-
-  viteBuildConfigCode = viteBuildConfigCode.replace(
-    /outDir:\s*("[^"]*"),/,
-    outDirPath,
-  );
-  console.log('* vite build config');
-  fs.writeFileSync(viteBuildConfigPath, viteBuildConfigCode);
-}
-
-function buildView() {
+async function buildView({ project, view }) {
   console.log('* vite build');
-  // todo: implement exec properly
-  // todo: you should run vite relative to the project's root path, or install vite globally?
   // console.log(tools.bashExec.name);
-  execSync(`vite build -c '${serverVars.paths.viteBuildConfig}'`);
+  // execSync(`vite build -c '${serverVars.paths.viteBuildConfig}'`);
+  try {
+    await build(
+      defineConfig({
+        logLevel: 'info',
+        plugins: [react(), cssByJs() /*tsconfigPaths()*/],
+        build: {
+          minify: false,
+          emptyOutDir: false,
+          // changing the dist dir for easier automation
+          outDir:
+            project.name == 'root'
+              ? path.join(
+                  serverVars.paths.rootViewDir,
+                  serverVars.paths.home.buildDir,
+                )
+              : path.join(
+                  serverVars.paths.projectsDir,
+                  project.name,
+                  serverVars.paths.views.buildDir,
+                ),
+          rollupOptions: {
+            input: {
+              [view.name.split('.')[0]]: view.path,
+            },
+            output: {
+              // to bundle everything
+              manualChunks: undefined,
+              // to prevent the hashes suffixes and /dist/assets dir
+              entryFileNames: '[name].js',
+              chunkFileNames: '[name].js',
+              assetFileNames: '[name].[ext]',
+            },
+          },
+        },
+      }),
+    );
+    console.log('Build completed successfully!');
+  } catch (error) {
+    console.error('Error occurred during build:', error);
+    process.exit(1); // Exit with non-zero code to indicate failure
+  }
 }
 
 function updateBuildLog({
@@ -159,7 +185,7 @@ function getViewsFilesList(projectDirPath: string) {
   return dirList as { name: string; path: string }[];
 }
 
-export default function builder(targetComponent: View) {
+export default async function builder(targetComponent: View) {
   console.log(
     `============================ target: ${targetComponent.projectName}/${targetComponent.viewName}`,
   );
@@ -183,7 +209,7 @@ export default function builder(targetComponent: View) {
     }
     projectsList = filteredList;
   }
-  projectsList.forEach((project) => {
+  for (const project of projectsList) {
     interface View {
       name: string;
       path: string;
@@ -204,12 +230,11 @@ export default function builder(targetComponent: View) {
       viewsList = filteredList;
     }
 
-    viewsList.forEach((view) => {
+    for (const view of viewsList) {
       let viewCompoentPath = view.path; // path includes extension (.tsx)
 
       // viewComponent2StandaloneScript(viewCompoentPath);
-      setupViteConfig({ project, view });
-      buildView();
+      await buildView({ project, view });
       // standaloneScript2ViewComponent(viewCompoentPath);
       updateBuildLog({
         projectName: project.name,
@@ -217,6 +242,6 @@ export default function builder(targetComponent: View) {
         viewSrcPath: view.path,
       });
       console.log('Vite Build : END');
-    });
-  });
+    }
+  }
 }

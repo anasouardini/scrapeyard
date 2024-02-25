@@ -616,7 +616,7 @@ const injectView = async (
 ): Promise<{ success: boolean; error?: any }> => {
   // console.log({projectName, viewName})
 
-  const parsedView = parseView({
+  const parsedView = await parseView({
     inlineString,
     projectName,
     viewName,
@@ -670,7 +670,7 @@ const exec = async function (
     if (domElement) {
       return await domElement.evaluate(
         (domElement, { string, backEndArgs }) => {
-          return eval(`(()=>{${string}})()`);
+          return eval(`;(()=>{${string}})();`);
         },
         { string, backEndArgs },
       );
@@ -678,7 +678,7 @@ const exec = async function (
 
     return await tab.evaluate(
       ({ string, backEndArgs }) => {
-        return eval(`(()=>{${string}})()`);
+        return eval(`;(()=>{${string}})();`);
       },
       { string, backEndArgs },
     );
