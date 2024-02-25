@@ -18,7 +18,7 @@
     "lint": "echo 'linting...'",
     "prebuild": "[ -d ./scripts ] || ln -s ../scripts scripts",
     "build": "pnpm run prebuild && echo 'building...' && pnpm run postbuild",
-    "postbuild": "node ./../scripts/cp-to-create-scrapeyard.js"
+    "postbuild": "node ./scripts/cp-to-create-scrapeyard.js"
   },
   "dependencies": {
     "scrapeyard": "link:../../scrapeyard"
