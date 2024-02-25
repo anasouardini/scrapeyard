@@ -5,6 +5,7 @@ import {
   type ProjectsControllers,
   type Actions,
 } from 'scrapeyard';
+import util from 'util';
 
 async function main() {
   // initializes browser instances/windows
@@ -14,6 +15,11 @@ async function main() {
       { stateful: true, headless: false },
       // { stateful: false, headless: true },
     ],
+  });
+
+  const objstr = util.inspect({ ll: 'sdlfkj', 4: 44 });
+  browser.exec(serverVars.windows[0].pages()[0], {
+    string: `;;console.log(${objstr});;`,
   });
 
   const actions: Partial<Actions> = {
