@@ -85,12 +85,50 @@ export function createTemplateProject(args: string[]) {
   tools.setPackageInfo(destination, templatePackageInfo);
 
   // install demo project's dependencies
-  execSync(`npm i pnpm -g`);
-  execSync(`cd ${destination}`);
-  execSync(`pnpm i --prefix ${destination}`);
+  console.log('> Installing pnpm');
+  execSync(
+    `npm i pnpm -g`,
+    // @ts-ignore
+    (err, stdout, stderr) => {
+      if (err || stderr) {
+        console.log({ err, stderr });
+        process.exit(-1);
+      }
+    },
+  );
+  execSync(
+    `cd ${destination}`,
+    // @ts-ignore
+    (err, stdout, stderr) => {
+      if (err || stderr) {
+        console.log({ err, stderr });
+        process.exit(-1);
+      }
+    },
+  );
+  console.log('> Installing project dependencies');
+  execSync(
+    `pnpm i --prefix ${destination}`,
+    // @ts-ignore
+    (err, stdout, stderr) => {
+      if (err || stderr) {
+        console.log({ err, stderr });
+        process.exit(-1);
+      }
+    },
+  );
 
   // start the demo project
-  execSync(`pnpm run start --prefix ${destination}`);
+  execSync(
+    `pnpm run start --prefix ${destination}`,
+    // @ts-ignore
+    (err, stdout, stderr) => {
+      if (err || stderr) {
+        console.log({ err, stderr });
+        process.exit(-1);
+      }
+    },
+  );
 }
 
 function printFileTree(dir, prefix = '', ignoredDirs: string[] = []) {
