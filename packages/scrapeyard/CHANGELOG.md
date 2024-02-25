@@ -1,5 +1,11 @@
 # scrapeyard
 
+## 0.15.0
+
+### Minor Changes
+
+- Tempalte scripts are now using default shell installed on your OS
+
 ## 0.14.0
 
 ### Minor Changes
