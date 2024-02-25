@@ -103,7 +103,7 @@ export function createTemplateProject(args: string[]) {
   console.log(`2. pnpm i`.yellow);
   console.log(`3. pnpm start`.yellow);
   console.log('');
-  console.log('Happy scraping 🧨'.green);
+  console.log('🧨', 'Happy scraping'.rainbow.bold, '🧨');
 
   // execSync(
   //   `pnpm --prefix "${destination}" i`,
