@@ -66,6 +66,7 @@ export function createTemplateProject(args: string[]) {
   const source = path.join(vars.templatesDir, template);
   const destination = path.join(process.cwd(), projectName);
 
+  console.log('> creating the project');
   try {
     fse.copySync(source, destination);
   } catch (err) {
@@ -96,39 +97,24 @@ export function createTemplateProject(args: string[]) {
       }
     },
   );
-  execSync(
-    `cd ${destination}`,
-    // @ts-ignore
-    (err, stdout, stderr) => {
-      if (err || stderr) {
-        console.log({ err, stderr });
-        process.exit(-1);
-      }
-    },
-  );
-  console.log('> Installing project dependencies');
-  execSync(
-    `pnpm --prefix "${destination}" i`,
-    // @ts-ignore
-    (err, stdout, stderr) => {
-      if (err || stderr) {
-        console.log({ err, stderr });
-        process.exit(-1);
-      }
-    },
-  );
 
-  // start the demo project
-  execSync(
-    `pnpm --prefix "${destination}" run start`,
-    // @ts-ignore
-    (err, stdout, stderr) => {
-      if (err || stderr) {
-        console.log({ err, stderr });
-        process.exit(-1);
-      }
-    },
-  );
+  console.log('');
+  console.log(`1. cd ${projectName}`.yellow);
+  console.log(`2. pnpm i`.yellow);
+  console.log(`3. pnpm start`.yellow);
+  console.log('');
+  console.log('Happy scraping 🧨'.green);
+
+  // execSync(
+  //   `pnpm --prefix "${destination}" i`,
+  //   // @ts-ignore
+  //   (err, stdout, stderr) => {
+  //     if (err || stderr) {
+  //       console.log({ err, stderr });
+  //       process.exit(-1);
+  //     }
+  //   },
+  // );
 }
 
 function printFileTree(dir, prefix = '', ignoredDirs: string[] = []) {
