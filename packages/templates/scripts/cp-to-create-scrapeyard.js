@@ -38,6 +38,8 @@ function cpCommand({ path, exclude }) {
 function copyTemplate(dryRun) {
   const templateSrc = path.join(process.cwd());
 
+  execSync(`mkdir -p ${outputTemplatesPath}`, execErrHandler);
+
   execSync(
     `${cpCommand({
       path: { src: templateSrc, dest: outputTemplatesPath },
