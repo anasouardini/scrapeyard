@@ -1,5 +1,11 @@
 # create-scrapeyard
 
+## 0.17.1
+
+### Patch Changes
+
+- Fixed a bug in create command: `npm create scrapeyard`
+
 ## 0.17.0
 
 ### Minor Changes
