@@ -1,5 +1,11 @@
 # scrapeyard
 
+## 0.18.0
+
+### Minor Changes
+
+- many issues were fixed, and create command is not more efficient.
+
 ## 0.17.3
 
 ## 0.17.2
