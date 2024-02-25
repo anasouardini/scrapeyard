@@ -1,5 +1,6 @@
 import path from 'path';
 import fs from 'fs';
+import { execSync } from 'child_process';
 
 import readLineSync from 'readline-sync';
 import fse from 'fs-extra';
@@ -45,8 +46,6 @@ export function createTemplateProject(args: string[]) {
 
   let projectName = args[0];
 
-  // todo: remove deps from testing
-  // todo: find a trick to ignore node_modules in npm
   if (!projectName) {
     projectName = readLineSync.question('What is the name of your project? ', {
       limit: (input) => input.trim().length > 0,
@@ -84,6 +83,14 @@ export function createTemplateProject(args: string[]) {
   templatePackageInfo.keywords.push(projectName);
 
   tools.setPackageInfo(destination, templatePackageInfo);
+
+  // install demo project's dependencies
+  execSync(`npm i pnpm -g`);
+  execSync(`cd ${destination}`);
+  execSync(`pnpm i--prefix ${destination}`);
+
+  // start the demo project
+  execSync(`pnpm run start --prefix ${destination}`);
 }
 
 function printFileTree(dir, prefix = '', ignoredDirs: string[] = []) {
