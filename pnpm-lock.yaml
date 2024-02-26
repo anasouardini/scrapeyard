@@ -7,10 +7,6 @@ settings:
 importers:
 
   .:
-    dependencies:
-      scrapeyard-mono:
-        specifier: 'link:'
-        version: 'link:'
     devDependencies:
       '@changesets/cli':
         specifier: ^2.27.1
@@ -122,6 +118,12 @@ importers:
 
   packages/templates/default:
     dependencies:
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.2.0(react@18.2.0)
       scrapeyard:
         specifier: link:../../scrapeyard
         version: link:../../scrapeyard
