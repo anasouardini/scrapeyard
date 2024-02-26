@@ -6,7 +6,7 @@
     their own criteria and actions
   - actions are callbacks injected by the projects to perform actions on their
     DB
-  - forking prisma studio might be a good start
+  - forking prisma/drizzle-studio might be a good start
 
 ## better DX
 
