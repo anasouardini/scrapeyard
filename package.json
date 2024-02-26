@@ -26,8 +26,5 @@
   "devDependencies": {
     "@changesets/cli": "^2.27.1",
     "prettier": "^3.1.1"
-  },
-  "dependencies": {
-    "scrapeyard-mono": "link:"
   }
 }
