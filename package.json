@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "preinsatll": "npx only-allow pnpm",
-    "postinstall": "cp -r ./hooks/* ./.git/hooks",
+    "setupHooks": "cp -r ./hooks/* ./.git/hooks",
     "preCommit": "pnpm testOnce && pnpm lint && ./scripts/format-staged.sh",
     "format": "prettier --write . --cache",
     "testOnce": "pnpm --filter='./packages/**/*' --parallel run testOnce",
@@ -27,5 +26,8 @@
   "devDependencies": {
     "@changesets/cli": "^2.27.1",
     "prettier": "^3.1.1"
+  },
+  "dependencies": {
+    "scrapeyard-mono": "link:"
   }
 }
