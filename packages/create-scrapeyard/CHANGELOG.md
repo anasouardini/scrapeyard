@@ -1,5 +1,11 @@
 # create-scrapeyard
 
+## 0.21.0
+
+### Minor Changes
+
+- React and React-Dom are now installed by default in the tempaltes
+
 ## 0.20.0
 
 ### Minor Changes
