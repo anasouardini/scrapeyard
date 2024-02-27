@@ -5,6 +5,12 @@ import serverToolsT from './root/utils/tools';
 import dispatcherI from './dispatcher';
 export { type ProjectsControllers } from './projects/projectsControllers';
 export { type Actions, type RequestBodyType } from './root/utils/types';
+export {
+  type Route,
+  type Browser,
+  type BrowserContext,
+  type Page,
+} from 'playwright';
 
 // export const init = initI;
 export const browser = browserI;
