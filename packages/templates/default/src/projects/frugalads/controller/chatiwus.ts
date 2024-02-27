@@ -1,13 +1,15 @@
 import {
   browser,
   serverTools,
-  init,
   serverVars,
   dispatcher,
+  type Route,
+  type BrowserContext,
+  type Page,
   type ProjectsControllers,
 } from 'scrapeyard';
+
 import msg from '../data/fiverr-gig.msg';
-import { BrowserContext, Page, Route } from 'playwright';
 import vars, { type Member } from '../utils/vars';
 import fiverrGigMsg from '../data/fiverr-gig.msg';
 import twitterPostMsg from '../data/twitter-post-ad';
@@ -78,16 +80,11 @@ const lunchInstance = async () => {
   for (let i = 0; i < instances.length; i++) {
     const driver = await browser.newDriver(instances[i]);
     await start(driver);
-    // await dispatcher(driver, {
-    //   action: ((root: ProjectsControllers) =>
-    //     root.frugalads.chatiwus.start).toString(),
-    //   data: {},
-    //   type: "direct",
-    // });
   }
 };
 
 const start = async (driver: BrowserContext) => {
+  console.log('------------ start -------------');
   // todo: need profiles on the desk so that I can avoid captchas everytime I lunch an instance.
 
   //? first page is cursed, go back to newTab.
@@ -238,6 +235,7 @@ const wasMemberApproached = (targetMember: Member) => {
 };
 
 const getAdVariations = () => {
+  console.log('--------- sending variations -------');
   const parsedMsgVariations = options.msgVariations.map((msg) => {
     return msg
       .split('\n')

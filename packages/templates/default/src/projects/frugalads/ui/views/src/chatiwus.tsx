@@ -1,17 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import vars from '../../../../../root/ui/src/viewUtils/viewsVars';
-import bridge from '../../../../../root/ui/src/viewUtils/bridge';
-
 import {
+  vars,
+  bridge,
   sleep,
   runServerAction,
   globalStyle,
   projectsControllers,
-} from '../../../../../root/ui/src/viewUtils/common';
-import viewsVars from '../../../../../root/ui/src/viewUtils/viewsVars';
-
-//todo: local cache might not be working.
+} from 'scrapeyard/lib/viewsInterface';
 
 const options = {
   dryRun: false,
