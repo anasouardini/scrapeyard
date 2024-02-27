@@ -7,6 +7,7 @@ const helperVars = {
     library: './node_modules/scrapeyard/lib',
   },
 };
+const controllers: Record<string, any> = {};
 const serverVars = {
   paths: {
     tmp: tools.genAbsolutePath('src/tmp'),
@@ -32,6 +33,7 @@ const serverVars = {
     ),
   },
   windows,
+  controllers,
 };
 
 export default serverVars;
