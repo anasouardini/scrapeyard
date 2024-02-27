@@ -2,8 +2,8 @@
 import browserI from './root/utils/browser-playwright';
 import serverVarsI from './root/utils/serverVars';
 import serverToolsT from './root/utils/tools';
+export { type ProjectsControllers } from './root/utils/types';
 import dispatcherI from './dispatcher';
-export { type ProjectsControllers } from './projects/projectsControllers';
 export { type Actions, type RequestBodyType } from './root/utils/types';
 export {
   type Route,
