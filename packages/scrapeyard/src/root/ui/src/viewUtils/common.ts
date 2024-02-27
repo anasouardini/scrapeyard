@@ -1,4 +1,4 @@
-import { type ProjectsControllers } from '../../../../projects/projectsControllers';
+import { type ProjectsControllers } from '../../../utils/types';
 import bridge from './bridge';
 import vars, { type RequestBodyType } from './viewsVars';
 import './index.css';
