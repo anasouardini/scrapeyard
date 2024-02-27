@@ -1,6 +1,7 @@
 import browser from './root/utils/browser-playwright';
-import projectsControllers from './projects/projectsControllers';
 import { BrowserContext } from 'playwright';
+import serverVars from './root/utils/serverVars';
+import { ProjectsControllers } from './mainInterface';
 
 // direct means called from the back-end not from the browser console event
 //* old complicated way
@@ -27,29 +28,36 @@ import { BrowserContext } from 'playwright';
 //   return getActionByPath(projectsControllers, actionString.split("."));
 // };
 
+type ActionMethod = (driver: BrowserContext, args?: any) => void;
 export interface Msg {
   type: 'scrapeyardEvent' | 'direct';
-  action: string;
+  action: string | ((root: ProjectsControllers) => ActionMethod);
   data: any;
 }
 
 const dispatcher = async (driver: BrowserContext, msg: Msg) => {
-  console.log({
-    msg,
-  });
-  if (!msg.action) {
+  // console.log({
+  //   msg,
+  // });
+  if (!driver) {
     console.log(
-      "Err -> can't dispatch a msg without a destination/action; This should never happen outside debugging.",
+      'Err -> the driver/browser/window passed to the dispatcher was invalid!',
+    );
+    return;
+  }
+  if (typeof msg.action !== 'string' && typeof msg.action !== 'function') {
+    console.log(
+      "Err -> can't dispatch a msg without a destination/action; action should be either a function or a stringified function.",
     );
     return;
   }
 
   //* the action is wrapped in a function for easier serialization.
   // console.log({action: msg.action});
-  const actionMethodWrapped = eval(msg.action)(projectsControllers);
-  type ActionMethod =
-    | ((driver: BrowserContext, args?: any) => void)
-    | ((args?: any) => Promise<any>);
+  const actionMethodWrapped =
+    typeof msg.action == 'string'
+      ? eval(msg.action)(serverVars.controllers)
+      : msg.action(serverVars.controllers);
   const actionMethod: ActionMethod = actionMethodWrapped;
   console.log('action: ', msg.action);
   // console.log({ actionMethod });
