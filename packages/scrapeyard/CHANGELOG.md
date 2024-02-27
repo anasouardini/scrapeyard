@@ -1,5 +1,11 @@
 # scrapeyard
 
+## 0.24.0
+
+### Minor Changes
+
+- Now code-gen works when you run `pnpm start`.
+
 ## 0.23.0
 
 ## 0.22.0
