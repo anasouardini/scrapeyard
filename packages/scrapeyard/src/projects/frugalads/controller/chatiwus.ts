@@ -75,12 +75,6 @@ const lunchInstance = async () => {
   for (let i = 0; i < instances.length; i++) {
     const driver = await browser.newDriver(instances[i]);
     await start(driver);
-    // await dispatcher(driver, {
-    //   action: ((root: ProjectsControllers) =>
-    //     root.frugalads.chatiwus.start).toString(),
-    //   data: {},
-    //   type: "direct",
-    // });
   }
 };
 
