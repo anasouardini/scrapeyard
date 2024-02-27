@@ -26,14 +26,8 @@ const vars = {
 const config = {
   dryRun: args.args[0] === 'dry-run',
   paths: {
-    codeJoinerFile: path.join(
-      process.cwd(),
-      'node_modules',
-      vars.libName,
-      'lib',
-      'codeJoiner.ts',
-    ),
-    projectDirFromCodeJoinerFile: '../..',
+    codeJoinerFile: path.join(process.cwd(), 'codeJoiner.ts'),
+    projectDirFromCodeJoinerFile: '.',
     projectSubProjectsDir: path.join(process.cwd(), 'src', 'projects'),
     FSTreeStateStore: path.join(
       process.cwd(),
@@ -181,15 +175,15 @@ function genCode(projectsList: Entry[]) {
   const dispatchTableCode = `const controllers = {${Object.keys(dispatchTableObj).join(', ')}};`;
   let joinerCode = '';
   imports.unshift(
-    `import {browser, serverVars, dispatcher} from 'scrapeyard'`,
+    `import {browser, serverVars, dispatcher} from '${vars.libName}'`,
     // todo: grab config name from entry file in package.json
-    `import config from '${config.paths.projectDirFromCodeJoinerFile}/src/index.ts'`,
+    `import config from '${config.paths.projectDirFromCodeJoinerFile}/src'`,
   );
   // fake temporary code
   {
     interface InitObj {
       init: Record<string, any>;
-      dispatch: [any, Record<string, any>];
+      dispatch: Record<string, any>;
     }
     const browser = {
       init: (initObj: InitObj['init']) => {},
@@ -198,13 +192,16 @@ function genCode(projectsList: Entry[]) {
     let config: InitObj;
     let controllers: Record<string, any>;
     let serverVars: Record<string, any>;
-    function joiner() {
+
+    async function joiner() {
       serverVars.controllers = controllers;
-      browser.init(config.init);
-      /*await*/ dispatcher(...config.dispatch);
+      await browser.init(config.init);
+      const targetWindow = serverVars.windows[config.dispatch.windowIndex];
+      await dispatcher(targetWindow, config.dispatch.msg);
     }
-    //! async-await doesn't go well with Function.toString()
-    joinerCode = `async ${joiner.toString().replace('/*await*/', 'await')}\njoiner();`;
+    joinerCode = `${joiner
+      .toString()
+      .replaceAll('/*await*/', 'await')}\njoiner();`;
   }
 
   const code = `${imports.join(';\n')}\n\n${dispatchTableCode}\n\n${joinerCode}`;
@@ -233,6 +230,8 @@ function genCodeJoiner() {
       fs.writeFileSync(config.paths.codeJoinerFile, code);
     }
   }
+
+  return config.paths.codeJoinerFile;
 }
 
 export default genCodeJoiner;
