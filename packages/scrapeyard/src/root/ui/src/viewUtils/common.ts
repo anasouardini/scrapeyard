@@ -64,7 +64,7 @@ const runServerAction = async (msg: Msg) => {
     eventType: 'runAction',
     data: {
       data: msg.data,
-      action: msg.action.toString(),
+      action: msg.action,
     },
   };
 
