@@ -12,7 +12,7 @@
   },
   "scripts": {
     "createProject": "./node_modules/.bin/createProject",
-    "start": "ts-node -T ./src/index.ts",
+    "start": "./node_modules/.bin/start",
     "test": "vitest",
     "testOnce": "vitest --run",
     "lint": "echo 'linting...'",

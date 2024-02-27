@@ -22,7 +22,8 @@
     "./dist/**/*"
   ],
   "bin": {
-    "createProject": "./bin/cli/createProject.js"
+    "createProject": "./bin/cli/createProject.js",
+    "start": "./bin/cli/start.js"
   },
   "scripts": {
     "test": "vitest",
