@@ -1,5 +1,11 @@
 # create-scrapeyard
 
+## 0.24.1
+
+### Patch Changes
+
+- fix incompatibility with `npm`
+
 ## 0.24.0
 
 ### Minor Changes
