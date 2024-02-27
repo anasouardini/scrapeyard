@@ -86,9 +86,9 @@ export function createTemplateProject(args: string[]) {
   tools.setPackageInfo(destination, templatePackageInfo);
 
   // install demo project's dependencies
-  console.log('> Installing pnpm');
+  console.log('> Enabling corepack');
   execSync(
-    `npm i pnpm -g`,
+    `corepack enable`,
     // @ts-ignore
     (err, stdout, stderr) => {
       if (err || stderr) {
