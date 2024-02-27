@@ -1,5 +1,11 @@
 # create-scrapeyard
 
+## 0.22.0
+
+### Minor Changes
+
+- Added a `npm start` command that abstracts away all the imports and updates for the sub-projects and their controllers. The start command lunches a code-gen that enumerates all user's projects and their controllers/actions and genrates a TS file that imports all of them and then passes them to the library 'scrapeyard' to run them when the dispatcher receives an action from the view injected in the browser. This came with a huge change to the ./src/index.ts the user would write.
+
 ## 0.21.0
 
 ### Minor Changes
