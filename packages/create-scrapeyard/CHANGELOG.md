@@ -1,5 +1,11 @@
 # create-scrapeyard
 
+## 0.23.0
+
+### Minor Changes
+
+- Using corepack instead of installing pnpm through npm
+
 ## 0.22.0
 
 ### Minor Changes
