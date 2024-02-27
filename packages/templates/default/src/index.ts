@@ -7,39 +7,38 @@ import {
 } from 'scrapeyard';
 import util from 'util';
 
-async function main() {
-  // initializes browser instances/windows
-  await browser.init({
+const actions: Partial<Actions> = {
+  frugalads: [
+    {
+      txt: 'Spread Words',
+      action: (root) => root.frugalads.chatiwus.start,
+      data: {},
+    },
+  ],
+};
+
+// todo: need type for config
+const config = {
+  init: {
+    // initializes browser instances/windows
     instances: [
       // stateful: uses specified profile path
       { stateful: true, headless: false },
       // { stateful: false, headless: true },
     ],
-  });
+  },
+  dispatch: {
+    window: serverVars.windows[0],
+    // runs a controller from "root.home" and passes it empty object "{}"
+    action: {
+      action: ((root: ProjectsControllers) => root.home.load).toString(),
+      // actions/button that would be showed in the home view
+      data: actions,
+      type: 'direct',
+      // direct: directly from the server (this file)
+      // scrapeyardEvent: from a view in the browser
+    },
+  },
+};
 
-  const objstr = util.inspect({ ll: 'sdlfkj', 4: 44 });
-  browser.exec(serverVars.windows[0].pages()[0], {
-    string: `;;console.log(${objstr});;`,
-  });
-
-  const actions: Partial<Actions> = {
-    frugalads: [
-      {
-        txt: 'Spread Words',
-        action: (root) => root.frugalads.chatiwus.start,
-        data: {},
-      },
-    ],
-  };
-  // runs a controller from "root.home" and passes it empty object "{}"
-  await dispatcher(serverVars.windows[0], {
-    action: ((root: ProjectsControllers) => root.home.load).toString(),
-    // actions that would be showed in the home view after execution
-    data: actions,
-    type: 'direct',
-    // direct: directly from the server (this file)
-    // scrapeyardEvent: from a view in the browser
-  });
-}
-
-main();
+export default config;
