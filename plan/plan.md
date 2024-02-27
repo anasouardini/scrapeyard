@@ -7,3 +7,5 @@
     - node_moules/scrapeyard/data  should contain all logs and data
       like FSTreeState and buildlogs.json
   - root/ui is unnecessary and the view utils there should moved to root/utils
+  - remove template-dev-related scipts from copied package.json to create-scrapeyard
+
