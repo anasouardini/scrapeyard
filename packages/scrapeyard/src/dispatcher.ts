@@ -34,10 +34,14 @@ export interface Msg {
 }
 
 const dispatcher = async (driver: BrowserContext, msg: Msg) => {
+  console.log({
+    msg,
+  });
   if (!msg.action) {
     console.log(
       "Err -> can't dispatch a msg without a destination/action; This should never happen outside debugging.",
     );
+    return;
   }
 
   //* the action is wrapped in a function for easier serialization.
