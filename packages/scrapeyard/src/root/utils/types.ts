@@ -1,4 +1,5 @@
-import { type ProjectsControllers } from '../../projects/projectsControllers';
+import serverVars from '../../root/utils/serverVars';
+export type ProjectsControllers = typeof serverVars.controllers;
 
 export type RequestBodyType = {
   eventType: 'runAction' | 'clientRequestsUpdate';
