@@ -81,6 +81,26 @@ const print: { [key: string]: (msg: string) => void } = {
   },
 };
 
+function stringifyMethods(obj: Record<string, any>): Record<string, any> {
+  const methodStringifier = (targetObj: Record<string, any>) => {
+    for (const key of Object.keys(targetObj)) {
+      const propertyValue = targetObj[key];
+
+      if (typeof propertyValue == 'function') {
+        targetObj[key] = propertyValue.toString();
+      }
+
+      if (typeof propertyValue == 'object' && propertyValue !== null) {
+        methodStringifier(propertyValue);
+        continue;
+      }
+    }
+  };
+
+  methodStringifier(obj);
+  return obj;
+}
+
 export default {
   sleep,
   print,
@@ -89,4 +109,5 @@ export default {
   cleanString,
   randomNumber,
   randomChars,
+  stringifyMethods,
 };

@@ -101,8 +101,13 @@ const parseView = async ({
     // finalViewString += `window.localStorage.setItem('vars', \`${jsonVars}\`);\n\n`;
 
     //* the better way
-    const objectString = util.inspect(data);
-    finalViewString += `;window.scrapeyardViewData = ${objectString};\n\n`;
+    const parsedMethods = tools.stringifyMethods(data);
+    const objectString = util.inspect(parsedMethods);
+    const setDataToWindowObjectString = `;
+      window.scrapeyardViewData = ${objectString};
+    ;`;
+    // console.log(setDataToWindowObjectString);
+    finalViewString += setDataToWindowObjectString;
   }
 
   //* both the view name and the project name are mutually inclusive.
