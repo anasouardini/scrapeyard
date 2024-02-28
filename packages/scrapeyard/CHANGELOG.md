@@ -1,5 +1,11 @@
 # scrapeyard
 
+## 0.25.0
+
+### Minor Changes
+
+- A "sync" command has been added that you can run whenever you make a change to the sub-projects' interface or exported types. Soon will be applied to views as well.
+
 ## 0.24.1
 
 ## 0.24.0
