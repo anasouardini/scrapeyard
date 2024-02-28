@@ -43,7 +43,7 @@ function copyTemplate(dryRun) {
   execSync(
     `${cpCommand({
       path: { src: templateSrc, dest: outputTemplatesPath },
-      exclude: ['node_modules', '*.test.*', 'scripts'],
+      exclude: ['node_modules', '*.test.*', 'scripts', '*.d.ts', '.gitignore'],
     })} ${dryRun === 'dry-run' ? '--dry-run' : ''}`,
     execErrHandler,
   );
