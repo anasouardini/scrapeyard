@@ -54,6 +54,7 @@ listenForServerNotifications();
 
 // todo: instead of passing both the action and the data, I could just pass a function that wraps the action and call it with the data as an argument; no need to serialize the data for the http request.
 const runServerAction = async (msg: DispatcherMsg) => {
+  console.log('run server action', { msg });
   //* the super uber new method
   const newMsg: RequestBodyType = {
     eventType: 'runAction',
