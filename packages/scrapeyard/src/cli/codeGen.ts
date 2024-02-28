@@ -1,6 +1,8 @@
-import fs from 'fs';
+import { execSync } from 'child_process';
+import fs, { readFileSync, writeFileSync } from 'fs';
 import path from 'path';
 import util from 'util';
+import ts from 'typescript';
 
 const args = {
   length: process.argv.length,
@@ -22,22 +24,47 @@ type Entry = File | Directory;
 
 const vars = {
   libName: 'scrapeyard',
+  codeJoinerName: 'codeJoiner',
+  libMainInterfaceName: 'mainInterface',
+  codeJoinerTypesMarkerStart: 'declare const dynamicallyAppenedTypesStart;',
+  codeJoinerTypesMarkerEnd: 'declare const dynamicallyAppenedTypesEnd;',
 };
-const config = {
+interface Paths {
+  outputDir: string;
+  codeJoinerFile: string;
+  projectDirFromCodeJoinerFile: string;
+  projectSubProjectsDir: string;
+}
+interface Config {
+  dryRun: boolean;
+  paths: Paths;
+}
+let config: Config = {
   dryRun: args.args[0] === 'dry-run',
+  // @ts-ignore
   paths: {
-    codeJoinerFile: path.join(process.cwd(), 'codeJoiner.ts'),
+    outputDir: path.join(process.cwd()),
+    codeJoinerFile: path.join(process.cwd(), `${vars.codeJoinerName}.ts`),
     projectDirFromCodeJoinerFile: '.',
     projectSubProjectsDir: path.join(process.cwd(), 'src', 'projects'),
-    FSTreeStateStore: path.join(
-      process.cwd(),
-      'node_modules',
-      vars.libName,
-      'lib',
-      'fsTreeState',
-    ),
   },
 };
+interface Paths {
+  libraryLibPath: string;
+}
+config.paths.libraryLibPath = path.join(
+  process.cwd(),
+  'node_modules',
+  vars.libName,
+  'lib',
+);
+interface Paths {
+  FSTreeStateStore: string;
+}
+config.paths.FSTreeStateStore = path.join(
+  config.paths.libraryLibPath,
+  'fsTreeState',
+);
 
 function scanFS(
   dirPath: string,
@@ -172,13 +199,23 @@ function genCode(projectsList: Entry[]) {
     }
   }
 
-  const dispatchTableCode = `const controllers = {${Object.keys(dispatchTableObj).join(', ')}};`;
-  let joinerCode = '';
+  const dispatchTableInitilization = `export const controllers = {${Object.keys(dispatchTableObj).join(', ')}};`;
+  const dispatchTableCodeTypeExport = `export type ProjectsControllers = typeof controllers;`;
+  const superSetTypesExports = `
+    export interface HomeButton {
+      txt: string;
+      action: (root: ProjectsControllers) => (...args: any[]) => any;
+      data: {};
+    }
+    export type HomeButtons = Record<keyof ProjectsControllers, HomeButton[]>;
+  `;
+  const dispatchTableCode = `${dispatchTableInitilization}\n${dispatchTableCodeTypeExport}\n\n${superSetTypesExports}`;
   imports.unshift(
     `import {browser, serverVars, dispatcher} from '${vars.libName}'`,
     // todo: grab config name from entry file in package.json
     `import config from '${config.paths.projectDirFromCodeJoinerFile}/src'`,
   );
+  let joinerCode = '';
   // fake temporary code
   {
     interface InitObj {
@@ -201,6 +238,7 @@ function genCode(projectsList: Entry[]) {
     }
     joinerCode = `${joiner
       .toString()
+      // @ts-ignore
       .replaceAll('/*await*/', 'await')}\njoiner();`;
   }
 
@@ -209,27 +247,129 @@ function genCode(projectsList: Entry[]) {
   return code;
 }
 
+function writeCode(code: string) {
+  if (config.dryRun) {
+    console.log(
+      `> [dry run mode] writing code to: ${config.paths.codeJoinerFile}`,
+      `\nCode:\n${code}`,
+    );
+  } else {
+    fs.writeFileSync(config.paths.codeJoinerFile, code);
+  }
+}
+
+function appendTypesToLib() {
+  const codeJoinerTypesFilePath = `${config.paths.libraryLibPath}/${vars.codeJoinerName}.d.ts`;
+  const libraryTypesFilePath = `${config.paths.libraryLibPath}/${vars.libMainInterfaceName}.d.ts`;
+  try {
+    // merge types with library's main interface types
+    const types = readFileSync(codeJoinerTypesFilePath);
+    const nowDate = `/* Added at: ${new Date().toISOString()}*/`;
+    // console.log({ nowDate });
+    const markedTypesToBeAppended = `\n${vars.codeJoinerTypesMarkerStart}\n${nowDate}\n\n${types}\n\n${vars.codeJoinerTypesMarkerEnd}`;
+
+    const libTypes = readFileSync(libraryTypesFilePath, 'utf-8');
+    if (libTypes.includes(vars.codeJoinerTypesMarkerStart)) {
+      console.log('> adding updated types to library');
+      const oldTypesRegExp = new RegExp(
+        `${vars.codeJoinerTypesMarkerStart}[\\s\\S]+${vars.codeJoinerTypesMarkerEnd}`,
+      );
+
+      const newLibraryTypes = libTypes.replace(
+        oldTypesRegExp,
+        markedTypesToBeAppended,
+      );
+
+      const updatedDate = newLibraryTypes
+        .split('\n')
+        .filter((line) => line.includes('Added at'))[0];
+      // console.log({
+      //   nowDate,
+      //   updatedDate,
+      // });
+      if (nowDate !== updatedDate) {
+        console.log(`Err -> couldn't replace old types`);
+      }
+      fs.writeFileSync(libraryTypesFilePath, newLibraryTypes, 'utf-8');
+    } else {
+      console.log('> adding types to library');
+      fs.appendFileSync(libraryTypesFilePath, markedTypesToBeAppended, 'utf-8');
+    }
+
+    fs.unlinkSync(codeJoinerTypesFilePath);
+  } catch (err) {
+    console.log(
+      `Err -> couldn't append code joiner types to main library types:\n ${err}`,
+    );
+    return;
+  }
+}
+
+function genTypes() {
+  try {
+    console.log('> syncing types');
+    // generate a config file for 'tsc' (doesn't ignore the one that exists)
+    const tmpTsconfigObj = {
+      compilerOptions: {
+        target: 'esNext',
+        lib: ['es6'],
+        outDir: config.paths.libraryLibPath,
+        module: 'CommonJS',
+        allowJs: true,
+        esModuleInterop: true,
+        forceConsistentCasingInFileNames: true,
+        strict: true,
+        noImplicitAny: false,
+        skipLibCheck: true,
+        moduleResolution: 'node',
+        declaration: true,
+        emitDeclarationOnly: true,
+      },
+      include: [config.paths.codeJoinerFile],
+      // exclude: [`${config.paths.outputDir}/src`],
+    };
+    const tmpTsconfigFileName = `${vars.codeJoinerName}.config.json`;
+    const tmpTsconfigFile = `${config.paths.libraryLibPath}/${tmpTsconfigFileName}`;
+    fs.writeFileSync(tmpTsconfigFile, JSON.stringify(tmpTsconfigObj));
+    // console.log({ codeJoinerPath });
+    try {
+      console.log(`> generating declaration files`);
+      execSync(`tsc -p "${tmpTsconfigFile}";`);
+    } catch (err) {
+      // todo: some tsc errors are not errors; USE TYPESCRIPT PROGRAMATICALLY
+      const notRealError = true;
+      if (notRealError) {
+        appendTypesToLib();
+      } else {
+        console.log(`Err -> couldn't generate declaration files`);
+        return;
+      }
+    }
+  } catch (err) {
+    console.log(
+      `Err -> could not generate types for ${vars.codeJoinerName}:\n${err}`,
+    );
+    return;
+  }
+}
+
 function genCodeJoiner() {
   const FSState = scanFS(config.paths.projectSubProjectsDir, '', [
     'node_modules',
   ]);
   // console.log(FSState)
 
-  if (hasChanged(FSState.treeString)) {
-    storeState(FSState.treeString);
+  // todo: either also check files' content (because of types change) or don't check at all
+  // if (!hasChanged(FSState.treeString)) {
+  //   return config.paths.codeJoinerFile;
+  // }
 
-    const code = genCode(FSState.treeObj);
-    // console.log(code);
+  storeState(FSState.treeString);
 
-    if (config.dryRun) {
-      console.log(
-        `> [dry run mode] writing code to: ${config.paths.codeJoinerFile}`,
-        `\nCode:\n${code}`,
-      );
-    } else {
-      fs.writeFileSync(config.paths.codeJoinerFile, code);
-    }
-  }
+  const code = genCode(FSState.treeObj);
+  writeCode(code);
+  genTypes();
+  // console.log(code);
 
   return config.paths.codeJoinerFile;
 }
