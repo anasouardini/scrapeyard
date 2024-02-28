@@ -13,6 +13,7 @@
   "scripts": {
     "createProject": "./node_modules/.bin/createProject",
     "start": "ts-node -T \"$(./node_modules/.bin/start)\"",
+    "sync": "./node_modules/.bin/start",
     "test": "vitest",
     "testOnce": "vitest --run",
     "lint": "echo 'linting...'",
