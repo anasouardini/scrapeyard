@@ -8,7 +8,11 @@ import {
   globalStyle,
 } from 'scrapeyard/lib/viewsInterface';
 
-import { type ProjectsControllers, type Actions } from 'scrapeyard';
+import {
+  type ProjectsControllers,
+  type HomeButtons,
+  type HomeButton,
+} from 'scrapeyard';
 
 const myNode = document.body;
 
@@ -28,7 +32,7 @@ const style = {
   btnsContainer: globalStyle.btnsContainer,
 };
 
-const projects = window.scrapeyardViewData as Partial<Actions>;
+const projects = window.scrapeyardViewData as Partial<HomeButtons>;
 
 // controls buttons
 // TODO: get actions passed to home controller
