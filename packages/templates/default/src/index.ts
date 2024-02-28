@@ -2,11 +2,13 @@ import {
   browser,
   serverVars,
   dispatcher,
+  controllers,
   type ProjectsControllers,
-  type Actions,
+  type HomeButtons,
 } from 'scrapeyard';
 
-const actions: Partial<Actions> = {
+const homeButtons: HomeButtons = {
+  home: [],
   frugalads: [
     {
       txt: 'Spread Words',
@@ -30,9 +32,9 @@ const config = {
     windowIndex: 0,
     // runs a controller from "root.home" and passes it empty object "{}"
     msg: {
-      action: (root: { home: { load: () => void } }) => root.home.load,
+      action: (root: ProjectsControllers) => root.home.load,
       // actions/button that would be showed in the home view
-      data: actions,
+      data: homeButtons,
       type: 'direct' as 'direct' | 'scrapeyardEvent',
       // direct: directly from the server (this file)
       // scrapeyardEvent: from a view in the browser
