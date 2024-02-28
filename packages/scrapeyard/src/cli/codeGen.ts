@@ -33,7 +33,7 @@ interface Paths {
   outputDir: string;
   codeJoinerFile: string;
   projectDirFromCodeJoinerFile: string;
-  projectSubProjectsDir: string;
+  projectBotsDir: string;
 }
 interface Config {
   dryRun: boolean;
@@ -46,7 +46,7 @@ let config: Config = {
     outputDir: path.join(process.cwd()),
     codeJoinerFile: path.join(process.cwd(), `${vars.codeJoinerName}.ts`),
     projectDirFromCodeJoinerFile: '.',
-    projectSubProjectsDir: path.join(process.cwd(), 'src', 'projects'),
+    projectBotsDir: path.join(process.cwd(), 'src', 'bots'),
   },
 };
 interface Paths {
@@ -150,16 +150,17 @@ function hasChanged(currentFSTreeSate: string): boolean {
   }
 }
 
-function genCode(projectsList: Entry[]) {
+function genCode(botsList: Entry[]) {
   const imports: string[] = [];
   const dispatchTableObj = {};
 
-  // looping through list of entries in "projects" dir
-  for (const entry of projectsList) {
+  // looping through list of entries in "bots" dir
+  for (const entry of botsList) {
     if (entry.type !== 'dir') {
       continue;
     }
     const projectDir = entry;
+    // console.log({ projectDir: projectDir.name });
 
     const controllerDir = projectDir.content.filter(
       (child) => child.name === 'controller' && child.type === 'dir',
@@ -185,29 +186,32 @@ function genCode(projectsList: Entry[]) {
 
     if (hasIndexFile) {
       imports.push(
-        `import ${projectDir.name} from '${config.paths.projectDirFromCodeJoinerFile}/src/projects/${projectDir.name}/controller'`,
+        `import ${projectDir.name} from '${config.paths.projectDirFromCodeJoinerFile}/src/bots/${projectDir.name}/controller'`,
       );
-      dispatchTableObj[projectDir.name] = 'dummy';
+      dispatchTableObj[projectDir.name] = projectDir.name;
     } else {
+      const controlersNames: string[] = [];
       for (const child of childrenCodeFiles) {
         const controllerName = child.name.split('.')[0];
         imports.push(
-          `import ${controllerName} from '${config.paths.projectDirFromCodeJoinerFile}/src/projects/${projectDir.name}/controller/${controllerName}'`,
+          `import ${controllerName} from '${config.paths.projectDirFromCodeJoinerFile}/src/bots/${projectDir.name}/controller/${controllerName}'`,
         );
-        dispatchTableObj[controllerName] = 'dummy';
+        controlersNames.push(child.name.split('.')[0]);
       }
+      dispatchTableObj[projectDir.name] = `{${controlersNames.join(', ')}}`;
     }
   }
 
-  const dispatchTableInitilization = `export const controllers = {${Object.keys(dispatchTableObj).join(', ')}};`;
-  const dispatchTableCodeTypeExport = `export type ProjectsControllers = typeof controllers;`;
+  const dispatchTableParsed = `{${Object.entries(dispatchTableObj).map((entry) => `${entry[0]}:${entry[1]}`)}}`;
+  const dispatchTableInitilization = `export const controllers = ${dispatchTableParsed};`;
+  const dispatchTableCodeTypeExport = `export type ProjectsControllers = typeof controllers;\nexport type BotsControllers = typeof controllers;`;
   const superSetTypesExports = `
     export interface HomeButton {
       txt: string;
-      action: (root: ProjectsControllers) => (...args: any[]) => any;
+      action: (root: BotsControllers) => (...args: any[]) => any;
       data: {};
     }
-    export type HomeButtons = Record<keyof ProjectsControllers, HomeButton[]>;
+    export type HomeButtons = Record<keyof BotsControllers, HomeButton[]>;
   `;
   const dispatchTableCode = `${dispatchTableInitilization}\n${dispatchTableCodeTypeExport}\n\n${superSetTypesExports}`;
   imports.unshift(
@@ -354,9 +358,7 @@ function genTypes() {
 }
 
 function genCodeJoiner() {
-  const FSState = scanFS(config.paths.projectSubProjectsDir, '', [
-    'node_modules',
-  ]);
+  const FSState = scanFS(config.paths.projectBotsDir, '', ['node_modules']);
   // console.log(FSState)
 
   // todo: either also check files' content (because of types change) or don't check at all
