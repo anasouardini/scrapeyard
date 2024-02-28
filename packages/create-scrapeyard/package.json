@@ -4,9 +4,16 @@
   "description": "Initialization tool for scrapeyard.",
   "license": "MIT",
   "keywords": [
-    "scraping"
+    "scraping",
+    "automation"
   ],
   "author": "anasouardini",
+  "repository": {
+    "url": "https://github.com/anasouardini/scrapeyard"
+  },
+  "bugs": {
+    "url": "https://github.com/anasouardini/scrapeyard/issues"
+  },
   "files": [
     "./data/**/*",
     "./bin/**/*"
