@@ -1,7 +1,8 @@
-import { type ProjectsControllers } from '../../../utils/types';
+import { type DispatcherMsg, type Actions } from '../../../utils/types';
 import bridge from './bridge';
 import vars, { type RequestBodyType } from './viewsVars';
 import './index.css';
+import { BrowserContext } from 'playwright';
 
 // adding a property by which the server and the view will communicate.
 declare global {
@@ -50,15 +51,9 @@ listenForServerNotifications();
 
 //* projectsControllers is only used for type-safety in the actions sent to the back-end via browser's consol API.
 // @ts-ignore
-const projectsControllers: ProjectsControllers = null as ProjectsControllers;
 
-export type Action = (root: ProjectsControllers) => (...arg: any[]) => any;
-interface Msg {
-  action: Action;
-  data: any;
-}
 // todo: instead of passing both the action and the data, I could just pass a function that wraps the action and call it with the data as an argument; no need to serialize the data for the http request.
-const runServerAction = async (msg: Msg) => {
+const runServerAction = async (msg: DispatcherMsg) => {
   //* the super uber new method
   const newMsg: RequestBodyType = {
     eventType: 'runAction',
@@ -152,4 +147,4 @@ const globalStyle = {
   },
 };
 
-export { sleep, runServerAction, globalStyle, colors, projectsControllers };
+export { sleep, runServerAction, globalStyle, colors };

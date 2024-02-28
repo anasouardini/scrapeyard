@@ -2,7 +2,8 @@ import { ElementHandle, Locator, Route, chromium } from 'playwright';
 import serverVars from './serverVars';
 import sharedVars from './globalVars';
 import { BrowserContext, Page } from 'playwright';
-import dispatcher, { Msg } from '../../dispatcher';
+import dispatcher from '../../dispatcher';
+import { type DispatcherMsg } from './types';
 import parseView from './viewParser';
 import { uuid } from 'uuidv4';
 import { RequestBodyType } from './types';
@@ -142,7 +143,8 @@ const observe = (driver: BrowserContext, tab: Page) => {
 
           switch (parsedRequestBody.eventType) {
             case 'runAction': {
-              const parsedMsg: Msg = parsedRequestBody.data as Msg;
+              const parsedMsg: DispatcherMsg =
+                parsedRequestBody.data as DispatcherMsg;
               // todo: the controllers should get the new data and return it back through the dispatcher and back to the client using a post response.
               response = await dispatcher(driver, parsedMsg);
               break;

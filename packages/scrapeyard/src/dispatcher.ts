@@ -1,7 +1,11 @@
 import browser from './root/utils/browser-playwright';
 import { BrowserContext } from 'playwright';
 import serverVars from './root/utils/serverVars';
-import { ProjectsControllers } from './mainInterface';
+import {
+  type ActionMethod,
+  type ActionMethodWrapper,
+  type DispatcherMsg,
+} from './root/utils/types';
 
 // direct means called from the back-end not from the browser console event
 //* old complicated way
@@ -28,14 +32,7 @@ import { ProjectsControllers } from './mainInterface';
 //   return getActionByPath(projectsControllers, actionString.split("."));
 // };
 
-type ActionMethod = (driver: BrowserContext, args?: any) => void;
-export interface Msg {
-  type: 'scrapeyardEvent' | 'direct';
-  action: string | ((root: ProjectsControllers) => ActionMethod);
-  data: any;
-}
-
-const dispatcher = async (driver: BrowserContext, msg: Msg) => {
+const dispatcher = async (driver: BrowserContext, msg: DispatcherMsg) => {
   // console.log({
   //   msg,
   // });
@@ -57,7 +54,7 @@ const dispatcher = async (driver: BrowserContext, msg: Msg) => {
   const actionMethodWrapped =
     typeof msg.action == 'string'
       ? eval(msg.action)(serverVars.controllers)
-      : msg.action(serverVars.controllers);
+      : msg.action(driver, serverVars.controllers);
   const actionMethod: ActionMethod = actionMethodWrapped;
   console.log('action: ', msg.action);
   // console.log({ actionMethod });

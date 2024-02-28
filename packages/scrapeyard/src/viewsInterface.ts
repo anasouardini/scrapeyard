@@ -5,7 +5,6 @@ export {
   runServerAction,
   globalStyle,
   colors,
-  projectsControllers,
 } from './root/ui/src/viewUtils/common';
 
 export const bridge = bridgeI;

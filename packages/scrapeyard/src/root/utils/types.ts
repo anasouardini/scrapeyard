@@ -1,5 +1,5 @@
+import { BrowserContext } from 'playwright';
 import serverVars from '../../root/utils/serverVars';
-export type ProjectsControllers = typeof serverVars.controllers;
 
 export type RequestBodyType = {
   eventType: 'runAction' | 'clientRequestsUpdate';
@@ -7,11 +7,13 @@ export type RequestBodyType = {
   data?: string | {};
 };
 
-export interface Action {
-  txt: string;
+export type ActionMethod = (driver: BrowserContext, args?: any) => void;
+export type ActionMethodWrapper = (root: Record<string, any>) => ActionMethod;
+
+export interface DispatcherMsg {
+  type: 'scrapeyardEvent' | 'direct';
+  action: string | ActionMethod | ActionMethodWrapper;
   data: any;
-  action: (root: ProjectsControllers) => (...args: any[]) => any;
-  // actionCall: (root: ProjectsControllers) => any;
 }
 
-export type Actions = Record<keyof ProjectsControllers, Action[]>;
+export type Actions = Record<string, DispatcherMsg[]>;
