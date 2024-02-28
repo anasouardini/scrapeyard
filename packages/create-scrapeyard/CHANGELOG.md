@@ -1,5 +1,11 @@
 # create-scrapeyard
 
+## 0.25.1
+
+### Patch Changes
+
+- Added a missing template from the creator package.
+
 ## 0.25.0
 
 ## 0.24.1
