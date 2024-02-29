@@ -1,5 +1,11 @@
 # create-scrapeyard
 
+## 0.26.3
+
+### Patch Changes
+
+- Omited one step from steps required to get started.
+
 ## 0.26.2
 
 ### Patch Changes
