@@ -1,5 +1,11 @@
 # create-scrapeyard
 
+## 0.26.0
+
+### Minor Changes
+
+- The demo bot/sub-project has been replaced, the old one was targetting a website that's hard to demo on. The `sync` command is now more well-rounded.
+
 ## 0.25.1
 
 ### Patch Changes
