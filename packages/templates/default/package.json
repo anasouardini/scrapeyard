@@ -12,9 +12,9 @@
   },
   "scripts": {
     "createProject": "./node_modules/.bin/createProject",
-    "start": "ts-node -T \"$(./node_modules/.bin/start)\"",
     "sync": "./node_modules/.bin/start",
     "dev": "ts-node -T ./codeJoiner.ts",
+    "start": "pnpm run sync && pnpm run dev",
     "test": "vitest",
     "testOnce": "vitest --run",
     "lint": "echo 'linting...'",

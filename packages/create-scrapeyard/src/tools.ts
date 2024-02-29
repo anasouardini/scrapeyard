@@ -101,8 +101,7 @@ export function createTemplateProject(args: string[]) {
   console.log('');
   console.log(`1. cd ${projectName}`.yellow);
   console.log(`2. pnpm i`.yellow);
-  console.log(`3. pnpm sync`.yellow);
-  console.log(`4. pnpm dev`.yellow);
+  console.log(`3. pnpm start`.yellow);
   console.log('');
   console.log('🧨', 'Happy scraping'.rainbow.bold, '🧨');
 
