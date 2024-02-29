@@ -4,11 +4,34 @@ import {
   dispatcher,
   controllers,
   type ProjectsControllers,
+  type BotsControllers,
   type HomeButtons,
 } from 'scrapeyard';
 
+// * initializing joabboard (demo bot)'s DB
+// import schema from './bots/jobboards/model/schema';
+// schema({type: 'init'});
+// process.exit(0);
+
 const homeButtons: HomeButtons = {
   home: [],
+  jobboards: [
+    {
+      txt: 'collect',
+      action: (root) => root.jobboards.marocannonces.collect,
+      data: {},
+    },
+    {
+      txt: 'parse',
+      action: (root) => root.jobboards.marocannonces.parse,
+      data: {},
+    },
+    {
+      txt: 'apply',
+      action: (root) => root.jobboards.marocannonces.apply,
+      data: {},
+    },
+  ],
   frugalads: [
     {
       txt: 'Spread Words',
@@ -32,7 +55,7 @@ const config = {
     windowIndex: 0,
     // runs a controller from "root.home" and passes it empty object "{}"
     msg: {
-      action: (root: ProjectsControllers) => root.home.load,
+      action: (root: BotsControllers) => root.home.load,
       // actions/button that would be showed in the home view
       data: homeButtons,
       type: 'direct' as 'direct' | 'scrapeyardEvent',
