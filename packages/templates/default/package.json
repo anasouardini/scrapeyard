@@ -14,6 +14,7 @@
     "createProject": "./node_modules/.bin/createProject",
     "start": "ts-node -T \"$(./node_modules/.bin/start)\"",
     "sync": "./node_modules/.bin/start",
+    "dev": "ts-node -T ./codeJoiner.ts",
     "test": "vitest",
     "testOnce": "vitest --run",
     "lint": "echo 'linting...'",
@@ -24,7 +25,9 @@
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "scrapeyard": "link:../../scrapeyard"
+    "scrapeyard": "link:../../scrapeyard",
+    "better-sqlite3": "^9.1.1",
+    "@types/better-sqlite3": "^7.6.9"
   },
   "devDependencies": {
     "@types/node": "^20.4.5",
