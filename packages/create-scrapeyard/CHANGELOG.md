@@ -1,5 +1,11 @@
 # create-scrapeyard
 
+## 0.26.1
+
+### Patch Changes
+
+- The template was removed from create-scrapeyrad by mistake in v0.26.0
+
 ## 0.26.0
 
 ### Minor Changes
