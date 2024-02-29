@@ -1,5 +1,11 @@
 # scrapeyard
 
+## 0.26.5
+
+### Patch Changes
+
+- Added installation code snippet to README.md
+
 ## 0.26.4
 
 ### Patch Changes
