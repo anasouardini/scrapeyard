@@ -32,13 +32,6 @@ const homeButtons: HomeButtons = {
       data: {},
     },
   ],
-  frugalads: [
-    {
-      txt: 'Spread Words',
-      action: (root) => root.frugalads.chatiwus.start,
-      data: {},
-    },
-  ],
 };
 
 // todo: need type for config

@@ -50,7 +50,6 @@ function copyTemplate(dryRun) {
         '*.d.ts',
         '.gitignore',
         'build',
-        'frugalads',
       ],
     })} ${dryRun === 'dry-run' ? '--dry-run' : ''}`,
     execErrHandler,
