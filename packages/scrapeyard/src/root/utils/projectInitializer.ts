@@ -10,7 +10,7 @@ interface Node {
 }
 
 const options = {
-  targetDir: serverVars.paths.projectsDir,
+  targetDir: serverVars.paths.botsDir,
   // nodemonConfigFile: "./nodemon.json",
   dryRun: false,
 };

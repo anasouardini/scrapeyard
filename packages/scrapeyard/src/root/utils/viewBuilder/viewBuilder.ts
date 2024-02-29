@@ -65,7 +65,7 @@ async function buildView({ project, view }) {
                   serverVars.paths.home.buildDir,
                 )
               : path.join(
-                  serverVars.paths.projectsDir,
+                  serverVars.paths.botsDir,
                   project.name,
                   serverVars.paths.views.buildDir,
                 ),
@@ -101,7 +101,6 @@ function updateBuildLog({
   viewName: string;
   viewSrcPath: string;
 }) {
-  // todo: add "pnpm sync" to get all projects and their views names set in /src/root/utils/types/projectsTypes...
   interface TimeLog {
     modificationTimeMs: number;
     buildTimeMs: number;
@@ -141,9 +140,8 @@ function updateBuildLog({
   fs.writeFileSync(serverVars.paths.buildLog, JSON.stringify(buildLog));
 }
 
-function getProjectsDirsList() {
-  //   console.log("get projects dir list", vars.paths.projectsDir);
-  const targetPath = serverVars.paths.projectsDir;
+function getBotsDirsList() {
+  const targetPath = serverVars.paths.botsDir;
 
   const dirList = fs
     .readdirSync(targetPath, { withFileTypes: true })
@@ -194,22 +192,22 @@ export default async function builder(targetComponent: View) {
     name: string;
     path: string;
   }
-  let projectsList: Project[] = getProjectsDirsList();
+  let botsList: Project[] = getBotsDirsList();
 
   if (targetComponent.projectName) {
-    // if one is specified, remove the other projects from the list
-    const filteredList = projectsList.filter(
+    // if one is specified, remove the other bots from the list
+    const filteredList = botsList.filter(
       (project) => project.name == targetComponent.projectName,
     );
     if (!filteredList.length) {
       console.log(
-        `Err (buildViews.ts) -> the project (${targetComponent.projectName}) you've provided does not exist.`,
+        `Err (buildViews.ts) -> the bot (${targetComponent.projectName}) you've provided does not exist.`,
       );
       return;
     }
-    projectsList = filteredList;
+    botsList = filteredList;
   }
-  for (const project of projectsList) {
+  for (const project of botsList) {
     interface View {
       name: string;
       path: string;

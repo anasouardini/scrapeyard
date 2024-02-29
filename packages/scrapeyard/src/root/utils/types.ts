@@ -12,7 +12,7 @@ export type ActionMethodWrapper = (root: Record<string, any>) => ActionMethod;
 
 export interface DispatcherMsg {
   type: 'scrapeyardEvent' | 'direct';
-  action: string | ActionMethod | ActionMethodWrapper;
+  action: string | ActionMethodWrapper | ActionMethod;
   data: any;
 }
 

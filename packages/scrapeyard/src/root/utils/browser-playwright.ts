@@ -143,6 +143,9 @@ const observe = (driver: BrowserContext, tab: Page) => {
 
           switch (parsedRequestBody.eventType) {
             case 'runAction': {
+              console.log('observer [runAction]', {
+                requestBody: parsedRequestBody,
+              });
               const parsedMsg: DispatcherMsg =
                 parsedRequestBody.data as DispatcherMsg;
               // todo: the controllers should get the new data and return it back through the dispatcher and back to the client using a post response.

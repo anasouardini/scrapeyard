@@ -25,7 +25,7 @@ function getViewPathObject({
     };
   }
 
-  const projectViewsPath = `${serverVars.paths.projectsDir}/${projectName}`;
+  const projectViewsPath = `${serverVars.paths.botsDir}/${projectName}`;
   return {
     src: `${projectViewsPath}/${serverVars.paths.views.srcDir}/${viewName}.tsx`,
     build: `${projectViewsPath}/${serverVars.paths.views.buildDir}/${viewName}.js`,

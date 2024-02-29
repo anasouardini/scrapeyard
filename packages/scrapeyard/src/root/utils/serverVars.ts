@@ -11,7 +11,7 @@ const controllers: Record<string, any> = {};
 const serverVars = {
   paths: {
     tmp: tools.genAbsolutePath('src/tmp'),
-    projectsDir: tools.genAbsolutePath('src/projects'),
+    botsDir: tools.genAbsolutePath('src/bots'),
     views: {
       srcDir: 'ui/views/src',
       buildDir: 'ui/views/build',
