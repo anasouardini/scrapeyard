@@ -1,5 +1,11 @@
 # create-scrapeyard
 
+## 0.26.2
+
+### Patch Changes
+
+- Added more step to the post-installation instructions.
+
 ## 0.26.1
 
 ### Patch Changes
