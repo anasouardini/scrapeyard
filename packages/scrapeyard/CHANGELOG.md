@@ -1,5 +1,11 @@
 # scrapeyard
 
+## 0.26.4
+
+### Patch Changes
+
+- Added a little README.md
+
 ## 0.26.3
 
 ## 0.26.2
