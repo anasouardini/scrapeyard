@@ -7,7 +7,8 @@
   "types": "./lib/mainInterface.d.ts",
   "license": "MIT",
   "keywords": [
-    "scraping"
+    "scraping",
+    "automation"
   ],
   "author": "anasouardini",
   "repository": {

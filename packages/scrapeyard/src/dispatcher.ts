@@ -33,9 +33,9 @@ import {
 // };
 
 const dispatcher = async (driver: BrowserContext, msg: DispatcherMsg) => {
-  // console.log({
-  //   msg,
-  // });
+  console.log({
+    msg,
+  });
   if (!driver) {
     console.log(
       'Err -> the driver/browser/window passed to the dispatcher was invalid!',
@@ -51,10 +51,13 @@ const dispatcher = async (driver: BrowserContext, msg: DispatcherMsg) => {
 
   //* the action is wrapped in a function for easier serialization.
   // console.log({action: msg.action});
+  // console.log({ controllers: serverVars.controllers });
   const actionMethodWrapped =
     typeof msg.action == 'string'
       ? eval(msg.action)(serverVars.controllers)
-      : msg.action(driver, serverVars.controllers);
+      : //todo: TS is confused between ActionMethod and ActionMethodWrapper
+        // @ts-ignore
+        msg.action(serverVars.controllers);
   const actionMethod: ActionMethod = actionMethodWrapped;
   console.log('action: ', msg.action);
   // console.log({ actionMethod });
