@@ -55,6 +55,7 @@ async function buildView({ project, view }) {
         logLevel: 'info',
         plugins: [react(), cssByJs() /*tsconfigPaths()*/],
         build: {
+          target: 'es2020',
           minify: false,
           emptyOutDir: false,
           // changing the dist dir for easier automation
