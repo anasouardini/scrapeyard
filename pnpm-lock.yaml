@@ -178,6 +178,9 @@ importers:
       react-dom:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
+      scrapeyard:
+        specifier: link:../../scrapeyard
+        version: link:../../scrapeyard
       tailwindcss:
         specifier: ^3.4.1
         version: 3.4.1(ts-node@10.9.2)
@@ -188,9 +191,6 @@ importers:
       '@types/node':
         specifier: ^20.4.5
         version: 20.11.20
-      scrapeyard:
-        specifier: link:../../scrapeyard
-        version: link:../../scrapeyard
       ts-node:
         specifier: ^10.9.1
         version: 10.9.2(@types/node@20.11.20)(typescript@5.3.3)
