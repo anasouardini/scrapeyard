@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "initDev": "pnpm install && pnpm --filter='./packages/**/*' --parallel run setup",
     "setupHooks": "cp -r ./hooks/* ./.git/hooks",
     "preCommit": "pnpm testOnce && pnpm lint && ./scripts/format-staged.sh",
     "format": "prettier --write . --cache",
@@ -18,7 +19,7 @@
     "release": "npm run ci && npm run createRelease && npx changeset publish && npm run pushReleaseGit"
   },
   "engines": {
-    "node": "21.1.0"
+    "node": "21"
   },
   "keywords": [],
   "author": "",
