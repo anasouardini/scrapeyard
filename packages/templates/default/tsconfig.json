@@ -18,7 +18,16 @@
     "noImplicitAny": false,
     "skipLibCheck": true,
 
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+
+    "baseUrl": "./src",
+    "paths": {
+      "$/*": ["./*"],
+      "$jobboards/*": ["./bots/jobboards/*"],
+      "$jobboards-components/*": ["./bots/jobboards/ui/views/src/components/*"],
+      "$home/*": ["./bots/home/*"],
+      "$home-components/*": ["./bots/home/ui/views/src/components/*"]
+    }
   },
   "include": [
     "./src"
