@@ -22,6 +22,7 @@
     "initialize": "./bin/scrapeyard.js"
   },
   "scripts": {
+    "initDev": "pnpm install",
     "lint": "tsc",
     "build": "rm -rf ./bin && tsc --b ./tsconfig.bin.json"
   },
