@@ -11,7 +11,4 @@ Some of the feature are:
 
 ## How to use
 
-Run the following command in a terminal:
-```bash
-npm create scrapeyard project-name
-```
+Run the following command in a terminal: `npm create scrapeyard project-name`.
