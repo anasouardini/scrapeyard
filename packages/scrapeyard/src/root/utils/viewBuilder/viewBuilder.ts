@@ -8,7 +8,14 @@ import { build, defineConfig, InlineConfig, UserConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
 // import react from '@vitejs/plugin-react';
 import cssByJs from 'vite-plugin-css-injected-by-js';
-// import tsconfigPaths from 'vite-tsconfig-paths';
+import tsconfigPaths from 'vite-tsconfig-paths';
+
+// esbuild imports
+import esbuild from 'esbuild';
+import postCssPlugin from 'esbuild-style-plugin';
+import tailwindcss, { Config } from 'tailwindcss';
+import autoprefixer from 'autoprefixer';
+import CssModulesPlugin from 'esbuild-css-modules-plugin';
 
 interface View {
   projectName: string;
@@ -45,7 +52,53 @@ interface View {
 //   fs.writeFileSync(viewPath, viewCompoentSrcCode);
 // }
 
-async function buildView({ project, view }) {
+async function buildViewEsbuild({ project, view }) {
+  console.log('* esbuild build');
+  // console.log(tools.bashExec.name);
+  // execSync(`vite build -c '${serverVars.paths.viteBuildConfig}'`);
+  try {
+    const buildOutput = await esbuild.build({
+      logLevel: 'info',
+      entryPoints: [view.path],
+      minify: false,
+      bundle: true,
+      loader: { '.js': 'jsx', '.ts': 'tsx' },
+      outdir:
+        project.name == 'root'
+          ? path.join(
+              serverVars.paths.rootViewDir,
+              serverVars.paths.home.buildDir,
+            )
+          : path.join(
+              serverVars.paths.botsDir,
+              project.name,
+              serverVars.paths.views.buildDir,
+            ),
+      plugins: [
+        // CssModulesPlugin({
+        //   force: true,
+        //   emitDeclarationFile: true,
+        //   localsConvention: 'camelCaseOnly',
+        //   namedExports: true,
+        //   inject: false
+        // })
+        // postCssPlugin({
+        //   postcss: {
+        //     plugins: [tailwindcss, autoprefixer],
+        //   },
+        // }),
+      ],
+    });
+
+    console.log({ buildOutput });
+    console.log('Build completed successfully!');
+  } catch (error) {
+    console.error('Error occurred during build:', error);
+    process.exit(1); // Exit with non-zero code to indicate failure
+  }
+}
+
+async function buildViewVite({ project, view }) {
   console.log('* vite build');
   // console.log(tools.bashExec.name);
   // execSync(`vite build -c '${serverVars.paths.viteBuildConfig}'`);
@@ -53,7 +106,7 @@ async function buildView({ project, view }) {
     await build(
       defineConfig({
         logLevel: 'info',
-        plugins: [react(), cssByJs() /*tsconfigPaths()*/],
+        plugins: [react(), cssByJs(), tsconfigPaths()],
         build: {
           target: 'es2020',
           minify: false,
@@ -233,7 +286,8 @@ export default async function builder(targetComponent: View) {
       let viewCompoentPath = view.path; // path includes extension (.tsx)
 
       // viewComponent2StandaloneScript(viewCompoentPath);
-      await buildView({ project, view });
+      await buildViewVite({ project, view });
+      // await buildViewEsbuild({ project, view });
       // standaloneScript2ViewComponent(viewCompoentPath);
       updateBuildLog({
         projectName: project.name,
