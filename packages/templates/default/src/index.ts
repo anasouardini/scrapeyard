@@ -2,7 +2,6 @@ import {
   browser,
   serverVars,
   dispatcher,
-  controllers,
   type ProjectsControllers,
   type BotsControllers,
   type HomeButtons,
