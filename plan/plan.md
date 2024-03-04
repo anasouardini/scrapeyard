@@ -1,11 +1,13 @@
-## short-term TODO
+## docs
+- commands first; common questions first.
 
-### code-gen
+## code-gen
 - library needs to use serverVars.controllers instead of the old projectsControllers.ts
 - type HomeButtons has to be stricter, "root"'s type has to only allow project-specific methods
 - runServerActions in the views needs a generic type for updated projects list (BotsConttrollers)
 
-### library clean-up
+## library
+### clean-up
 - root's controllers and views are like any other project copy them over
 - root/data dir is storing user's projects data, create it inside node_modules
   - node_moules/scrapeyard/data  should contain all logs and data
@@ -13,11 +15,12 @@
 - root/ui is unnecessary and the view utils there should moved to root/utils
 - remove template-dev-related scipts from copied 'package.json' to create-scrapeyard
 
-### create-scrapeyard
+## create-scrapeyard
 - reduce create-scrapeyard size; it's larger than the actual library 😱
   - you don't need fs-extra
   - colors can be done easily without a library
   - same for prompting the user input
+  - ignore DB files
 
-### templates
+## templates
 - rsync command should delete files from destination if it's has been removed from src
