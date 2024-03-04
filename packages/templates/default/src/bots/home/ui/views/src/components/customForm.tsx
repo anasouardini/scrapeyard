@@ -1,15 +1,12 @@
 import React from 'react';
 import { Form, Formik, Field } from 'formik';
-import * as yup from 'yup';
 import { type Schema } from 'yup';
 
 interface Props {
   fields: Record<string, any>;
-  // schema: Schema;
-  schema: Record<string, any>;
+  schema: Schema;
 }
 function CustomForm(props: Props) {
-  // const sch = yup.object().shape({ k: yup.string() });
   return (
     <Formik
       initialValues={props.fields}
@@ -17,7 +14,7 @@ function CustomForm(props: Props) {
         await new Promise((r) => setTimeout(r, 500));
         alert(JSON.stringify(values, null, 2));
       }}
-      // validationSchema={props.schema}
+      validationSchema={props.schema}
     >
       <Form>
         <Field type='text' name='name' placeholder='Name' />
