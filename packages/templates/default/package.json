@@ -11,27 +11,36 @@
     "url": ""
   },
   "scripts": {
+    "initDev": "pnpm install",
     "createProject": "./node_modules/.bin/createProject",
     "sync": "./node_modules/.bin/start",
     "dev": "ts-node -T ./codeJoiner.ts",
     "start": "pnpm run sync && pnpm run dev",
-    "test": "vitest",
-    "testOnce": "vitest --run",
     "lint": "echo 'linting...'",
     "prebuild": "[ -d ./scripts ] || ln -s ../scripts scripts",
     "build": "pnpm run prebuild && echo 'building...' && pnpm run postbuild",
     "postbuild": "node ./scripts/cp-to-create-scrapeyard.js"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.0",
+    "@mui/material": "^5.15.11",
+    "@types/better-sqlite3": "^7.6.9",
+    "@types/react": "^18.2.45",
+    "@types/react-dom": "^18.2.18",
+    "autoprefixer": "^10.4.18",
+    "better-sqlite3": "^9.1.1",
+    "formik": "^2.4.5",
+    "postcss": "^8.4.35",
+    "postcss-cli": "^11.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "scrapeyard": "link:../../scrapeyard",
-    "better-sqlite3": "^9.1.1",
-    "@types/better-sqlite3": "^7.6.9"
+    "tailwindcss": "^3.4.1",
+    "yup": "^1.3.3"
   },
   "devDependencies": {
     "@types/node": "^20.4.5",
-    "ts-node": "^10.9.1",
-    "vitest": "^1.2.2"
+    "scrapeyard": "link:../../scrapeyard",
+    "ts-node": "^10.9.1"
   }
 }
