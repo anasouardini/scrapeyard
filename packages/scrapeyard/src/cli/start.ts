@@ -1,8 +1,10 @@
-import { execSync } from 'child_process';
 import genCodeJoiner from './codeGen';
+import genBotsActions from './botsActionsGen';
 
 // creates the initial TS file that would start the server
 const codeJoinerPath = genCodeJoiner();
-
 console.log(codeJoinerPath);
-// execSync(`ts-node -T '${codeJoinerPath}'`);
+
+// create bots actions list
+const botsActionsPath = genBotsActions();
+console.log(botsActionsPath);
