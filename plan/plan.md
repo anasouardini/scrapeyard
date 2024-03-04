@@ -24,3 +24,4 @@
 
 ## templates
 - rsync command should delete files from destination if it's has been removed from src
+- demo project's db should be initialized/migrated automatically on project lunch
