@@ -6,9 +6,10 @@ import {
   type HomeButtons,
   type HomeButton,
 } from 'scrapeyard';
-import Header from './components/header';
-import SideMenu from './components/sideMenu';
-import BotControlPanel from './components/botControlPanel';
+// import Header from '$home/components/header';
+import Header from '$home-components/header';
+import SideMenu from '$home-components/sideMenu';
+import BotControlPanel from '$home-components/botControlPanel';
 
 const myNode = document.body;
 // clear default DOM
@@ -18,13 +19,14 @@ while (myNode.firstChild) {
 
 function Component() {
   return (
-    <>
+    <div>
+      <style>`@tailwind base;@tailwind components;@tailwind utilities;`</style>
       <Header />
       <main>
         <SideMenu />
         <BotControlPanel name='jobboards' />
       </main>
-    </>
+    </div>
   );
 }
 
