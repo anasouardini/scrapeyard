@@ -632,7 +632,27 @@ const injectView = async (
     return { success: false, error: parsedView.error };
   }
 
-  await exec(tab, { string: parsedView.data });
+  const parsedViewData = JSON.stringify({
+    scriptContent: parsedView.data.replace('"', '<<doubleQuotes>>'),
+  });
+  try {
+    await tab.evaluate(
+      ({ parsedViewData }) => {
+        const scriptElm = document.createElement('script');
+        scriptElm.type = 'module';
+        scriptElm.defer = true;
+        scriptElm.textContent = JSON.parse(
+          parsedViewData,
+        ).scriptContent.replace('<<doubleQuotes>>', '"');
+        document.body.insertAdjacentElement('beforeend', scriptElm);
+      },
+      { parsedViewData },
+    );
+  } catch (Err) {
+    console.log({ Err });
+    return { success: false };
+  }
+
   return { success: true };
 };
 
