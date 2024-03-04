@@ -24,7 +24,7 @@ type Entry = File | Directory;
 
 const vars = {
   libName: 'scrapeyard',
-  codeJoinerName: 'codeJoiner',
+  codeJoinerName: 'botsUtils',
   libMainInterfaceName: 'mainInterface',
   codeJoinerTypesMarkerStart: 'declare const dynamicallyAppenedTypesStart;',
   codeJoinerTypesMarkerEnd: 'declare const dynamicallyAppenedTypesEnd;',
@@ -203,8 +203,8 @@ function genCode(botsList: Entry[]) {
   }
 
   const dispatchTableParsed = `{${Object.entries(dispatchTableObj).map((entry) => `${entry[0]}:${entry[1]}`)}}`;
-  const dispatchTableInitilization = `export const controllers = ${dispatchTableParsed};`;
-  const dispatchTableCodeTypeExport = `export type ProjectsControllers = typeof controllers;\nexport type BotsControllers = typeof controllers;`;
+  const dispatchTableInitilization = `export const botsActions = ${dispatchTableParsed};`;
+  const dispatchTableCodeTypeExport = `export type ProjectsControllers = typeof botsActions;\nexport type BotsControllers = typeof botsActions;`;
   const superSetTypesExports = `
     export interface HomeButton {
       txt: string;
@@ -214,38 +214,42 @@ function genCode(botsList: Entry[]) {
     export type HomeButtons = Record<keyof BotsControllers, HomeButton[]>;
   `;
   const dispatchTableCode = `${dispatchTableInitilization}\n${dispatchTableCodeTypeExport}\n\n${superSetTypesExports}`;
-  imports.unshift(
-    `import {browser, serverVars, dispatcher} from '${vars.libName}'`,
-    // todo: grab config name from entry file in package.json
-    `import config from '${config.paths.projectDirFromCodeJoinerFile}/src'`,
-  );
-  let joinerCode = '';
-  // fake temporary code
-  {
-    interface InitObj {
-      init: Record<string, any>;
-      dispatch: Record<string, any>;
-    }
-    const browser = {
-      init: (initObj: InitObj['init']) => {},
-    };
-    async function dispatcher(driver: any, initObj: InitObj['init']) {}
-    let config: InitObj;
-    let controllers: Record<string, any>;
-    let serverVars: Record<string, any>;
 
-    async function joiner() {
-      serverVars.controllers = controllers;
-      await browser.init(config.init);
-      const targetWindow = serverVars.windows[config.dispatch.windowIndex];
-      await dispatcher(targetWindow, config.dispatch.msg);
-    }
-    joinerCode = `${joiner
-      .toString()
-      // @ts-ignore
-      .replaceAll('/*await*/', 'await')}\njoiner();`;
-  }
+  //* codeJoiner now a static, I only generate botsActions map now
+  // imports.unshift(
+  //   `import {browser, serverVars, dispatcher} from '${vars.libName}'`,
+  //   // todo: grab config name from entry file in package.json
+  //   `import config from '${config.paths.projectDirFromCodeJoinerFile}/src'`,
+  // );
+  // let joinerCode = '';
+  // // fake temporary code
+  // {
+  //   interface InitObj {
+  //     init: Record<string, any>;
+  //     dispatch: Record<string, any>;
+  //   }
+  //   const browser = {
+  //     init: (initObj: InitObj['init']) => {},
+  //   };
+  //   async function dispatcher(driver: any, initObj: InitObj['init']) {}
+  //   let config: InitObj;
+  //   let controllers: Record<string, any>;
+  //   let serverVars: Record<string, any>;
 
+  //   async function joiner() {
+  //     serverVars.controllers = controllers;
+  //     await browser.init(config.init);
+  //     const targetWindow = serverVars.windows[config.dispatch.windowIndex];
+  //     await dispatcher(targetWindow, config.dispatch.msg);
+  //   }
+  //   joinerCode = `${joiner
+  //     .toString()
+  //     // @ts-ignore
+  //     .replaceAll('/*await*/', 'await')}\njoiner();`;
+  // }
+
+  //* placeholder just in case I need to revert to generate the whole codeJoiner module
+  const joinerCode = '';
   const code = `${imports.join(';\n')}\n\n${dispatchTableCode}\n\n${joinerCode}`;
 
   return code;
