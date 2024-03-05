@@ -1,9 +1,10 @@
 import React from 'react';
-import { botsActions } from '$/../botsUtis';
+import { botsActions } from 'scrapeyard/lib/botsUtils';
+import { runServerAction } from 'scrapeyard/lib/viewsInterface';
 
 function SideMenu() {
-  function listActions(botName: string) {
-    const actions = botsActions;
+  function listActions(botName: keyof typeof botsActions) {
+    const actions = botsActions[botName];
     return (
       <ul>
         {actions.map((action) => {
@@ -11,7 +12,11 @@ function SideMenu() {
             <li key={action.name}>
               <button
                 onClick={(e) => {
-                  action.action();
+                  runServerAction({
+                    type: 'scrapeyardEvent',
+                    action: action.action,
+                    data: {},
+                  });
                 }}
               >
                 {action.name}
