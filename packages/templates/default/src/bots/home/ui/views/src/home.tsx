@@ -20,7 +20,6 @@ while (myNode.firstChild) {
 function Component() {
   return (
     <div>
-      <style>`@tailwind base;@tailwind components;@tailwind utilities;`</style>
       <Header />
       <main>
         <SideMenu />
