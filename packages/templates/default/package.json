@@ -17,9 +17,9 @@
     "dev": "ts-node -T ./codeJoiner.ts run",
     "start": "pnpm run sync && pnpm run dev",
     "lint": "echo 'linting...'",
-    "prebuild": "[ -d ./scripts ] || ln -s ../scripts scripts",
+    "prebuild": "[ -d ./devScripts ] || ln -s ../scripts devScripts",
     "build": "pnpm run prebuild && echo 'building...' && pnpm run postbuild",
-    "postbuild": "node ./scripts/cp-to-create-scrapeyard.js"
+    "postbuild": "node ./devScripts/cp-to-create-scrapeyard.js"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",

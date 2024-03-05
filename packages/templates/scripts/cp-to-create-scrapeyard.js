@@ -46,7 +46,7 @@ function copyTemplate(dryRun) {
       exclude: [
         'node_modules',
         '*.test.*',
-        'scripts',
+        'devScripts',
         '*.d.ts',
         '.gitignore',
         'build',
