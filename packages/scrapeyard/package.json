@@ -24,14 +24,15 @@
   ],
   "bin": {
     "createProject": "./bin/cli/createProject.js",
-    "start": "./bin/cli/start.js"
+    "codeGen": "./bin/cli/codeGen.js",
+    "botsActionsGen": "./bin/cli/botsActionsGen.js"
   },
   "scripts": {
     "initDev": "pnpm install",
     "test": "vitest",
     "testOnce": "vitest --run",
     "lint": "tsc --noEmit",
-    "copyHelperFiles": "cp ./src/root/data/buildLog.json ./lib/",
+    "copyHelperFiles": "cp ./src/root/data/buildLog.json ./lib/; cp -r ./scripts ./bin/; cp ./tsconfig.bin.json ./bin/",
     "build": "command rm -rf ./lib ./bin && tsup && tsc --b ./tsconfig.bin.json && npm run copyHelperFiles"
   },
   "dependencies": {
