@@ -1,5 +1,5 @@
 import React from 'react';
-import botsActions from '$/../botsActions';
+import { botsActions } from '$/../botsUtis';
 
 function SideMenu() {
   function listActions(botName: string) {
