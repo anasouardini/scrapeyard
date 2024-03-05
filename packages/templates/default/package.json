@@ -12,9 +12,9 @@
   },
   "scripts": {
     "initDev": "pnpm install",
-    "createProject": "./node_modules/.bin/createProject",
-    "sync": "./node_modules/.bin/start",
-    "dev": "ts-node -T ./codeJoiner.ts",
+    "createProject": "createProject",
+    "sync": "./scripts/sync.sh",
+    "dev": "ts-node -T ./codeJoiner.ts run",
     "start": "pnpm run sync && pnpm run dev",
     "lint": "echo 'linting...'",
     "prebuild": "[ -d ./scripts ] || ln -s ../scripts scripts",
