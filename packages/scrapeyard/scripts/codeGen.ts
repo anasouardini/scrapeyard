@@ -218,7 +218,7 @@ function genCode(botsList: Entry[]) {
   imports.unshift(
     `import {browser, serverVars, dispatcher} from '${vars.libName}'`,
     // todo: grab config name from entry file in package.json
-    `import config from '${config.paths.projectDirFromCodeJoinerFile}/src'`,
+    `import config from '${config.paths.projectDirFromCodeJoinerFile}/scrapeyard.config'`,
   );
   let joinerCode = '';
   // fake temporary code
@@ -238,8 +238,12 @@ function genCode(botsList: Entry[]) {
     async function joiner() {
       serverVars.controllers = controllers;
       await browser.init(config.init);
-      const targetWindow = serverVars.windows[config.dispatch.windowIndex];
-      await dispatcher(targetWindow, config.dispatch.msg);
+      const targetWindow = serverVars.windows[0];
+      await dispatcher(targetWindow, {
+        type: 'direct',
+        action: (root) => root.home.load,
+        data: {},
+      });
     }
     joinerCode = `${joiner.toString()}\n
     if(process.argv[2] === 'run'){
@@ -341,6 +345,7 @@ function genTypes() {
     try {
       console.log(`> generating declaration files`);
       execSync(`tsc -p "${tmpTsconfigFile}";`);
+      appendTypesToLib();
     } catch (err) {
       // todo: some tsc errors are not errors; USE TYPESCRIPT PROGRAMATICALLY
       const notRealError = true;
