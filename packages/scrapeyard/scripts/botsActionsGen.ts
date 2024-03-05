@@ -5,7 +5,7 @@ import path from 'path';
 import fs from 'fs';
 
 const vars = {
-  botsUtilsName: 'botsUtis',
+  botsUtilsName: 'botsUtils',
 };
 
 const config = {
