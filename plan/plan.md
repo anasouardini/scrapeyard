@@ -7,6 +7,12 @@
 - runServerActions in the views needs a generic type for updated projects list (BotsConttrollers)
 
 ## library
+
+### refactor
+- move /lib/* to the root of the library so you can import from 'scrapeyard/module'
+- codeJoiner can stay in /lib or /bin and still run inside template
+- botsUtils can be added to the library and be imported from 'scrapeyard/botsUtils'
+
 ### clean-up
 - root's controllers and views are like any other project copy them over
 - root/data dir is storing user's projects data, create it inside node_modules
