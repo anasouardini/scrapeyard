@@ -1,9 +1,22 @@
-import { botsActions } from './botsUtils';
+//@ts-ignore // this won't exist until it's used in templates
+import { controllers } from './codeJoiner';
 import util from 'util';
+import path from 'path';
+import fs from 'fs';
+
+const vars = {
+  botsUtilsName: 'botsUtis',
+};
+
+const config = {
+  path: {
+    botUtilsFile: `${path.join(process.cwd(), `${vars.botsUtilsName}.ts`)}`,
+  },
+};
 
 function extractBotActions(bot: Record<string, any>) {
   const actions: { name: string; action: string }[] = [];
-  const ancestorChain: string[] = ['root'];
+  const ancestorChain: string[] = [];
 
   function recursiveExtractor(
     parent: (() => any) | Record<string, any>,
@@ -23,7 +36,7 @@ function extractBotActions(bot: Record<string, any>) {
         name: isActionNameTaken
           ? `${ancestorChain.at(-1)} - ${actionName}`
           : actionName,
-        action: ancestorChain.join('.') + `.${actionName}`,
+        action: `<<quote>(root) => ${ancestorChain.join('.')}.${actionName}<quote>>`,
       };
 
       actions.push(actionObj);
@@ -35,20 +48,27 @@ function extractBotActions(bot: Record<string, any>) {
       for (const hopefullyAction of supposedlyActions) {
         recursiveExtractor(supposedlyAction, hopefullyAction[0]);
       }
+      ancestorChain.pop();
     }
   }
-  recursiveExtractor({ bot }, 'root');
+  recursiveExtractor({ root: bot }, 'root');
 
   return actions;
 }
 
-function writeCode() {
-  const actionsList = extractBotActions(botsActions);
-  const actionsListStr = util.inspect(actionsList);
-  console.log({ actionsListStr });
+function genCode(actionsObj) {
+  const actionsList = extractBotActions(actionsObj);
+  let actionsListStr = `export const botsActions = ${util.inspect(actionsList)};`;
+  actionsListStr = actionsListStr
+    .replace(/'<<quote>/g, '')
+    .replace(/<quote>>'/g, '');
+
+  return actionsListStr;
 }
 
-export default function () {
-  writeCode();
-  return 'path not created yet!';
+function writeCode(code: string) {
+  fs.writeFileSync(config.path.botUtilsFile, `${code}`, 'utf-8');
 }
+
+const code = genCode(controllers);
+writeCode(code);
