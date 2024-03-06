@@ -21,8 +21,10 @@
       "$/*": ["./*"],
       "$jobboards/*": ["./bots/jobboards/*"],
       "$jobboards-components/*": ["./bots/jobboards/ui/views/src/components/*"],
+      "$jobboards-ui/*": ["./bots/jobboards/ui/views/src/*"],
       "$home/*": ["./bots/home/*"],
-      "$home-components/*": ["./bots/home/ui/views/src/components/*"]
+      "$home-components/*": ["./bots/home/ui/views/src/components/*"],
+      "$home-ui/*": ["./bots/home/ui/views/src/*"]
     }
   },
   "include": [
