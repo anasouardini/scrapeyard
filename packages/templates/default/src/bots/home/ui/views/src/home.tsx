@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import '$/output.css';
 
 import {
   type ProjectsControllers,
@@ -7,9 +8,8 @@ import {
   type HomeButton,
 } from 'scrapeyard';
 // import Header from '$home/components/header';
-import Header from '$home-components/header';
-import SideMenu from '$home-components/sideMenu';
-import BotControlPanel from '$home-components/botControlPanel';
+import SharedLayout from '$home-components/sharedLayout';
+import Project from '$home-ui/pages/project';
 
 const myNode = document.body;
 // clear default DOM
@@ -19,14 +19,13 @@ while (myNode.firstChild) {
 
 function Component() {
   return (
-    <div>
-      <Header />
-      <main>
-        <SideMenu />
-        <BotControlPanel name='jobboards' />
-      </main>
-    </div>
+    <>
+      <SharedLayout>
+        <Project />
+      </SharedLayout>
+    </>
   );
 }
 
 ReactDOM.createRoot(document.querySelector('body')!).render(Component());
+//
