@@ -11,7 +11,7 @@ const load = async (driver: BrowserContext, actions: HomeButtons) => {
   const tab: Page = driver.pages()[0];
   await browser.injectView(tab, {
     projectName: 'home',
-    viewName: 'home',
+    viewName: 'index',
     data: actions,
   });
 };
