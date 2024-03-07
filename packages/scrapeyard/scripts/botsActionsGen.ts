@@ -1,5 +1,5 @@
 //@ts-ignore // this won't exist until it's used in templates
-import { controllers } from './codeJoiner';
+import { controllers } from './entryPoint.gen';
 import util from 'util';
 import path from 'path';
 import fs, { unlinkSync } from 'fs';

@@ -24,7 +24,7 @@ type Entry = File | Directory;
 
 const vars = {
   libName: 'scrapeyard',
-  codeJoinerName: 'codeJoiner',
+  codeJoinerName: 'entryPoint.gen',
   libMainInterfaceName: 'mainInterface',
   codeJoinerTypesMarkerStart: 'declare const dynamicallyAppenedTypesStart;',
   codeJoinerTypesMarkerEnd: 'declare const dynamicallyAppenedTypesEnd;',
