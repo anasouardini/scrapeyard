@@ -13,9 +13,9 @@ import {
   type HomeButtons,
   type HomeButton,
 } from 'scrapeyard';
-import Header from './components/header';
-import SideMenu from './components/sideMenu';
-import BotControlPanel from './components/botControlPanel';
+import Header from './sharedLayout';
+import SideMenu from './sideMenu';
+import BotControlPanel from './botControlPanel';
 
 const myNode = document.body;
 

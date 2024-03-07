@@ -2,15 +2,13 @@ import React from 'react';
 import { botsActions } from 'scrapeyard/lib/botsUtils';
 import { runServerAction } from 'scrapeyard/lib/viewsInterface';
 
-function SideMenu() {
+interface Props {
+  projectName: 'home' | 'jobboards';
+}
+function SideMenu(props: Props) {
   const style = {
     sideMenu: {
-      position: 'fixed',
-      top: 0,
-      right: 0,
-      height: 'calc(100vh - 30px)',
-      width: '400px',
-      zIndex: 2,
+      height: '100%',
     },
     actionsList: {
       dispaly: 'flex',
@@ -51,12 +49,12 @@ function SideMenu() {
     );
   }
   return (
-    <aside>
-      <section style={style.sideMenu}>
+    <section>
+      <aside style={style.sideMenu}>
         <h2 style={{ marginBottom: '2.5rem' }}>Actions</h2>
-        {listActions('jobboards')}
-      </section>
-    </aside>
+        {listActions(props.projectName)}
+      </aside>
+    </section>
   );
 }
 

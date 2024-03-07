@@ -6,7 +6,7 @@ interface Props {
 }
 function BotControlPanel({ name }: Props) {
   return (
-    <section>
+    <section style={{ flexGrow: '1' }}>
       <h1>{name}'s control panel</h1>
     </section>
   );
