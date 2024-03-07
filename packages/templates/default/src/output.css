@@ -451,9 +451,13 @@ video {
 
 html {
   --clr-accent: #c32020;
+  --clr-bg1: #111;
+  --clr-bg2: #222;
+  --clr-bg3: #333;
+  --clr-bg4: #444;
 }
 body {
-  background: #222;
+  background: var(--clr-bg2);
   color: whitesmoke;
 }
 h1 {
