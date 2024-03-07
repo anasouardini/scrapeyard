@@ -14,7 +14,7 @@
     "initDev": "pnpm install",
     "createProject": "createProject",
     "sync": "./scripts/sync.sh",
-    "dev": "ts-node -T ./codeJoiner.ts run",
+    "dev": "ts-node -T ./entryPoint.gen.ts run",
     "start": "pnpm run sync && pnpm run dev",
     "lint": "echo 'linting...'",
     "prebuild": "[ -d ./devScripts ] || ln -s ../scripts devScripts",
@@ -25,6 +25,7 @@
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.0",
     "@mui/material": "^5.15.11",
+    "@reduxjs/toolkit": "^2.2.1",
     "@types/better-sqlite3": "^7.6.9",
     "@types/react": "^18.2.45",
     "@types/react-dom": "^18.2.18",
@@ -35,9 +36,13 @@
     "postcss-cli": "^11.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-redux": "^9.1.0",
+    "react-router": "^6.22.2",
+    "react-router-dom": "^6.22.2",
+    "redux": "^5.0.1",
+    "scrapeyard": "link:../../scrapeyard",
     "tailwindcss": "^3.4.1",
-    "yup": "^1.3.3",
-    "scrapeyard": "link:../../scrapeyard"
+    "yup": "^1.3.3"
   },
   "devDependencies": {
     "@types/node": "^20.4.5",
