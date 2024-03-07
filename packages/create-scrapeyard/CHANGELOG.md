@@ -1,5 +1,11 @@
 # create-scrapeyard
 
+## 0.27.0
+
+### Minor Changes
+
+- I've added a home interface that lists all bots you have in your project and their actions as buttons that you can click to run.
+
 ## 0.26.5
 
 ## 0.26.4
